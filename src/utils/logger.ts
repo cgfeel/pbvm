@@ -10,6 +10,7 @@ export const logger = {
   success: (msg: string) => console.log(chalk.green(`✅ ${msg}`)),
   warn: (msg: string) => console.log(chalk.yellow(`⚠️ ${msg}`)),
 
+  newline: () => console.log(''),
   spinner: (text?: string) => ora({ color: 'cyan', text }),
 
   bold,

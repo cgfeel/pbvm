@@ -1,7 +1,7 @@
-// create 命令参数类型
 export interface CreateOptions {
-  name?: string
-  template?: string
+  alias?: string
+  browser?: 'chrome' | 'chromium' | 'firefox'
+  buildId?: string
 }
 
 // run 命令参数类型

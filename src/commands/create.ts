@@ -7,13 +7,16 @@ import { logger } from '../utils/logger.js'
 export function registerCreateCommand(program: Command) {
   program
     .command('create')
-    .description('创建 pbvm 实例')
-    .option('-n, --name <name>', '实例名称')
-    .option('-t, --template <template>', '运行模板')
+    .description('Download and install the specified browser.')
+    .option('-b, --browser <browser>', "Browser's name")
+    .option('-r, --revision <revision>', "Browser's buildId")
+    .option('-a, --alias <alias>', "Browser's alias")
     .action(async function (opts: CreateOptions) {
       // 参数缺失则唤起交互
       const args = await promptCreateOptions(opts)
-      const ok = await promptConfirm(`确认创建实例【${args.name}】模板:${args.template} ?`)
+      const ok = await promptConfirm(
+        `Create browser: ${args.browser}@${args.buildId}, alias: ${args.alias || 'Dynamic name'} ?`
+      )
       if (!ok) {
         logger.warn('已取消创建')
         return
