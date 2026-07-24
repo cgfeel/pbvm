@@ -1,0 +1,41 @@
+{
+  "name": "pbvm",
+  "version": "0.0.1",
+  "description": "基于 @puppeteer/browsers 浏览器版本管理器",
+  "type": "module",
+  "bin": {
+    "pbvm": "./dist/index.js"
+  },
+  "scripts": {
+    "dev": "tsx src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "puppeteer",
+    "browsers",
+    "chrome",
+    "chromium",
+    "firefox"
+  ],
+  "author": "levi<cgfeel@gmail.com>",
+  "license": "MIT",
+  "packageManager": "pnpm@10.25.0",
+  "devDependencies": {
+    "@trivago/prettier-plugin-sort-imports": "^6.0.2",
+    "@types/commander": "^2.12.5",
+    "@types/node": "^26.1.1",
+    "prettier": "^3.9.6",
+    "tsx": "^4.23.1",
+    "typescript": "^7.0.2"
+  },
+  "dependencies": {
+    "@inquirer/prompts": "^8.5.2",
+    "@puppeteer/browsers": "^3.0.6",
+    "chalk": "^5.6.2",
+    "commander": "^15.0.0",
+    "env-paths": "^4.0.0",
+    "ora": "^9.4.1"
+  }
+}
