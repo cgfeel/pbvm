@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.8](https://github.com/cgfeel/pbvm/compare/pbvm@v1.0.7...pbvm@v1.0.8) (2026-07-25)
+
+
+### Bug Fixes
+
+* update package ([9816565](https://github.com/cgfeel/pbvm/commit/981656566066d592685d10621d6054a57b3f1001))
+* update package ([97188ae](https://github.com/cgfeel/pbvm/commit/97188aea91ea4ab6c350497879ad0ded792cc8cc))
+
 ## [1.0.7](https://github.com/cgfeel/pbvm/compare/pbvm@v1.0.6...pbvm@v1.0.7) (2026-07-25)
 
 
