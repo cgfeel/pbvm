@@ -1,11 +1,14 @@
 import { Browser, BrowserPlatform } from '@puppeteer/browsers'
 import { z } from 'zod'
 
+const browserlistSchema = {
+  platform: z.enum(BrowserPlatform).or(z.literal('')),
+}
+
 export const browserItemSchema = z.object({
   alias: z.string().optional(),
   browser: z.enum(Browser).optional(),
   buildId: z.string().min(1).optional(),
-  platform: z.enum(BrowserPlatform).optional(),
 })
 
 export const browserResultSchema = browserItemSchema.required({
@@ -14,25 +17,17 @@ export const browserResultSchema = browserItemSchema.required({
   buildId: true,
 })
 
+export const currentResultSchema = browserResultSchema.extend(browserlistSchema)
 export const storeResultSchema = browserResultSchema
   .omit({
     alias: true,
-    platform: true,
   })
-  .extend({
-    platform: z.enum(BrowserPlatform).or(z.literal('')),
-  })
+  .extend(browserlistSchema)
 
-export interface CreateOptions extends BrowserItemType {}
-
-export interface CreateResult extends Required<Omit<CreateOptions, 'platform'>> {
-  platform?: BrowserPlatform
-}
-
-// run 命令参数类型
 export interface RunOptions {
   target?: string
 }
 
 export type BrowserItemType = z.infer<typeof browserItemSchema>
 export type BrowserResultType = z.infer<typeof browserResultSchema>
+export type StoreResultType = z.infer<typeof storeResultSchema>
