@@ -1,7 +1,7 @@
 import { input, select } from '@inquirer/prompts'
-import { Browser, BrowserPlatform, detectBrowserPlatform } from '@puppeteer/browsers'
+import { Browser } from '@puppeteer/browsers'
 import type { BrowserItemType, BrowserResultType } from '../types/index.js'
-import { isKey, objectValues } from '../utils/fields.js'
+import { isKey } from '../utils/fields.js'
 import { logger } from '../utils/logger.js'
 
 const browserTips = Object.freeze({
@@ -11,16 +11,7 @@ const browserTips = Object.freeze({
 })
 
 export async function promptCreateOptions(partial: BrowserItemType): Promise<BrowserResultType> {
-  let { alias, browser, buildId, platform } = partial
-  if (!platform) {
-    platform = await select({
-      message: logger.cyan('platform: '),
-      choices: objectValues(BrowserPlatform).map((value) => ({ name: value, value })),
-      default: detectBrowserPlatform(),
-    })
-  }
-
-  logger.newline()
+  let { alias, browser, buildId } = partial
 
   if (!browser) {
     browser = await select({
@@ -62,5 +53,5 @@ export async function promptCreateOptions(partial: BrowserItemType): Promise<Bro
   }
 
   logger.newline()
-  return { alias, browser, buildId, platform }
+  return { alias, browser, buildId }
 }
