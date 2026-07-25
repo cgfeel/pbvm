@@ -1,0 +1,4 @@
+# husky 钩子强制LF换行，保留执行权限
+.husky/* text eol=lf
+# shell脚本统一处理
+*.sh text eol=lf

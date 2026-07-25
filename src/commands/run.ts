@@ -1,8 +1,8 @@
 import { input } from '@inquirer/prompts'
-import { Command } from 'commander'
-import { catchError } from '../prompts/common.prompt.js'
-import { RunOptions } from '../types/index.js'
-import { logger } from '../utils/logger.js'
+import type { Command } from 'commander'
+import { catchError } from '../prompts/common.prompt.ts'
+import type { RunOptions } from '../types/index.ts'
+import { logger } from '../utils/logger.ts'
 
 export function registerRunCommand(program: Command) {
   program
@@ -13,7 +13,9 @@ export function registerRunCommand(program: Command) {
       let { target } = opts
       if (!target) {
         try {
-          target = await input({ message: logger.cyan('输入要运行的实例名称：') })
+          target = await input({
+            message: logger.cyan('输入要运行的实例名称：'),
+          })
         } catch (error) {
           catchError(error)
         }

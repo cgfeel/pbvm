@@ -3,8 +3,8 @@ import { logger } from '../utils/logger.ts'
 
 export function registerListCommand(program: Command) {
   program
-    .command('ls')
-    .description('列出所有实例')
+    .command('store')
+    .description('List all installed browsers in the cache directory store cache directory.')
     .action(async () => {
       logger.info('正在获取实例列表...')
       logger.gray('暂无实例数据')
