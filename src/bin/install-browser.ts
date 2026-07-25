@@ -1,8 +1,8 @@
 import { detectBrowserPlatform, getInstalledBrowsers, install } from '@puppeteer/browsers'
-import type { CreateResult } from '../types/index.ts'
-import { logger } from '../utils/logger.ts'
-import { BROWSER_CACHE_DIR } from '../utils/paths.ts'
-import { logStoreList } from '../utils/pkg.ts'
+import type { CreateResult } from '../types/index.js'
+import { logger } from '../utils/logger.js'
+import { BROWSER_CACHE_DIR } from '../utils/paths.js'
+import { logStoreList } from '../utils/pkg.js'
 
 const baseInfo = { cacheDir: BROWSER_CACHE_DIR }
 

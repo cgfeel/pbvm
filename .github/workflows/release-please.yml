@@ -33,14 +33,6 @@ jobs:
           echo "releases_created=${{ steps.release.outputs.releases_created }}"
           echo "tag_name=${{ steps.release.outputs.tag_name }}"
           echo "version=${{ steps.release.outputs.version }}"
-  debug:
-    needs: release-please
-    runs-on: ubuntu-latest
-    steps:
-      - run: |
-          echo "release_created=${{ needs.release-please.outputs.release_created }}"
-          echo "tag_name=${{ needs.release-please.outputs.tag_name }}"
-          echo "version=${{ needs.release-please.outputs.version }}"
   publish:
     needs: release-please
     if: needs.release-please.outputs.release_created == 'true'

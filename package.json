@@ -1,5 +1,5 @@
 {
-  "name": "pbvm",
+  "name": "pbvm-cli",
   "version": "1.0.0",
   "description": "基于 @puppeteer/browsers 浏览器版本管理器",
   "type": "module",

@@ -1,8 +1,8 @@
 import { input, select } from '@inquirer/prompts'
 import { Browser, BrowserPlatform, detectBrowserPlatform } from '@puppeteer/browsers'
-import type { BrowserItemType, BrowserResultType } from '../types/index.ts'
-import { isKey, objectValues } from '../utils/fields.ts'
-import { logger } from '../utils/logger.ts'
+import type { BrowserItemType, BrowserResultType } from '../types/index.js'
+import { isKey, objectValues } from '../utils/fields.js'
+import { logger } from '../utils/logger.js'
 
 const browserTips = Object.freeze({
   chrome: "Chrome's buildId must be x.x.x.x",

@@ -1,9 +1,9 @@
 import fs from 'node:fs/promises'
 import path from 'node:path'
 import z from 'zod'
-import { type BrowserResultType, browserResultSchema, storeResultSchema } from '../types/index.ts'
-import { isDefined } from './fields.ts'
-import { BROWSER_CACHE_DIR, getRootPath } from './paths.ts'
+import { type BrowserResultType, browserResultSchema, storeResultSchema } from '../types/index.js'
+import { isDefined } from './fields.js'
+import { BROWSER_CACHE_DIR, getRootPath } from './paths.js'
 
 const packageSchema = z.object({
   version: z.string(),
