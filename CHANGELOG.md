@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.0.7](https://github.com/cgfeel/pbvm/compare/pbvm@v1.0.6...pbvm@v1.0.7) (2026-07-25)
+
+
+### Bug Fixes
+
+* no rebase flag ([3667484](https://github.com/cgfeel/pbvm/commit/36674844a036cfc486bbd826509fd8960526ab80))
+* update package name ([8589730](https://github.com/cgfeel/pbvm/commit/858973069c900e10cc98f12596421bc842b2e305))
+* update package name ([f424a2d](https://github.com/cgfeel/pbvm/commit/f424a2db1dd444899b10775ec74fa35ff0e5173d))
+
 ## [1.0.6](https://github.com/cgfeel/pbvm/compare/pbvm@v1.0.5...pbvm@v1.0.6) (2026-07-25)
 
 ### Bug Fixes
