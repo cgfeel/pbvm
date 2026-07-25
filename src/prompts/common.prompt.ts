@@ -1,5 +1,5 @@
 import { confirm } from '@inquirer/prompts'
-import { logger } from '../utils/logger.ts'
+import { logger } from '../utils/logger.js'
 
 export function catchError(error: unknown) {
   if (error instanceof Error && error.name === 'ExitPromptError') {

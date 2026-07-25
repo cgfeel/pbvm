@@ -1,5 +1,5 @@
 import type { Command } from 'commander'
-import { logger } from '../utils/logger.ts'
+import { logger } from '../utils/logger.js'
 
 // test fix-6
 export function registerListCommand(program: Command) {

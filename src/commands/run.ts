@@ -1,8 +1,8 @@
 import { input } from '@inquirer/prompts'
 import type { Command } from 'commander'
-import { catchError } from '../prompts/common.prompt.ts'
-import type { RunOptions } from '../types/index.ts'
-import { logger } from '../utils/logger.ts'
+import { catchError } from '../prompts/common.prompt.js'
+import type { RunOptions } from '../types/index.js'
+import { logger } from '../utils/logger.js'
 
 export function registerRunCommand(program: Command) {
   program

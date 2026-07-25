@@ -1,9 +1,9 @@
 import type { Command } from 'commander'
-import { installBrowser } from '../bin/install-browser.ts'
-import { promptConfirm } from '../prompts/common.prompt.ts'
-import { promptCreateOptions } from '../prompts/create.prompt.ts'
-import type { CreateOptions } from '../types/index.ts'
-import { logger } from '../utils/logger.ts'
+import { installBrowser } from '../bin/install-browser.js'
+import { promptConfirm } from '../prompts/common.prompt.js'
+import { promptCreateOptions } from '../prompts/create.prompt.js'
+import type { CreateOptions } from '../types/index.js'
+import { logger } from '../utils/logger.js'
 
 export function registerCreateCommand(program: Command) {
   program

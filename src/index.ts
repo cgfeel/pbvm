@@ -1,10 +1,10 @@
 import { Command } from 'commander'
-import { registerCreateCommand } from './commands/create.ts'
-import { registerListCommand } from './commands/list.ts'
-import { registerRunCommand } from './commands/run.ts'
-import { catchError } from './prompts/common.prompt.ts'
-import { printBanner } from './utils/logger.ts'
-import { getPackageVersion } from './utils/pkg.ts'
+import { registerCreateCommand } from './commands/create.js'
+import { registerListCommand } from './commands/list.js'
+import { registerRunCommand } from './commands/run.js'
+import { catchError } from './prompts/common.prompt.js'
+import { printBanner } from './utils/logger.js'
+import { getPackageVersion } from './utils/pkg.js'
 
 const program = new Command()
 
