@@ -1,0 +1,9 @@
+{
+  "packages": {
+    ".": {
+      "package-name": "pbvm",
+      "changelog-path": "CHANGELOG.md",
+      "release-type": "node"
+    }
+  }
+}
