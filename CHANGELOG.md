@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.1](https://github.com/cgfeel/pbvm/compare/v1.0.0...v1.0.1) (2026-07-25)
+
+
+### Bug Fixes
+
+* update test store ([40d2483](https://github.com/cgfeel/pbvm/commit/40d2483bb1edfb8b5216dd4ab8618bf1de13806f))
+* update test store ([75de71d](https://github.com/cgfeel/pbvm/commit/75de71d1d41cb8c46e2f905d5e39dd2241754826))
+
 ## 1.0.0 (2026-07-25)
 
 
