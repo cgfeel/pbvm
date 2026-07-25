@@ -9,8 +9,9 @@ jobs:
       contents: write
       pull-requests: write
     outputs:
-      release_created: ${{ steps.release.outputs['.--release_created'] }}
-      tag_name: ${{ steps.release.outputs['.--tag_name'] }}
+      release_created: ${{ steps.export.outputs.release_created }}
+      tag_name: ${{ steps.export.outputs.tag_name }}
+      version: ${{ steps.export.outputs.version }}
     steps:
       - uses: googleapis/release-please-action@v4
         id: release
@@ -22,13 +23,24 @@ jobs:
         continue-on-error: true
         run: |
           echo "Release outputs (write to file first):"
-          # 方案1：将JSON输出到文件，再cat查看（推荐，避免特殊字符解析）
           echo '${{ toJson(steps.release.outputs) }}' > release-outputs.json
           cat release-outputs.json
       - name: Print specific outputs
         run: |
-          echo "step release_created=${{ steps.release.outputs['.--release_created'] }}"
-          echo "step tag_name=${{ steps.release.outputs['.--tag_name'] }}"
+          echo "step .--release_created=${{ steps.release.outputs['.--release_created'] }}"
+          echo "step .--tag_name=${{ steps.release.outputs['.--tag_name'] }}"
+          # 新增中转步骤，把release输出导出到job作用域
+      - name: Export vars for downstream jobs
+        id: export
+        run: |
+          echo "release_created=${{ steps.release.outputs['.--release_created'] }}" >> $GITHUB_OUTPUT
+          echo "tag_name=${{ steps.release.outputs['.--tag_name'] }}" >> $GITHUB_OUTPUT
+          echo "version=${{ steps.release.outputs['.--version'] }}" >> $GITHUB_OUTPUT
+      - name: Debug raw outputs
+        run: |
+          echo RAW: ${{ toJson(steps.release.outputs) }}
+          echo .--release_created = ${{ steps.release.outputs['.--release_created'] }}
+          echo .--tag_name = ${{ steps.release.outputs['.--tag_name'] }}
   debug:
     needs: release-please
     runs-on: ubuntu-latest
@@ -36,6 +48,7 @@ jobs:
       - run: |
           echo "release_created=${{ needs.release-please.outputs.release_created }}"
           echo "tag_name=${{ needs.release-please.outputs.tag_name }}"
+          echo "version=${{ needs.release-please.outputs.version }}"
   publish:
     needs: release-please
     if: ${{ needs.release-please.outputs.release_created == 'true' }}
