@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.2](https://github.com/cgfeel/pbvm/compare/v1.0.1...v1.0.2) (2026-07-25)
+
+
+### Bug Fixes
+
+* up publish ([6015641](https://github.com/cgfeel/pbvm/commit/6015641c8ed3fd2179eeac745e3aa67a5431a7da))
+* up publish ([fbebadb](https://github.com/cgfeel/pbvm/commit/fbebadb6897c5c778194592fe615f57285d89194))
+
 ## [1.0.1](https://github.com/cgfeel/pbvm/compare/v1.0.0...v1.0.1) (2026-07-25)
 
 
