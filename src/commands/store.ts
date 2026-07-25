@@ -1,7 +1,7 @@
 import type { Command } from 'commander'
 import { logger } from '../utils/logger.ts'
 
-// test fix-5
+// test fix-6
 export function registerListCommand(program: Command) {
   program
     .command('store')
