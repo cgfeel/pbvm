@@ -15,7 +15,27 @@ jobs:
       - uses: googleapis/release-please-action@v4
         id: release
         with:
-          release-type: node
+          token: ${{ secrets.GITHUB_TOKEN }}
+          config-file: release-please-config.json
+          manifest-file: .release-please-manifest.json
+      - name: Print release outputs for debugging
+        continue-on-error: true
+        run: |
+          echo "Release outputs (write to file first):"
+          # 方案1：将JSON输出到文件，再cat查看（推荐，避免特殊字符解析）
+          echo '${{ toJson(steps.release.outputs) }}' > release-outputs.json
+          cat release-outputs.json
+      - name: Print specific outputs
+        run: |
+          echo "step release_created=${{ steps.release.outputs['.--release_created'] }}"
+          echo "step tag_name=${{ steps.release.outputs['.--tag_name'] }}"
+  debug:
+    needs: release-please
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "release_created=${{ needs.release-please.outputs.release_created }}"
+          echo "tag_name=${{ needs.release-please.outputs.tag_name }}"
   publish:
     needs: release-please
     if: ${{ needs.release-please.outputs.release_created == 'true' }}
