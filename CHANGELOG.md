@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.3](https://github.com/cgfeel/pbvm/compare/v1.0.2...v1.0.3) (2026-07-25)
+
+
+### Bug Fixes
+
+* test pub pr ([1c8f91a](https://github.com/cgfeel/pbvm/commit/1c8f91a625e3d234b1c0c33b04d64edc6edbe8de))
+* test pub pr ([dea61c0](https://github.com/cgfeel/pbvm/commit/dea61c05406e1c00973895d9502ceb22f4e1ac73))
+
 ## [1.0.2](https://github.com/cgfeel/pbvm/compare/v1.0.1...v1.0.2) (2026-07-25)
 
 
