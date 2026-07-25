@@ -1,8 +1,7 @@
 name: Publish to npm
 on:
-  push:
-    tags:
-      - 'v*'
+  release:
+    types: [published]
 jobs:
   publish:
     runs-on: ubuntu-latest
