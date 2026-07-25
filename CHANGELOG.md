@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.9](https://github.com/cgfeel/pbvm/compare/pbvm@v1.0.8...pbvm@v1.0.9) (2026-07-25)
+
+
+### Bug Fixes
+
+* success install-browser ([7c7d63b](https://github.com/cgfeel/pbvm/commit/7c7d63b957ec9b78a34fdd6ead6d57bb7cd96bbe))
+* success install-browser ([f755122](https://github.com/cgfeel/pbvm/commit/f75512208a04780003a0fbc050edbb638b55fd91))
+
 ## [1.0.8](https://github.com/cgfeel/pbvm/compare/pbvm@v1.0.7...pbvm@v1.0.8) (2026-07-25)
 
 
