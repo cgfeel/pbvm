@@ -8,6 +8,8 @@
   },
   "scripts": {
     "dev": "tsx src/index.ts",
+    "docs:build": "pnpm --filter documentation build",
+    "docs:dev": "pnpm --filter documentation start",
     "build": "tsc",
     "format": "oxfmt --write .",
     "format:check": "oxfmt --check .",
