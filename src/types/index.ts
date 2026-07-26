@@ -24,6 +24,10 @@ export const storeResultSchema = browserResultSchema
   })
   .extend(browserlistSchema)
 
+export interface ListOptions {
+  all?: boolean
+}
+
 export interface RunOptions {
   target?: string
 }

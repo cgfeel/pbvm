@@ -1,13 +1,10 @@
 import type { Command } from 'commander'
-import { logger } from '../utils/logger.js'
+import { listBrowser } from '../bin/list.js'
 
 export function registerListCommand(program: Command) {
   program
     .command('ls')
-    .description('列出所有实例')
-    .action(async () => {
-      logger.info('正在获取实例列表...')
-      logger.gray('暂无实例数据')
-      console.log('📋 实例列表（待实现）')
-    })
+    .description('List all installed browsers at the current directory.')
+    .option('-a, --all', 'Display all platform browsers.')
+    .action(listBrowser)
 }
