@@ -1,8 +1,8 @@
 import { detectBrowserPlatform, getInstalledBrowsers, install } from '@puppeteer/browsers'
 import type { BrowserResultType } from '../types/index.js'
 import { logger } from '../utils/logger.js'
+import { logCurrentList, logStoreList } from '../utils/manifest.js'
 import { PBVM_PATHS } from '../utils/paths.js'
-import { logCurrentList, logStoreList } from '../utils/pkg.js'
 
 const baseInfo = { cacheDir: PBVM_PATHS.cache }
 
@@ -32,7 +32,9 @@ export async function installBrowser(ops: BrowserResultType) {
       platform,
     })
 
-    if (!aliasName) aliasName = `${result.platform}-${result.buildId}`
+    if (!aliasName)
+      aliasName = result.platform ? `${result.platform}-${result.buildId}` : result.buildId
+
     logger.success(`Installed success: ${name}`)
   }
 

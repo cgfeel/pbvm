@@ -1,14 +1,12 @@
 import type { Command } from 'commander'
-import { logger } from '../utils/logger.js'
+import { listBrowser } from '../bin/list.js'
+import type { ListOptions } from '../types/index.js'
 
-// test fix-6
-export function registerListCommand(program: Command) {
+export function registerStoreCommand(program: Command) {
   program
     .command('store')
     .description('List all installed browsers in the cache directory store cache directory.')
-    .action(async () => {
-      logger.info('正在获取实例列表...')
-      logger.gray('暂无实例数据')
-      console.log('📋 实例列表（待实现）')
+    .action(async (opts: ListOptions) => {
+      listBrowser({ all: Boolean(opts), store: true })
     })
 }

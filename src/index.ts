@@ -2,6 +2,7 @@ import { Command } from 'commander'
 import { registerCreateCommand } from './commands/create.js'
 import { registerListCommand } from './commands/list.js'
 import { registerRunCommand } from './commands/run.js'
+import { registerStoreCommand } from './commands/store.js'
 import { catchError } from './prompts/common.prompt.js'
 import { printBanner } from './utils/logger.js'
 import { getPackageVersion } from './utils/pkg.js'
@@ -18,6 +19,7 @@ async function bootstrap() {
   registerCreateCommand(program)
   registerListCommand(program)
   registerRunCommand(program)
+  registerStoreCommand(program)
 
   const args = process.argv.slice(2)
   const skipBannerFlags = ['-v', '--version', '-h', '--help']
