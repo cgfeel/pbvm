@@ -26,6 +26,7 @@ export const storeResultSchema = browserResultSchema
 
 export interface ListOptions {
   all?: boolean
+  store?: boolean
 }
 
 export interface RunOptions {

@@ -2,10 +2,17 @@ import { detectBrowserPlatform } from '@puppeteer/browsers'
 import type { ListOptions } from '../types/index.js'
 import { isKey, objectKeys } from '../utils/fields.js'
 import { logger } from '../utils/logger.js'
-import { currentBrowserList, formatList, getRecordList } from '../utils/manifest.js'
+import {
+  currentBrowserList,
+  formatList,
+  getRecordList,
+  storeBrowserList,
+} from '../utils/manifest.js'
 
-export async function listBrowser({ all }: ListOptions) {
-  const items = await currentBrowserList()
+export async function listBrowser({ all, store }: ListOptions) {
+  const getList = store ? storeBrowserList : currentBrowserList
+  const items = await getList()
+
   const currentPlatform = detectBrowserPlatform()
   const records = await getRecordList(items)
 
@@ -22,7 +29,7 @@ export async function listBrowser({ all }: ListOptions) {
   }
 
   logger.newline()
-  if (!all) return
+  if (!all || store) return
 
   const platformList = objectKeys(records)
   platformList.sort()
