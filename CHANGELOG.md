@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.10](https://github.com/cgfeel/pbvm/compare/pbvm@v1.0.9...pbvm@v1.0.10) (2026-07-26)
+
+
+### Bug Fixes
+
+* combine bin list and store ([5a80702](https://github.com/cgfeel/pbvm/commit/5a80702ed96fc3136bb65430dc33d9403b0d20f6))
+* success commands ls and store ([f7c4c28](https://github.com/cgfeel/pbvm/commit/f7c4c28d6f5aebcf654af555ec98e55c56644cda))
+
 ## [1.0.9](https://github.com/cgfeel/pbvm/compare/pbvm@v1.0.8...pbvm@v1.0.9) (2026-07-25)
 
 
