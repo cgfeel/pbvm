@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.11](https://github.com/cgfeel/pbvm/compare/pbvm@v1.0.10...pbvm@v1.0.11) (2026-07-27)
+
+
+### Bug Fixes
+
+* success remove and update install faild ([580837f](https://github.com/cgfeel/pbvm/commit/580837f959390ec14b85c30c78e65d3905ea02be))
+* update remove format ([2212fa9](https://github.com/cgfeel/pbvm/commit/2212fa90dd9248a688956ba8dabe452574b29b1d))
+
 ## [1.0.10](https://github.com/cgfeel/pbvm/compare/pbvm@v1.0.9...pbvm@v1.0.10) (2026-07-26)
 
 
