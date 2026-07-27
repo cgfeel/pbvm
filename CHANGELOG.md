@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.12](https://github.com/cgfeel/pbvm/compare/pbvm@v1.0.11...pbvm@v1.0.12) (2026-07-27)
+
+
+### Bug Fixes
+
+* success alias ([6fccf82](https://github.com/cgfeel/pbvm/commit/6fccf82157fa6d8ded11e906acffbdda4c9fc210))
+* success alias ([df4c847](https://github.com/cgfeel/pbvm/commit/df4c8476abb214a3a3e6f9908d59d252c85d36be))
+
 ## [1.0.11](https://github.com/cgfeel/pbvm/compare/pbvm@v1.0.10...pbvm@v1.0.11) (2026-07-27)
 
 
