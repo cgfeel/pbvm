@@ -2,6 +2,7 @@ import { Command } from 'commander'
 import { registerAliasCommand } from './commands/alias.js'
 import { registerCreateCommand } from './commands/create.js'
 import { registerListCommand } from './commands/list.js'
+import { registerOpenCommand } from './commands/open.js'
 import { registerRemoveCommand } from './commands/remove.js'
 import { registerRestoreCommand } from './commands/restore.js'
 import { registerSearchCommand } from './commands/search.js'
@@ -22,6 +23,7 @@ async function bootstrap() {
   registerAliasCommand(program)
   registerCreateCommand(program)
   registerListCommand(program)
+  registerOpenCommand(program)
   registerRemoveCommand(program)
   registerRestoreCommand(program)
   registerSearchCommand(program)

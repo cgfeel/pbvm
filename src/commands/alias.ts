@@ -1,5 +1,5 @@
 import type { Command } from 'commander'
-import { aliasBrowser, type RemoveBrowserOpts } from '../bin/alias.script.js'
+import { aliasBrowser, type AliasBrowserOpts } from '../bin/alias.script.js'
 import { promptAliasOptions } from '../prompts/alias.prompt.js'
 import { promptManifestOptions } from '../prompts/manifest.prompt.js'
 import { aliasBrowserSchema } from '../types/index.js'
@@ -17,7 +17,7 @@ export function registerAliasCommand(program: Command) {
       const { platform, target } = aliasBrowserSchema.parse(opts)
       const selectItem = target ? await findBrowserList(target, platform) : undefined
 
-      let info: Omit<RemoveBrowserOpts, 'alias'> | undefined | null = null
+      let info: Omit<AliasBrowserOpts, 'alias'> | undefined | null = null
       if (selectItem) {
         info = selectItem
         logger.info(
