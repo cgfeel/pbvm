@@ -4,7 +4,12 @@ import type { z } from 'zod'
 import { type globalResultSchema, removeResultSchema } from '../types/index.js'
 import { isDefined, isKey, objectKeys } from '../utils/fields.js'
 import { logger } from '../utils/logger.js'
-import { currentBrowserList, formatList, getRecordList } from '../utils/manifest.js'
+import {
+  currentBrowserList,
+  formatList,
+  getRecordList,
+  storeBrowserList,
+} from '../utils/manifest.js'
 
 const manifestSchema = removeResultSchema.required({
   browser: true,
@@ -46,8 +51,10 @@ const renderGroup = (
 export async function promptManifestOptions(
   partial: z.infer<typeof removeResultSchema>
 ): Promise<z.infer<typeof manifestSchema> | null> {
-  let { browser, buildId, platform } = partial
-  const items = await currentBrowserList()
+  let { browser, buildId, platform, store } = partial
+  const getList = store ? storeBrowserList : currentBrowserList
+
+  const items = await getList()
   const filterList =
     !browser && !buildId && !platform
       ? items
@@ -63,7 +70,6 @@ export async function promptManifestOptions(
 
   const records = await getRecordList(filterList)
   const currentPlatform = detectBrowserPlatform()
-
   const currentChoices =
     currentPlatform && isKey(currentPlatform, records)
       ? renderGroup(currentPlatform, records[currentPlatform], true)

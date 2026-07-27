@@ -22,11 +22,16 @@ export const globalResultSchema = currentResultSchema.partial({ alias: true })
 export const removeResultSchema = browserItemSchema.omit({ alias: true }).extend({
   focus: z.boolean().optional(),
   platform: z.enum(BrowserPlatform).optional(),
+  store: z.boolean().optional(),
 })
 
 export const openBrowserSchema = z.object({
   target: z.string().optional(),
   url: z.url().optional(),
+})
+
+export const aliasBrowserSchema = openBrowserSchema.extend({
+  platform: z.enum(BrowserPlatform).optional(),
 })
 
 export interface ListOptions {

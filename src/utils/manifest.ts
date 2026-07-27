@@ -38,16 +38,6 @@ const getBrowserItems = async <T extends z.ZodType>(
   }
 }
 
-// 没有做进程锁，如果多进程同时操作会有问题，这一版暂且不考虑
-const updateBrowserItems = async (path: string, data: unknown[]) => {
-  try {
-    await fs.writeFile(path, JSON.stringify(data, null, 2), 'utf-8')
-    return true
-  } catch {
-    return false
-  }
-}
-
 // 以当前执行的目录为准，可能不是项目根目录，也可能不存在 git，但这不重要
 export async function currentBrowserList() {
   const rootPath = process.cwd()
@@ -57,14 +47,15 @@ export async function currentBrowserList() {
 }
 
 // priority {browser}@{buildId} or {alias}
-export async function findBrowserList(target: string) {
+export async function findBrowserList(target: string, platform?: BrowserPlatform) {
   const list = await currentBrowserList()
   if (list.length === 0) return undefined
 
   const [, browser, buildId] = target.includes('@') ? (target.match(/^([^@]+)@(.*)$/) ?? []) : []
-  return list.find((item) =>
-    buildId ? item.browser === browser && item.buildId === buildId : item.alias === target
-  )
+  return list.find((item) => {
+    if (platform && item.platform !== platform) return false
+    return buildId ? item.browser === browser && item.buildId === buildId : item.alias === target
+  })
 }
 
 export async function filterCurrentList({
@@ -136,6 +127,16 @@ export async function logCurrentList({ alias, browser, buildId, platform }: Curr
 export async function storeBrowserList() {
   const index = await getInstalledBrowsers(baseInfo)
   return index.map((item) => ({ ...item, alias: '' }))
+}
+
+// 没有做进程锁，如果多进程同时操作会有问题，这一版暂且不考虑
+export async function updateBrowserItems(path: string, data: unknown[]) {
+  try {
+    await fs.writeFile(path, JSON.stringify(data, null, 2), 'utf-8')
+    return true
+  } catch {
+    return false
+  }
 }
 
 type CurrentListItem = BrowserResultType & {

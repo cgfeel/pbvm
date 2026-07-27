@@ -38,18 +38,27 @@ const deleteBrowser = async ({
 }
 
 export async function removeBrowser(options: z.infer<typeof removeBrowserSchema>) {
-  const platform = options.platform ?? detectBrowserPlatform()
-  if (options.focus) {
+  const { focus, store, platform = detectBrowserPlatform() } = options
+  if (focus) {
     await deleteBrowser({ ...options, platform })
   }
 
-  logger.info('Start to update browserlist.')
-  logger.newline()
+  if (!store && platform) {
+    logger.info('Start to update browserlist.')
+    logger.newline()
 
-  if (platform) {
     await filterCurrentList({ ...options, platform })
+
+    logger.success('Update browserlist success.')
+    logger.newline()
+    return
   }
 
-  logger.info('Update browserlist success.')
-  logger.newline()
+  if (focus) {
+    logger.success('The browser has been successfully deleted.')
+    logger.newline()
+  } else {
+    logger.info('Nothing has been deleted')
+    logger.newline()
+  }
 }
