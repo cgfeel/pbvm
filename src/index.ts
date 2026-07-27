@@ -1,4 +1,5 @@
 import { Command } from 'commander'
+import { registerAliasCommand } from './commands/alias.js'
 import { registerCreateCommand } from './commands/create.js'
 import { registerListCommand } from './commands/list.js'
 import { registerRemoveCommand } from './commands/remove.js'
@@ -17,6 +18,7 @@ async function bootstrap() {
     .description('pbvm 通过 @puppeteer/browsers 管理浏览器版本')
     .version(version, '-v, --version', '输出版本号')
 
+  registerAliasCommand(program)
   registerCreateCommand(program)
   registerListCommand(program)
   registerRemoveCommand(program)

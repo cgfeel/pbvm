@@ -3,6 +3,7 @@ import { Browser } from '@puppeteer/browsers'
 import type { BrowserItemType, BrowserResultType } from '../types/index.js'
 import { isKey } from '../utils/fields.js'
 import { logger } from '../utils/logger.js'
+import { promptAliasOptions } from './alias.prompt.js'
 
 const browserTips = Object.freeze({
   chrome: "Chrome's buildId must be x.x.x.x",
@@ -46,12 +47,7 @@ export async function promptCreateOptions(partial: BrowserItemType): Promise<Bro
   }
 
   if (!alias) {
-    alias = await input({
-      message: `${logger.gray('It is helpful for future searches')}\n${logger.cyan('alias: ')} ${logger.gray(' [optional]')}`,
-      default: '',
-    })
-
-    logger.newline()
+    alias = (await promptAliasOptions({})).alias
   }
 
   return { alias, browser, buildId }

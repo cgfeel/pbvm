@@ -13,8 +13,16 @@ export function registerRemoveCommand(program: Command) {
     .option('-b, --browser <browser>', "Browser's name")
     .option('-i, --build-id <buildId>', "Browser's buildId")
     .option('-f, --force <force>', 'Simultaneously delete the browsers under the cache directory')
+    .option('-s, --store', 'Only delete local store browser')
     .action(async function (opts: unknown) {
       const options = removeResultSchema.parse(opts)
+      logger.info(
+        options.store
+          ? 'Remove the browser from the local store.'
+          : 'Remove the browser from the browserlist.'
+      )
+
+      logger.newline()
       const info = await promptManifestOptions(options)
 
       if (!info) {
@@ -23,9 +31,11 @@ export function registerRemoveCommand(program: Command) {
         return
       }
 
-      let { focus } = options
-      if (focus === undefined) {
+      let { focus, store } = options
+      if (focus === undefined && !store) {
         focus = await promptConfirm('Should the store be deleted as well?')
+      } else if (store) {
+        focus = true
       }
 
       const ok = await promptConfirm(
@@ -38,6 +48,6 @@ export function registerRemoveCommand(program: Command) {
         return
       }
 
-      await removeBrowser({ ...info, focus })
+      await removeBrowser({ ...info, focus, store })
     })
 }
