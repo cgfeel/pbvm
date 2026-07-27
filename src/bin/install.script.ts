@@ -1,17 +1,15 @@
-import { detectBrowserPlatform, getInstalledBrowsers, install } from '@puppeteer/browsers'
+import { detectBrowserPlatform, install } from '@puppeteer/browsers'
 import type { BrowserResultType } from '../types/index.js'
 import { logger } from '../utils/logger.js'
-import { logCurrentList } from '../utils/manifest.js'
+import { checkoutInStore, logCurrentList } from '../utils/manifest.js'
 import { baseInfo } from '../utils/paths.js'
 import { removeBrowser } from './remove.script.js'
 
-export async function installBrowser({ alias, browser, buildId }: BrowserResultType) {
+export async function installBrowser(ops: BrowserResultType) {
+  const { alias, browser, buildId } = ops
   const platform = detectBrowserPlatform()
-  const installed = await getInstalledBrowsers(baseInfo)
-  const found = installed.find(
-    (item) => item.browser === browser && item.buildId === buildId && item.platform === platform
-  )
 
+  const found = await checkoutInStore({ ...ops, platform: platform ?? '' })
   const name = platform ? `${platform}:${browser}@${buildId}` : `${browser}@${buildId}`
   let aliasName = alias
 

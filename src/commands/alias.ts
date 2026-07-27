@@ -1,5 +1,5 @@
 import type { Command } from 'commander'
-import { aliasBrowser, type AliasBrowserOpts } from '../bin/alias.script.js'
+import { type AliasBrowserOpts, aliasBrowser } from '../bin/alias.script.js'
 import { promptAliasOptions } from '../prompts/alias.prompt.js'
 import { promptManifestOptions } from '../prompts/manifest.prompt.js'
 import { aliasBrowserSchema } from '../types/index.js'
