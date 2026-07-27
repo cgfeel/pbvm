@@ -6,6 +6,7 @@ import { aliasBrowserSchema } from '../types/index.js'
 import { logger } from '../utils/logger.js'
 import { findBrowserList } from '../utils/manifest.js'
 
+// 所有允许通过 alisa 操作的命令，都用 target: {browser}@{buildId} or {alias}，否则分开作为参数
 export function registerAliasCommand(program: Command) {
   program
     .command('alias')
