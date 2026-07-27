@@ -5,6 +5,7 @@ import { promptManifestOptions } from '../prompts/manifest.prompt.js'
 import { removeResultSchema } from '../types/index.js'
 import { logger } from '../utils/logger.js'
 
+// 所有删除、创建、重建都不能通过 alias 操作，因为 alias 可以重名
 export function registerRemoveCommand(program: Command) {
   program
     .command('remove')

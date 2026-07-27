@@ -3,6 +3,7 @@ import { registerAliasCommand } from './commands/alias.js'
 import { registerCreateCommand } from './commands/create.js'
 import { registerListCommand } from './commands/list.js'
 import { registerRemoveCommand } from './commands/remove.js'
+import { registerRestoreCommand } from './commands/restore.js'
 import { registerSearchCommand } from './commands/search.js'
 import { registerStoreCommand } from './commands/store.js'
 import { catchError } from './prompts/common.prompt.js'
@@ -22,6 +23,7 @@ async function bootstrap() {
   registerCreateCommand(program)
   registerListCommand(program)
   registerRemoveCommand(program)
+  registerRestoreCommand(program)
   registerSearchCommand(program)
   registerStoreCommand(program)
 
