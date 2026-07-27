@@ -27,6 +27,7 @@ export function registerRemoveCommand(program: Command) {
       if (focus === undefined) {
         focus = await promptConfirm('Should the store be deleted as well?')
       }
+
       const ok = await promptConfirm(
         `Remove browser: ${info.platform}:${info.browser}@${info.buildId}?`
       )
