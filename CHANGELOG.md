@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.14](https://github.com/cgfeel/pbvm/compare/pbvm@v1.0.13...pbvm@v1.0.14) (2026-07-27)
+
+
+### Bug Fixes
+
+* success open ([474aa86](https://github.com/cgfeel/pbvm/commit/474aa8646ab46cf11667dca2b4b36e017bf656a3))
+* up install find browser ([d1529de](https://github.com/cgfeel/pbvm/commit/d1529de818cee8130ea6803b45d4dde54e3107d2))
+
 ## [1.0.13](https://github.com/cgfeel/pbvm/compare/pbvm@v1.0.12...pbvm@v1.0.13) (2026-07-27)
 
 
