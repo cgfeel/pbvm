@@ -22,9 +22,9 @@ export async function promptCreateOptions(partial: BrowserItemType): Promise<Bro
         { name: 'firefox', value: Browser.FIREFOX },
       ],
     })
-  }
 
-  logger.newline()
+    logger.newline()
+  }
 
   if (!buildId) {
     while (true) {
@@ -41,17 +41,18 @@ export async function promptCreateOptions(partial: BrowserItemType): Promise<Bro
       logger.warn('buildId cannot be empty')
       logger.newline()
     }
-  }
 
-  logger.newline()
+    logger.newline()
+  }
 
   if (!alias) {
     alias = await input({
       message: `${logger.gray('It is helpful for future searches')}\n${logger.cyan('alias: ')} ${logger.gray(' [optional]')}`,
       default: '',
     })
+
+    logger.newline()
   }
 
-  logger.newline()
   return { alias, browser, buildId }
 }

@@ -1,5 +1,5 @@
 import type { Command } from 'commander'
-import { installBrowser } from '../bin/install.js'
+import { installBrowser } from '../bin/install.script.js'
 import { promptConfirm } from '../prompts/common.prompt.js'
 import { promptCreateOptions } from '../prompts/create.prompt.js'
 import { browserItemSchema } from '../types/index.js'
@@ -20,10 +20,11 @@ export function registerCreateCommand(program: Command) {
       )
 
       if (!ok) {
-        logger.warn('已取消创建')
+        logger.warn('Cancel operation.')
+        logger.newline()
         return
       }
 
-      installBrowser(args)
+      await installBrowser(args)
     })
 }

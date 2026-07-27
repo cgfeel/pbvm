@@ -1,7 +1,8 @@
 import { Command } from 'commander'
 import { registerCreateCommand } from './commands/create.js'
 import { registerListCommand } from './commands/list.js'
-import { registerRunCommand } from './commands/run.js'
+import { registerRemoveCommand } from './commands/remove.js'
+import { registerSearchCommand } from './commands/search.js'
 import { registerStoreCommand } from './commands/store.js'
 import { catchError } from './prompts/common.prompt.js'
 import { printBanner } from './utils/logger.js'
@@ -18,8 +19,12 @@ async function bootstrap() {
 
   registerCreateCommand(program)
   registerListCommand(program)
-  registerRunCommand(program)
+  registerRemoveCommand(program)
+  registerSearchCommand(program)
   registerStoreCommand(program)
+
+  // 保留，为日后脚本自动化做准备
+  // registerRunCommand(program)
 
   const args = process.argv.slice(2)
   const skipBannerFlags = ['-v', '--version', '-h', '--help']

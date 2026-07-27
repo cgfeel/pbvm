@@ -7,7 +7,9 @@ import envPaths from 'env-paths'
 // config：用户自定义配置文件（代理、下载镜像源、默认模板等）。
 // temp: 临时目录
 const { cache, data, config, temp } = envPaths('pbvm')
+
 export const PBVM_PATHS = { cache, data, config, temp }
+export const baseInfo = { cacheDir: PBVM_PATHS.cache }
 
 // 获取安装包的根目录
 export const getRootPath = () => {

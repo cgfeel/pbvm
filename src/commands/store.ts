@@ -1,5 +1,5 @@
 import type { Command } from 'commander'
-import { listBrowser } from '../bin/list.js'
+import { listBrowser } from '../bin/list.script.js'
 import type { ListOptions } from '../types/index.js'
 
 export function registerStoreCommand(program: Command) {
