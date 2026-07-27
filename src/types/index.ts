@@ -18,11 +18,16 @@ export const browserResultSchema = browserItemSchema.required({
 })
 
 export const currentResultSchema = browserResultSchema.extend(browserlistSchema)
-export const storeResultSchema = browserResultSchema
-  .omit({
-    alias: true,
-  })
-  .extend(browserlistSchema)
+export const globalResultSchema = currentResultSchema.partial({ alias: true })
+export const removeResultSchema = browserItemSchema.omit({ alias: true }).extend({
+  focus: z.boolean().optional(),
+  platform: z.enum(BrowserPlatform).optional(),
+})
+
+export const openBrowserSchema = z.object({
+  target: z.string().optional(),
+  url: z.url().optional(),
+})
 
 export interface ListOptions {
   all?: boolean
@@ -35,4 +40,4 @@ export interface RunOptions {
 
 export type BrowserItemType = z.infer<typeof browserItemSchema>
 export type BrowserResultType = z.infer<typeof browserResultSchema>
-export type StoreResultType = z.infer<typeof storeResultSchema>
+export type OpenBrowserType = z.infer<typeof openBrowserSchema>

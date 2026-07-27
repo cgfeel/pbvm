@@ -1,13 +1,18 @@
 import fs from 'node:fs/promises'
 import path from 'node:path'
-import type { BrowserPlatform } from '@puppeteer/browsers'
+import { getInstalledBrowsers, type BrowserPlatform } from '@puppeteer/browsers'
 import { type z } from 'zod'
-import { type BrowserResultType, currentResultSchema, storeResultSchema } from '../types/index.js'
+import {
+  type BrowserResultType,
+  type globalResultSchema,
+  currentResultSchema,
+  removeResultSchema,
+} from '../types/index.js'
 import { isDefined } from './fields.js'
 import { padEndByDisplayWidth } from './logger.js'
-import { PBVM_PATHS } from './paths.js'
+import { baseInfo } from './paths.js'
 
-const globalResultSchema = currentResultSchema.partial({ alias: true })
+const filterResultSchema = removeResultSchema.required({ platform: true })
 
 const getBrowserItems = async <T extends z.ZodType>(
   listPath: string,
@@ -33,6 +38,7 @@ const getBrowserItems = async <T extends z.ZodType>(
   }
 }
 
+// 没有做进程锁，如果多进程同时操作会有问题，这一版暂且不考虑
 const updateBrowserItems = async (path: string, data: unknown[]) => {
   try {
     await fs.writeFile(path, JSON.stringify(data, null, 2), 'utf-8')
@@ -48,6 +54,33 @@ export async function currentBrowserList() {
   const listPath = path.join(rootPath, 'browserlist.json')
   const result = await getBrowserItems(listPath, currentResultSchema)
   return result
+}
+
+// priority {browser}@{buildId} or {alias}
+export async function findBrowserList(target: string) {
+  const list = await currentBrowserList()
+  if (list.length === 0) return undefined
+
+  const [, browser, buildId] = target.includes('@') ? (target.match(/^([^@]+)@(.*)$/) ?? []) : []
+  return list.find((item) =>
+    buildId ? item.browser === browser && item.buildId === buildId : item.alias === target
+  )
+}
+
+export async function filterCurrentList({
+  browser,
+  buildId,
+  platform,
+}: z.infer<typeof filterResultSchema>) {
+  const list = await currentBrowserList()
+  const index = list.filter(
+    (item) => item.browser !== browser || item.buildId !== buildId || item.platform !== platform
+  )
+
+  if (index.length !== list.length) {
+    const savePath = path.join(process.cwd(), 'browserlist.json')
+    await updateBrowserItems(savePath, index)
+  }
 }
 
 export function formatList<T extends z.infer<typeof globalResultSchema>>(list: T[]) {
@@ -100,33 +133,11 @@ export async function logCurrentList({ alias, browser, buildId, platform }: Curr
   return index.alias
 }
 
-export async function logStoreList({ browser, buildId, platform }: StoreListItem) {
-  const list = await storeBrowserList()
-  const index = list.find(
-    (item) => item.browser === browser && item.buildId === buildId && item.platform === platform
-  )
-
-  if (!index) {
-    const savePath = path.join(PBVM_PATHS.cache, 'browserlist.json')
-    list.push({ platform: platform ?? '', browser, buildId })
-
-    const result = await updateBrowserItems(savePath, list)
-    return result
-  }
-
-  return true
-}
-
 export async function storeBrowserList() {
-  const listPath = path.join(PBVM_PATHS.cache, 'browserlist.json')
-  const result = await getBrowserItems(listPath, storeResultSchema)
-  return result
+  const index = await getInstalledBrowsers(baseInfo)
+  return index.map((item) => ({ ...item, alias: '' }))
 }
 
 type CurrentListItem = BrowserResultType & {
-  platform?: BrowserPlatform
-}
-
-type StoreListItem = Omit<BrowserResultType, 'alias'> & {
   platform?: BrowserPlatform
 }
