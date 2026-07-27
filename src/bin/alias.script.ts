@@ -4,7 +4,7 @@ import type { currentResultSchema } from '../types/index.js'
 import { logger } from '../utils/logger.js'
 import { currentBrowserList, updateBrowserItems } from '../utils/manifest.js'
 
-export async function aliasBrowser(options: RemoveBrowserOpts) {
+export async function aliasBrowser(options: AliasBrowserOpts) {
   const { browser, buildId, platform } = options
   const list = await currentBrowserList()
   const index = await list.findIndex(
@@ -24,4 +24,4 @@ export async function aliasBrowser(options: RemoveBrowserOpts) {
   logger.newline()
 }
 
-export type RemoveBrowserOpts = z.infer<typeof currentResultSchema>
+export type AliasBrowserOpts = z.infer<typeof currentResultSchema>

@@ -38,6 +38,17 @@ const getBrowserItems = async <T extends z.ZodType>(
   }
 }
 
+export async function checkoutInStore({
+  browser,
+  buildId,
+  platform,
+}: z.infer<typeof globalResultSchema>) {
+  const installed = await getInstalledBrowsers(baseInfo)
+  return installed.find(
+    (item) => item.browser === browser && item.buildId === buildId && item.platform === platform
+  )
+}
+
 // 以当前执行的目录为准，可能不是项目根目录，也可能不存在 git，但这不重要
 export async function currentBrowserList() {
   const rootPath = process.cwd()
