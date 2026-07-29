@@ -23,7 +23,9 @@ export function registerRemoveCommand(program: Command) {
           : 'Remove the browser from the browserlist.'
       )
 
+      logger.warn('Please ensure that the browser is closed before deleting it')
       logger.newline()
+
       const info = await promptManifestOptions(options)
 
       if (!info) {
