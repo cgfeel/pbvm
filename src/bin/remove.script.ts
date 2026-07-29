@@ -53,7 +53,6 @@ const deleteProfile = async ({ browser, buildId }: RemoveBrowserOpts) => {
   } catch {
     logger.warn('Failed to delete the profile directory')
     logger.newline()
-    // throw error instanceof Error ? error : new Error('Failed to delete the profile directory')
   }
 }
 
