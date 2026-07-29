@@ -24,7 +24,7 @@ export function registerInfoCommand(program: Command) {
         logger.info(`Found the browser: ${selectItem.browser}@${selectItem.buildId}`)
       } else {
         logger.info(
-          target ? 'No browser found that can be modified. Please select:' : 'Select browser:'
+          target ? 'The specified browser was not found. Please select:' : 'Select browser:'
         )
 
         logger.newline()
