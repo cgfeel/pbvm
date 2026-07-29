@@ -36,6 +36,16 @@ export const logger = {
   green,
 }
 
+/**
+ * 根据可视宽度补齐空格，实现终端对齐
+ * @param str 原始字符串
+ * @param targetWidth 目标可视宽度
+ */
+export function padEndByDisplayWidth(str: string, targetWidth: number): string {
+  const w = getDisplayWidth(str)
+  return w >= targetWidth ? str : str + ' '.repeat(targetWidth - w)
+}
+
 export function printBanner() {
   const text = `
 ${chalk.green.bold('  ██████╗ ██████╗ ██╗   ██╗███╗   ███╗')}
@@ -49,12 +59,6 @@ ${chalk.gray('  ─── PBVM · 浏览器版本管理工具  · 基于 Puppete
   console.log(text)
 }
 
-/**
- * 根据可视宽度补齐空格，实现终端对齐
- * @param str 原始字符串
- * @param targetWidth 目标可视宽度
- */
-export function padEndByDisplayWidth(str: string, targetWidth: number): string {
-  const w = getDisplayWidth(str)
-  return w >= targetWidth ? str : str + ' '.repeat(targetWidth - w)
+export const printLine = (title: string, desc: unknown) => {
+  console.log(logger.gray(`  ${title}:`) + ` ${desc}`)
 }

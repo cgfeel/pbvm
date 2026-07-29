@@ -9,4 +9,12 @@ export const isPropertyKey = (value: unknown): value is PropertyKey =>
 export const objectKeys = <T extends object, K = keyof T>(obj: T) => Object.keys(obj) as K[]
 export const objectValues = <T extends object, V = ValueOf<T>>(obj: T) => Object.values(obj) as V[]
 
+export const syncSecureExecute = (call: () => void) => {
+  try {
+    call()
+  } catch {
+    // nothing
+  }
+}
+
 export type ValueOf<T> = T[keyof T]

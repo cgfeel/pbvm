@@ -1,11 +1,10 @@
 import { spawn } from 'node:child_process'
-import path from 'node:path'
-import { Browser } from '@puppeteer/browsers'
 import type { z } from 'zod'
+import { getExtraArgs } from '../browser/base.browser.js'
 import { openBrowserSchema, globalResultSchema } from '../types/index.js'
 import { logger } from '../utils/logger.js'
 import { checkoutInStore } from '../utils/manifest.js'
-import { PBVM_PATHS } from '../utils/paths.js'
+import { getProfileDir } from '../utils/paths.js'
 import { installBrowser } from './install.script.js'
 
 const openOptsSchema = globalResultSchema.extend({
@@ -27,11 +26,8 @@ export async function openBrowser({ url, ...opts }: OpenBrowserOpts) {
   }
 
   const { executablePath } = info
-  const profileDir = path.join(PBVM_PATHS.data, 'profiles', browser, buildId)
-  const extraArgs =
-    browser === Browser.FIREFOX
-      ? ['--profile', profileDir]
-      : ['--no-sandbox', `--user-data-dir=${profileDir}`]
+  const profileDir = getProfileDir(browser, buildId)
+  const extraArgs = getExtraArgs(browser, profileDir)
 
   spawn(executablePath, extraArgs.concat(url ? [url] : []), {
     detached: true,

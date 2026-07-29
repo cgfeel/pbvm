@@ -16,7 +16,7 @@ export function registerOpenCommand(program: Command) {
       const { target, url } = openBrowserSchema.parse(opts)
       const platform = detectBrowserPlatform()
 
-      let selectItem = target ? await findBrowserList(target, platform) : undefined
+      let selectItem = target ? await findBrowserList(target, { platform }) : undefined
       let info: Omit<OpenBrowserOpts, 'alias'> | undefined | null = null
 
       if (selectItem) {

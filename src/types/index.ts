@@ -5,6 +5,11 @@ const browserlistSchema = {
   platform: z.enum(BrowserPlatform).or(z.literal('')),
 }
 
+export const aliasBrowserSchema = z.object({
+  target: z.string().optional(),
+  platform: z.enum(BrowserPlatform).optional(),
+})
+
 export const browserItemSchema = z.object({
   alias: z.string().optional(),
   browser: z.enum(Browser).optional(),
@@ -19,10 +24,10 @@ export const browserResultSchema = browserItemSchema.required({
 
 export const currentResultSchema = browserResultSchema.extend(browserlistSchema)
 export const globalResultSchema = currentResultSchema.partial({ alias: true })
-export const removeResultSchema = browserItemSchema.omit({ alias: true }).extend({
-  focus: z.boolean().optional(),
-  platform: z.enum(BrowserPlatform).optional(),
-  store: z.boolean().optional(),
+
+export const infoBrowserSchema = z.object({
+  target: z.string().optional(),
+  runtime: z.boolean().optional(),
 })
 
 export const openBrowserSchema = z.object({
@@ -30,8 +35,10 @@ export const openBrowserSchema = z.object({
   url: z.url().optional(),
 })
 
-export const aliasBrowserSchema = openBrowserSchema.extend({
+export const removeResultSchema = browserItemSchema.omit({ alias: true }).extend({
+  focus: z.boolean().optional(),
   platform: z.enum(BrowserPlatform).optional(),
+  store: z.boolean().optional(),
 })
 
 export interface ListOptions {
