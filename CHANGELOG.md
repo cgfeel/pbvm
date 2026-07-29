@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.16](https://github.com/cgfeel/pbvm/compare/pbvm@v1.0.15...pbvm@v1.0.16) (2026-07-29)
+
+
+### Bug Fixes
+
+* remove throw when delete error ([d5aaa4c](https://github.com/cgfeel/pbvm/commit/d5aaa4cdab66471427171203d0634541041b5228))
+* update remove add delete profile dir ([7c9c4bd](https://github.com/cgfeel/pbvm/commit/7c9c4bdf1aa089d4705b58ff2aa17423a04c3a23))
+
 ## [1.0.15](https://github.com/cgfeel/pbvm/compare/pbvm@v1.0.14...pbvm@v1.0.15) (2026-07-29)
 
 
