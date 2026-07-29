@@ -15,7 +15,7 @@ export function registerAliasCommand(program: Command) {
     .option('-t, --target <target>', '{browser}@{buildId} or {alias}')
     .action(async function (opts: unknown) {
       const { platform, target } = aliasBrowserSchema.parse(opts)
-      const selectItem = target ? await findBrowserList(target, platform) : undefined
+      const selectItem = target ? await findBrowserList(target, { platform }) : undefined
 
       let info: Omit<AliasBrowserOpts, 'alias'> | undefined | null = null
       if (selectItem) {

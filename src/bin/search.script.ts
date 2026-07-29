@@ -1,12 +1,7 @@
 import { DefaultProvider, detectBrowserPlatform, getInstalledBrowsers } from '@puppeteer/browsers'
 import type { BrowserResultType } from '../types/index.js'
-import { logger } from '../utils/logger.js'
+import { logger, printLine } from '../utils/logger.js'
 import { baseInfo } from '../utils/paths.js'
-
-const provider = new DefaultProvider()
-const printLine = (title: string, desc: unknown) => {
-  console.log(logger.gray(`  ${title}:`) + ` ${desc}`)
-}
 
 export async function searchBrowser({ browser, buildId }: BrowserResultType) {
   const platform = detectBrowserPlatform()
@@ -15,9 +10,10 @@ export async function searchBrowser({ browser, buildId }: BrowserResultType) {
     process.exit(1)
   }
 
-  const spin = logger.spinner(' Obtaining resource information...')
+  const spin = logger.spinner('Obtaining resource information...')
   spin.start()
 
+  const provider = new DefaultProvider()
   const url = await provider.getDownloadUrl({
     browser,
     buildId,

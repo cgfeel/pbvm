@@ -1,6 +1,10 @@
 import fs from 'node:fs/promises'
 import path from 'node:path'
-import { getInstalledBrowsers, type BrowserPlatform } from '@puppeteer/browsers'
+import {
+  detectBrowserPlatform,
+  getInstalledBrowsers,
+  type BrowserPlatform,
+} from '@puppeteer/browsers'
 import { type z } from 'zod'
 import {
   type BrowserResultType,
@@ -58,11 +62,16 @@ export async function currentBrowserList() {
 }
 
 // priority {browser}@{buildId} or {alias}
-export async function findBrowserList(target: string, platform?: BrowserPlatform) {
-  const list = await currentBrowserList()
-  if (list.length === 0) return undefined
+export async function findBrowserList(target: string, info: BrowserListInfo = {}) {
+  const { platform: orgPlatform, store } = info
+  const platform = store ? detectBrowserPlatform() : orgPlatform
 
+  const getList = store ? storeBrowserList : currentBrowserList
+  const list = await getList()
+
+  if (list.length === 0) return undefined
   const [, browser, buildId] = target.includes('@') ? (target.match(/^([^@]+)@(.*)$/) ?? []) : []
+
   return list.find((item) => {
     if (platform && item.platform !== platform) return false
     return buildId ? item.browser === browser && item.buildId === buildId : item.alias === target
@@ -148,6 +157,11 @@ export async function updateBrowserItems(path: string, data: unknown[]) {
   } catch {
     return false
   }
+}
+
+type BrowserListInfo = {
+  platform?: BrowserPlatform
+  store?: boolean
 }
 
 type CurrentListItem = BrowserResultType & {
