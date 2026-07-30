@@ -22,11 +22,13 @@ export async function install(
 ) {
   const releaseLock = await acquireLock({ lockDir: PBVM_PATHS.cache })
   let isInstalled = false
+  let isInterrupted = false
 
   const onInterrupt = async () => {
-    if (isInstalled) return
-    await releaseLock()
+    if (isInterrupted || isInstalled) return
+    isInterrupted = true
     await interrupt()
+    await releaseLock()
     process.exit(1)
   }
 
@@ -40,7 +42,9 @@ export async function install(
   } finally {
     process.off('SIGINT', onInterrupt)
     process.off('SIGTERM', onInterrupt)
-    await releaseLock()
+    if (!isInterrupted) {
+      await releaseLock()
+    }
   }
 }
 
