@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.17](https://github.com/cgfeel/pbvm/compare/pbvm@v1.0.16...pbvm@v1.0.17) (2026-07-30)
+
+
+### Bug Fixes
+
+* add registerClearCommand to index ([1ca4fa7](https://github.com/cgfeel/pbvm/commit/1ca4fa731a49f4a2b5d1e0f3f652d24fe8929281))
+* success clear ([f3d3937](https://github.com/cgfeel/pbvm/commit/f3d39376387db4186ab6a1f8205af42ab141b6c7))
+
 ## [1.0.16](https://github.com/cgfeel/pbvm/compare/pbvm@v1.0.15...pbvm@v1.0.16) (2026-07-29)
 
 
