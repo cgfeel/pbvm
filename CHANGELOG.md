@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.21](https://github.com/cgfeel/pbvm/compare/pbvm@v1.0.20...pbvm@v1.0.21) (2026-07-30)
+
+
+### Bug Fixes
+
+* add dev environment constraints & add api.ts for build library ([622658a](https://github.com/cgfeel/pbvm/commit/622658a24010817702f1dc46a2b4dd08376a423d))
+* add dev environment constraints & add api.ts for build library ([a614bae](https://github.com/cgfeel/pbvm/commit/a614baeebc45140d48c8b203d3e2981afa8d453b))
+
 ## [1.0.20](https://github.com/cgfeel/pbvm/compare/pbvm@v1.0.19...pbvm@v1.0.20) (2026-07-30)
 
 
