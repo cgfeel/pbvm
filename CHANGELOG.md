@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.22](https://github.com/cgfeel/pbvm/compare/pbvm@v1.0.21...pbvm@v1.0.22) (2026-07-30)
+
+
+### Bug Fixes
+
+* update tips and text ([86f49ed](https://github.com/cgfeel/pbvm/commit/86f49ed860aa396cacc10bb0e905ee7681b20a63))
+* update tips and text-1 ([16eb085](https://github.com/cgfeel/pbvm/commit/16eb08571ba95d73f3f2b86ab841139722e812c6))
+
 ## [1.0.21](https://github.com/cgfeel/pbvm/compare/pbvm@v1.0.20...pbvm@v1.0.21) (2026-07-30)
 
 
