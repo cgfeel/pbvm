@@ -10,7 +10,7 @@ import { registerRestoreCommand } from './commands/restore.js'
 import { registerSearchCommand } from './commands/search.js'
 import { registerStoreCommand } from './commands/store.js'
 import { catchError } from './prompts/common.prompt.js'
-import { printBanner } from './utils/logger.js'
+import { printBanner, projectDesc } from './utils/logger.js'
 import { getPackageVersion } from './utils/pkg.js'
 
 const program = new Command()
@@ -19,7 +19,7 @@ async function bootstrap() {
   const { version } = await getPackageVersion()
   program
     .name('pbvm')
-    .description('Managing browser versions through @puppeteer/browsers')
+    .description(projectDesc)
     .version(version, '-v, --version', 'Output version number')
 
   registerAliasCommand(program)
