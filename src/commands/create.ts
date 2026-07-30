@@ -2,10 +2,9 @@ import type { Command } from 'commander'
 import { installBrowser } from '../bin/install.script.js'
 import { promptConfirm } from '../prompts/common.prompt.js'
 import { promptCreateOptions } from '../prompts/create.prompt.js'
-import { browserItemSchema } from '../types/index.js'
+import { createBrowserSchema } from '../types/index.js'
 import { logger } from '../utils/logger.js'
 
-// 缺一个参数，不保存当前 browserlist
 export function registerCreateCommand(program: Command) {
   program
     .command('create')
@@ -13,9 +12,11 @@ export function registerCreateCommand(program: Command) {
     .option('-b, --browser <browser>', "Browser's name")
     .option('-i, --build-id <buildId>', "Browser's buildId")
     .option('-a, --alias <alias>', "Browser's alias")
+    .option('-s, --store', 'Only saved in the store directory')
     .action(async function (opts: unknown) {
       // 参数缺失则唤起交互
-      const args = await promptCreateOptions(browserItemSchema.parse(opts))
+      const { store, ...options } = createBrowserSchema.parse(opts)
+      const args = await promptCreateOptions(options)
       const ok = await promptConfirm(
         `Create browser: ${args.browser}@${args.buildId}, alias: ${args.alias || 'Dynamic name'} ?`
       )
@@ -26,6 +27,6 @@ export function registerCreateCommand(program: Command) {
         return
       }
 
-      await installBrowser(args)
+      await installBrowser({ ...args, store })
     })
 }

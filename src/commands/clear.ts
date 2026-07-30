@@ -1,6 +1,7 @@
 import { detectBrowserPlatform } from '@puppeteer/browsers'
 import type { Command } from 'commander'
 import { clearBrowser } from '../bin/clear.script.js'
+import { promptConfirm } from '../prompts/common.prompt.js'
 import { promptManifestOptions } from '../prompts/manifest.prompt.js'
 import { runBrowserSchema } from '../types/index.js'
 import type { RemoveBrowserOpts } from '../types/index.js'
@@ -38,6 +39,17 @@ export function registerClearCommand(program: Command) {
         }
 
         info = { ...manifest }
+      }
+
+      logger.newline()
+      const ok = await promptConfirm(
+        `Clearing the ${info.browser}@${info.buildId} will remove: cookies, favorites, history, preferences, system trust, etc.`
+      )
+
+      if (!ok) {
+        logger.warn('Cancel operation.')
+        logger.newline()
+        return
       }
 
       logger.newline()

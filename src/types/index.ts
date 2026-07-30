@@ -22,6 +22,11 @@ export const browserResultSchema = browserItemSchema.required({
   buildId: true,
 })
 
+export const createBrowserSchema = z.object({
+  ...browserItemSchema.shape,
+  store: z.boolean().optional(),
+})
+
 export const currentResultSchema = browserResultSchema.extend(browserlistSchema)
 export const globalResultSchema = currentResultSchema.partial({ alias: true })
 
@@ -54,6 +59,7 @@ export interface ListOptions {
 
 export type BrowserItemType = z.infer<typeof browserItemSchema>
 export type BrowserResultType = z.infer<typeof browserResultSchema>
+export type CreateBrowserType = z.infer<typeof createBrowserSchema>
 export type OpenBrowserType = z.infer<typeof openBrowserSchema>
 export type RemoveBrowserOpts = z.infer<typeof removeBrowserSchema>
 export type RunOptions = z.infer<typeof runBrowserSchema>
