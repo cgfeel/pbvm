@@ -53,6 +53,15 @@ export async function installBrowser({ store, ...opts }: z.infer<typeof installB
       if (!aliasName)
         aliasName = result.platform ? `${result.platform}-${result.buildId}` : result.buildId
     } catch (err) {
+      // pbInstall reject 时（如下载中途网络断开、SIGINT 导致 socket 关闭）
+      // 也需要清理残留的半成品文件
+      logger.newline()
+      logger.warn('Installation failed, cleaning up incomplete resources...')
+      await removeBrowser({ focus: true, browser, buildId, platform }).catch(() => {
+        // 清理过程中的二次错误忽略
+      })
+      logger.info('Cleanup complete.')
+      logger.newline()
       const errTarget = err instanceof Error ? err : new Error('Installation failed.')
       throw errTarget
     }

@@ -35,20 +35,15 @@ const startLocalhost = () => {
   })
 }
 
-/**
- * 使用 Chrome headless 命令行 + WebSocket CDP 获取浏览器运行时信息。
- * 不依赖 puppeteer-core，兼容任意 Chrome 版本。
- *
- * 流程：--headless=new + about:blank 启动（稳定），
- * CDP 连接后 Page.navigate 到 localhost 获取 secure context（使 userAgentData 可用）。
- */
-export async function getChromiumRuntimeInfo(options: LaunchOptions) {
+async function tryGetChromiumRuntimeInfo(
+  options: LaunchOptions,
+  headlessFlag: '--headless=new' | '--headless'
+) {
   const { args = [], executablePath, timeout } = options
 
-  // --headless=new 与 --user-data-dir 在旧版 Chrome（≤114）上可能导致无输出，
-  // 过滤掉后 Chrome 会自动使用临时目录，对 info 采集无影响
+  // --user-data-dir 在旧版 Chrome 上可能导致无输出，过滤掉后 Chrome 会自动使用临时目录
   const browserArgs = [
-    '--headless=new',
+    headlessFlag,
     '--disable-gpu',
     '--remote-debugging-port=0',
     ...args.filter((a) => !a.startsWith('--user-data-dir')),
@@ -158,4 +153,24 @@ export async function getChromiumRuntimeInfo(options: LaunchOptions) {
   }
 
   return await generateBrowserRuntimeInfo({ timeout, task })
+}
+
+/**
+ * 使用 Chrome headless 命令行 + WebSocket CDP 获取浏览器运行时信息。
+ * 不依赖 puppeteer-core，兼容任意 Chrome 版本。
+ *
+ * 优先使用 --headless=new（更完整的浏览器环境），
+ * 旧版 Chrome（≤114）不识别该参数时自动降级到 --headless。
+ *
+ * CDP 连接后 Page.navigate 到 localhost 获取 secure context（使 userAgentData 可用）。
+ */
+export async function getChromiumRuntimeInfo(options: LaunchOptions) {
+  try {
+    return await tryGetChromiumRuntimeInfo(options, '--headless=new')
+  } catch (err) {
+    if (err instanceof Error && err.message === 'No page target found') {
+      return await tryGetChromiumRuntimeInfo(options, '--headless')
+    }
+    throw err instanceof Error ? err : new Error(String(err))
+  }
 }
