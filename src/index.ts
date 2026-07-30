@@ -1,5 +1,6 @@
 import { Command } from 'commander'
 import { registerAliasCommand } from './commands/alias.js'
+import { registerClearCommand } from './commands/clear.js'
 import { registerCreateCommand } from './commands/create.js'
 import { registerInfoCommand } from './commands/info.js'
 import { registerListCommand } from './commands/list.js'
@@ -22,6 +23,7 @@ async function bootstrap() {
     .version(version, '-v, --version', '输出版本号')
 
   registerAliasCommand(program)
+  registerClearCommand(program)
   registerCreateCommand(program)
   registerInfoCommand(program)
   registerListCommand(program)

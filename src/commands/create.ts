@@ -5,6 +5,7 @@ import { promptCreateOptions } from '../prompts/create.prompt.js'
 import { browserItemSchema } from '../types/index.js'
 import { logger } from '../utils/logger.js'
 
+// 缺一个参数，不保存当前 browserlist
 export function registerCreateCommand(program: Command) {
   program
     .command('create')

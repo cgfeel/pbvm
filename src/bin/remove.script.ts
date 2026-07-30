@@ -1,13 +1,12 @@
 import fs from 'node:fs/promises'
 import path from 'node:path'
 import { detectBrowserPlatform, uninstall } from '@puppeteer/browsers'
-import type { z } from 'zod'
-import { removeResultSchema } from '../types/index.js'
+import type { RemoveBrowserOpts } from '../types/index.js'
 import { logger } from '../utils/logger.js'
 import { filterCurrentList } from '../utils/manifest.js'
-import { baseInfo, getProfileDir, PBVM_PATHS } from '../utils/paths.js'
+import { baseInfo, PBVM_PATHS } from '../utils/paths.js'
+import { clearBrowser } from './clear.script.js'
 
-const removeBrowserSchema = removeResultSchema.required({ browser: true, buildId: true })
 const deleteBrowser = async ({ browser, buildId, platform }: RemoveBrowserOpts) => {
   if (platform) {
     try {
@@ -35,32 +34,11 @@ const deleteBrowser = async ({ browser, buildId, platform }: RemoveBrowserOpts) 
   logger.newline()
 }
 
-const deleteProfile = async ({ browser, buildId }: RemoveBrowserOpts) => {
-  const profileDir = getProfileDir(browser, buildId)
-  try {
-    logger.info('Start cleaning up the profile directory.')
-    logger.newline()
-
-    await fs.rm(profileDir, {
-      force: true,
-      maxRetries: 5,
-      recursive: true,
-      retryDelay: 200,
-    })
-
-    logger.success('The profile directory has been deleted.')
-    logger.newline()
-  } catch {
-    logger.warn('Failed to delete the profile directory')
-    logger.newline()
-  }
-}
-
 export async function removeBrowser(options: RemoveBrowserOpts) {
   const { focus, store, platform = detectBrowserPlatform() } = options
   if (focus) {
     await deleteBrowser({ ...options, platform })
-    await deleteProfile({ ...options, platform })
+    await clearBrowser(options)
   }
 
   if (!store && platform) {
@@ -78,5 +56,3 @@ export async function removeBrowser(options: RemoveBrowserOpts) {
     logger.newline()
   }
 }
-
-type RemoveBrowserOpts = z.infer<typeof removeBrowserSchema>
