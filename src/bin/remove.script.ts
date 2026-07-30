@@ -1,6 +1,7 @@
 import fs from 'node:fs/promises'
 import path from 'node:path'
-import { detectBrowserPlatform, uninstall } from '@puppeteer/browsers'
+import { detectBrowserPlatform } from '@puppeteer/browsers'
+import { uninstall } from '../browser/browser.lock.js'
 import type { RemoveBrowserOpts } from '../types/index.js'
 import { logger } from '../utils/logger.js'
 import { filterCurrentList } from '../utils/manifest.js'

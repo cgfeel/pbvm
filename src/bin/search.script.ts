@@ -1,4 +1,5 @@
-import { DefaultProvider, detectBrowserPlatform, getInstalledBrowsers } from '@puppeteer/browsers'
+import { DefaultProvider, detectBrowserPlatform } from '@puppeteer/browsers'
+import { getInstalledBrowsers } from '../browser/browser.lock.js'
 import type { BrowserResultType } from '../types/index.js'
 import { logger, printLine } from '../utils/logger.js'
 import { baseInfo } from '../utils/paths.js'
