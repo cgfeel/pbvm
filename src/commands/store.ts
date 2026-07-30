@@ -1,12 +1,12 @@
 import type { Command } from 'commander'
 import { listBrowser } from '../bin/list.script.js'
-import type { ListOptions } from '../types/index.js'
 
 export function registerStoreCommand(program: Command) {
   program
     .command('store')
-    .description('List all installed browsers in the cache directory store cache directory.')
-    .action(async (opts: ListOptions) => {
-      listBrowser({ all: Boolean(opts), store: true })
+    .description('List all installed browsers in the store directory.')
+    .option('-a, --all', 'Display all platform browsers.')
+    .action(async (opts: unknown) => {
+      listBrowser({ ...(typeof opts === 'object' && opts !== null ? opts : {}), store: true })
     })
 }

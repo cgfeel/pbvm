@@ -54,7 +54,7 @@ ${chalk.green.bold('  ██████╔╝██████╔╝██║ 
 ${chalk.green.bold('  ██╔═══╝ ██╔══██╗╚██╗ ██╔╝██║╚██╔╝██║')}
 ${chalk.green.bold('  ██║     ██████╔╝ ╚████╔╝ ██║ ╚═╝ ██║')}
 ${chalk.green.bold('  ╚═╝     ╚═════╝   ╚═══╝  ╚═╝     ╚═╝')}
-${chalk.gray('  ─── PBVM · 浏览器版本管理工具  · 基于 Puppeteer Browsers ───')}
+${chalk.gray('Managing browser versions through @puppeteer/browsers')}
 `
   console.log(text)
 }

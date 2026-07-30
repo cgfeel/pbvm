@@ -104,7 +104,7 @@ export async function openBrowser({ url, ...opts }: OpenBrowserOpts) {
     stdio: 'ignore',
   }).unref()
 
-  logger.success('Successfully open browser')
+  logger.success('Browser opened successfully.')
   logger.newline()
 }
 

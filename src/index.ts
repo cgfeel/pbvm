@@ -19,8 +19,8 @@ async function bootstrap() {
   const { version } = await getPackageVersion()
   program
     .name('pbvm')
-    .description('pbvm 通过 @puppeteer/browsers 管理浏览器版本')
-    .version(version, '-v, --version', '输出版本号')
+    .description('Managing browser versions through @puppeteer/browsers')
+    .version(version, '-v, --version', 'Output version number')
 
   registerAliasCommand(program)
   registerClearCommand(program)

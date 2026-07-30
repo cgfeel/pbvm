@@ -86,13 +86,13 @@ export async function filterCurrentList({
   const releaseLock = await acquireLock()
   try {
     const list = await currentBrowserList()
-    const index = list.filter(
+    const filtered = list.filter(
       (item) => item.browser !== browser || item.buildId !== buildId || item.platform !== platform
     )
 
-    if (index.length !== list.length) {
+    if (filtered.length !== list.length) {
       const savePath = path.join(process.cwd(), 'browserlist.json')
-      await updateBrowserItems(savePath, index)
+      await updateBrowserItems(savePath, filtered)
     }
   } finally {
     releaseLock()
