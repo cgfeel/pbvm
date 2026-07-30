@@ -1,5 +1,6 @@
-import { detectBrowserPlatform, install } from '@puppeteer/browsers'
+import { detectBrowserPlatform } from '@puppeteer/browsers'
 import type { z } from 'zod'
+import { install } from '../browser/browser.lock.js'
 import { createBrowserSchema } from '../types/index.js'
 import { logger } from '../utils/logger.js'
 import { checkoutInStore, logCurrentList } from '../utils/manifest.js'
@@ -26,39 +27,34 @@ export async function installBrowser({ store, ...opts }: z.infer<typeof installB
     logger.info('Start installing the browser to the global cache directory...')
     logger.newline()
 
-    let isInstalled = false
     const onInterrupt = async () => {
-      if (isInstalled) return
       logger.newline()
       logger.warn('Installation interrupted, cleaning up incomplete resources...')
+
       logger.newline()
       await removeBrowser({ focus: true, browser, buildId, platform })
+
       logger.info('Cleanup complete.')
       logger.newline()
-      process.exit(1)
     }
 
-    process.once('SIGINT', onInterrupt)
-    process.once('SIGTERM', onInterrupt)
-
     try {
-      const result = await install({
-        ...baseInfo,
-        downloadProgressCallback: 'default',
-        browser,
-        buildId,
-        platform,
-      })
+      const result = await install(
+        {
+          ...baseInfo,
+          downloadProgressCallback: 'default',
+          browser,
+          buildId,
+          platform,
+        },
+        onInterrupt
+      )
 
-      isInstalled = true
       if (!aliasName)
         aliasName = result.platform ? `${result.platform}-${result.buildId}` : result.buildId
     } catch (err) {
       const errTarget = err instanceof Error ? err : new Error('Installation failed.')
       throw errTarget
-    } finally {
-      process.off('SIGINT', onInterrupt)
-      process.off('SIGTERM', onInterrupt)
     }
 
     logger.success(`Installed success: ${name}`)

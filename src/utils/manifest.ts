@@ -1,11 +1,8 @@
 import fs from 'node:fs/promises'
 import path from 'node:path'
-import {
-  detectBrowserPlatform,
-  getInstalledBrowsers,
-  type BrowserPlatform,
-} from '@puppeteer/browsers'
+import { detectBrowserPlatform, type BrowserPlatform } from '@puppeteer/browsers'
 import { type z } from 'zod'
+import { getInstalledBrowsers } from '../browser/browser.lock.js'
 import {
   type BrowserResultType,
   type globalResultSchema,
@@ -13,6 +10,7 @@ import {
   removeResultSchema,
 } from '../types/index.js'
 import { isDefined } from './fields.js'
+import { acquireLock, waitForLock } from './lock.js'
 import { padEndByDisplayWidth } from './logger.js'
 import { baseInfo } from './paths.js'
 
@@ -54,6 +52,7 @@ export async function checkoutInStore({
 }
 
 // 以当前执行的目录为准，可能不是项目根目录，也可能不存在 git，但这不重要
+// 调用前请先确保操作是否需要加加锁
 export async function currentBrowserList() {
   const rootPath = process.cwd()
   const listPath = path.join(rootPath, 'browserlist.json')
@@ -65,8 +64,9 @@ export async function currentBrowserList() {
 export async function findBrowserList(target: string, info: BrowserListInfo = {}) {
   const { platform: orgPlatform, store } = info
   const platform = store ? detectBrowserPlatform() : orgPlatform
-
   const getList = store ? storeBrowserList : currentBrowserList
+
+  if (!store) await waitForLock()
   const list = await getList()
 
   if (list.length === 0) return undefined
@@ -83,14 +83,19 @@ export async function filterCurrentList({
   buildId,
   platform,
 }: z.infer<typeof filterResultSchema>) {
-  const list = await currentBrowserList()
-  const index = list.filter(
-    (item) => item.browser !== browser || item.buildId !== buildId || item.platform !== platform
-  )
+  const releaseLock = await acquireLock()
+  try {
+    const list = await currentBrowserList()
+    const index = list.filter(
+      (item) => item.browser !== browser || item.buildId !== buildId || item.platform !== platform
+    )
 
-  if (index.length !== list.length) {
-    const savePath = path.join(process.cwd(), 'browserlist.json')
-    await updateBrowserItems(savePath, index)
+    if (index.length !== list.length) {
+      const savePath = path.join(process.cwd(), 'browserlist.json')
+      await updateBrowserItems(savePath, index)
+    }
+  } finally {
+    releaseLock()
   }
 }
 
@@ -127,21 +132,26 @@ export async function getRecordList<T extends z.infer<typeof globalResultSchema>
 // 关于 alias 同名保存，目前不做检查，放行操作，当使用 alias 启动的时候取第一条，或者用 browser, buildId 启动
 // 因为要做重名排查就要加锁，避免多进程下同时写入，目前没必要
 export async function logCurrentList({ alias, browser, buildId, platform }: CurrentListItem) {
-  const list = await currentBrowserList()
-  const index = list.find(
-    (item) => item.browser === browser && item.buildId === buildId && item.platform === platform
-  )
+  const releaseLock = await acquireLock()
+  try {
+    const list = await currentBrowserList()
+    const index = list.find(
+      (item) => item.browser === browser && item.buildId === buildId && item.platform === platform
+    )
 
-  if (!index) {
-    // 这里存储的 alias 已经在外部处理过了，要避免空字符
-    const savePath = path.join(process.cwd(), 'browserlist.json')
-    list.push({ platform: platform ?? '', alias, browser, buildId })
+    if (!index) {
+      // 这里存储的 alias 已经在外部处理过了，要避免空字符
+      const savePath = path.join(process.cwd(), 'browserlist.json')
+      list.push({ platform: platform ?? '', alias, browser, buildId })
 
-    const result = await updateBrowserItems(savePath, list)
-    return result ? alias : undefined
+      const result = await updateBrowserItems(savePath, list)
+      return result ? alias : undefined
+    }
+
+    return index.alias
+  } finally {
+    releaseLock()
   }
-
-  return index.alias
 }
 
 export async function storeBrowserList() {
@@ -149,7 +159,8 @@ export async function storeBrowserList() {
   return index.map((item) => ({ ...item, alias: '' }))
 }
 
-// 没有做进程锁，如果多进程同时操作会有问题，这一版暂且不考虑
+// 执行写入前请确保有加锁，由于 browserlist.json 文件写入非常小，而锁默认超时 1 分钟
+// 所以目前暂且不用考虑锁是否会和其他进程锁冲突
 export async function updateBrowserItems(path: string, data: unknown[]) {
   try {
     await fs.writeFile(path, JSON.stringify(data, null, 2), 'utf-8')
