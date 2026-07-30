@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.20](https://github.com/cgfeel/pbvm/compare/pbvm@v1.0.19...pbvm@v1.0.20) (2026-07-30)
+
+
+### Bug Fixes
+
+* update stdin out at install & open firefox disable up version & … ([989292d](https://github.com/cgfeel/pbvm/commit/989292da487a5b68b9a7f5058688f5daa79960d6))
+* update stdin out at install & open firefox disable up version & chromium backward compatibility ([886d729](https://github.com/cgfeel/pbvm/commit/886d729af4553b56f30b7d806f99d672546df9c8))
+
 ## [1.0.19](https://github.com/cgfeel/pbvm/compare/pbvm@v1.0.18...pbvm@v1.0.19) (2026-07-30)
 
 
