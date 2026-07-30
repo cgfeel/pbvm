@@ -7,7 +7,9 @@
   "[typescript]": {
     "editor.defaultFormatter": "oxc.oxc-vscode"
   },
-  "oxc.fixOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.oxc": "always"
+  },
   // 忽略 CSS 中的 @theme 未知指令提示
   "css.lint.unknownAtRules": "ignore",
   // 若使用 SCSS/Sass，补充对应配置
