@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.19](https://github.com/cgfeel/pbvm/compare/pbvm@v1.0.18...pbvm@v1.0.19) (2026-07-30)
+
+
+### Bug Fixes
+
+* update file lock ([ed77f28](https://github.com/cgfeel/pbvm/commit/ed77f28c834ca66fc4a6d5db3682a7574d180cac))
+* update file lock ([552c342](https://github.com/cgfeel/pbvm/commit/552c3421d4a3ffa581b37ea4c87f093d8ba647de))
+
 ## [1.0.18](https://github.com/cgfeel/pbvm/compare/pbvm@v1.0.17...pbvm@v1.0.18) (2026-07-30)
 
 
