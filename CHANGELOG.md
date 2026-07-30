@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.18](https://github.com/cgfeel/pbvm/compare/pbvm@v1.0.17...pbvm@v1.0.18) (2026-07-30)
+
+
+### Bug Fixes
+
+* remove add confirm and create add store only ([06f1548](https://github.com/cgfeel/pbvm/commit/06f1548dc8451dade8693ac0f30179f26b8b92d9))
+* remove add confirm and create add store only ([954a34f](https://github.com/cgfeel/pbvm/commit/954a34fe8b38e1046da1f0f0d9a60b01af7b6849))
+
 ## [1.0.17](https://github.com/cgfeel/pbvm/compare/pbvm@v1.0.16...pbvm@v1.0.17) (2026-07-30)
 
 
