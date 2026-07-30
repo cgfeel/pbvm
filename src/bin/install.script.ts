@@ -1,15 +1,22 @@
 import { detectBrowserPlatform, install } from '@puppeteer/browsers'
-import type { BrowserResultType } from '../types/index.js'
+import type { z } from 'zod'
+import { createBrowserSchema } from '../types/index.js'
 import { logger } from '../utils/logger.js'
 import { checkoutInStore, logCurrentList } from '../utils/manifest.js'
 import { baseInfo } from '../utils/paths.js'
 import { removeBrowser } from './remove.script.js'
 
-export async function installBrowser(ops: BrowserResultType) {
-  const { alias, browser, buildId } = ops
+const installBrowserSchema = createBrowserSchema.required({
+  alias: true,
+  browser: true,
+  buildId: true,
+})
+
+export async function installBrowser({ store, ...opts }: z.infer<typeof installBrowserSchema>) {
+  const { alias, browser, buildId } = opts
   const platform = detectBrowserPlatform()
 
-  const found = await checkoutInStore({ ...ops, platform: platform ?? '' })
+  const found = await checkoutInStore({ ...opts, platform: platform ?? '' })
   const name = platform ? `${platform}:${browser}@${buildId}` : `${browser}@${buildId}`
   let aliasName = alias
 
@@ -55,6 +62,11 @@ export async function installBrowser(ops: BrowserResultType) {
     }
 
     logger.success(`Installed success: ${name}`)
+  }
+
+  if (store) {
+    logger.newline()
+    return
   }
 
   const updateCurrent = await logCurrentList({ alias: aliasName, browser, buildId, platform })
