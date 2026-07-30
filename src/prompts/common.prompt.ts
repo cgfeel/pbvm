@@ -3,13 +3,18 @@ import { logger } from '../utils/logger.js'
 
 export function catchError(error: unknown) {
   if (error instanceof Error && error.name === 'ExitPromptError') {
-    logger.info('操作中断')
+    logger.info('Operation Interrupted.')
+    logger.newline()
     process.exit(0)
   }
 
   if (error instanceof Error) {
     logger.error(error.message)
+  } else {
+    logger.error(String(error))
   }
+
+  logger.newline()
   process.exit(1)
 }
 

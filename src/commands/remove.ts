@@ -13,7 +13,7 @@ export function registerRemoveCommand(program: Command) {
     .option('-p, --platform <platform>', "Platform's name.")
     .option('-b, --browser <browser>', "Browser's name")
     .option('-i, --build-id <buildId>', "Browser's buildId")
-    .option('-f, --force <force>', 'Simultaneously delete the browsers under the cache directory')
+    .option('-f, --focus', 'Simultaneously delete the browsers under the cache directory')
     .option('-s, --store', 'Only delete local store browser')
     .action(async function (opts: unknown) {
       const options = removeResultSchema.parse(opts)

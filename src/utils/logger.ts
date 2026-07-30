@@ -20,6 +20,8 @@ function getDisplayWidth(str: string): number {
 }
 
 const { bold, cyan, gray, green } = chalk
+
+export const projectDesc = 'Managing browser versions through @puppeteer/browsers'
 export const logger = {
   boot: (msg: string) => console.log(chalk.yellowBright(`🚀 ${msg}`)),
   error: (msg: string) => console.log(chalk.red(`❌ ${msg}`)),
@@ -54,7 +56,7 @@ ${chalk.green.bold('  ██████╔╝██████╔╝██║ 
 ${chalk.green.bold('  ██╔═══╝ ██╔══██╗╚██╗ ██╔╝██║╚██╔╝██║')}
 ${chalk.green.bold('  ██║     ██████╔╝ ╚████╔╝ ██║ ╚═╝ ██║')}
 ${chalk.green.bold('  ╚═╝     ╚═════╝   ╚═══╝  ╚═╝     ╚═╝')}
-${chalk.gray('  ─── PBVM · 浏览器版本管理工具  · 基于 Puppeteer Browsers ───')}
+${chalk.gray(projectDesc)}
 `
   console.log(text)
 }

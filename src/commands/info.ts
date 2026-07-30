@@ -7,13 +7,13 @@ import { infoBrowserSchema } from '../types/index.js'
 import { logger } from '../utils/logger.js'
 import { findBrowserList } from '../utils/manifest.js'
 
-// 所有允许通过 alisa 操作的命令，都用 target: {browser}@{buildId}，否则分开作为参数
+// 所有允许通过 alias 操作的命令，都用 target: {browser}@{buildId}，否则分开作为参数
 export function registerInfoCommand(program: Command) {
   program
     .command('info')
     .description('View locally stored browser information.')
     .option('-t, --target <target>', '{browser}@{buildId}')
-    .option('-r, --runtime', '{browser}@{buildId}')
+    .option('-r, --runtime', 'Get runtime information')
     .action(async function (opts: unknown) {
       const { runtime, target } = infoBrowserSchema.parse(opts)
       const selectItem = target ? await findBrowserList(target, { store: true }) : undefined

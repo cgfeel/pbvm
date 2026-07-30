@@ -57,10 +57,10 @@ export async function infoBrowser({ browser, buildId, platform, runtime }: InfoB
   // 目录会在调用过程中删除，这里不用做处理，暂且保留
   const profileDir = getTmpDir(browser, buildId)
   const extraArgs = getExtraArgs(browser, profileDir)
-  const getBrowserRuntim =
+  const getBrowserRuntime =
     browser === Browser.FIREFOX ? getFirefoxRuntimeInfo : getChromiumRuntimeInfo
 
-  const browserResult = await getBrowserRuntim({
+  const browserResult = await getBrowserRuntime({
     args: extraArgs,
     executablePath,
   })
