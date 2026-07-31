@@ -1,71 +1,69 @@
-import type {ReactNode} from 'react';
-import clsx from 'clsx';
-import Heading from '@theme/Heading';
-import styles from './styles.module.css';
+import type { ReactNode } from 'react'
+import styles from './styles.module.css'
 
 type FeatureItem = {
-  title: string;
-  Svg: React.ComponentType<React.ComponentProps<'svg'>>;
-  description: ReactNode;
-};
+  icon: string
+  title: string
+  description: string
+}
 
 const FeatureList: FeatureItem[] = [
   {
-    title: 'Easy to Use',
-    Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
-    description: (
-      <>
-        Docusaurus was designed from the ground up to be easily installed and
-        used to get your website up and running quickly.
-      </>
-    ),
+    icon: '🧭',
+    title: '多浏览器支持',
+    description:
+      '统一管理 Chrome、Chromium、Firefox 多个版本，通过简单别名切换，无需记住复杂的 buildId。',
   },
   {
-    title: 'Focus on What Matters',
-    Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
-    description: (
-      <>
-        Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go
-        ahead and move your docs into the <code>docs</code> directory.
-      </>
-    ),
+    icon: '📦',
+    title: '项目级清单',
+    description:
+      '每个项目通过 browserlist.json 声明所需浏览器，团队成员和 CI 环境一键同步，确保一致性。',
   },
   {
-    title: 'Powered by React',
-    Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
-    description: (
-      <>
-        Extend or customize your website layout by reusing React. Docusaurus can
-        be extended while reusing the same header and footer.
-      </>
-    ),
+    icon: '🔒',
+    title: 'Profile 隔离',
+    description:
+      '每个浏览器实例拥有独立的 profile 目录，cookies、偏好设置互不干扰，测试场景完全隔离。',
   },
-];
+  {
+    icon: '⚡',
+    title: '即装即用',
+    description:
+      '一条命令完成下载、安装、别名设置，启动浏览器时自动配置，禁用更新和干扰弹窗，开箱即用。',
+  },
+  {
+    icon: '🌐',
+    title: '跨平台',
+    description:
+      '支持 macOS、Linux、Windows，自动检测平台并匹配对应的浏览器二进制文件。',
+  },
+  {
+    icon: '🛠️',
+    title: '开发友好',
+    description:
+      '提供 JavaScript API 供程序化调用，支持 search 命令查询远程资源可用性，适合自动化流水线。',
+  },
+]
 
-function Feature({title, Svg, description}: FeatureItem) {
+function Feature({ icon, title, description }: FeatureItem) {
   return (
-    <div className={clsx('col col--4')}>
-      <div className="text--center">
-        <Svg className={styles.featureSvg} role="img" />
-      </div>
-      <div className="text--center padding-horiz--md">
-        <Heading as="h3">{title}</Heading>
-        <p>{description}</p>
-      </div>
+    <div className={styles.card}>
+      <div className={styles.icon}>{icon}</div>
+      <h3 className={styles.title}>{title}</h3>
+      <p className={styles.desc}>{description}</p>
     </div>
-  );
+  )
 }
 
 export default function HomepageFeatures(): ReactNode {
   return (
     <section className={styles.features}>
-      <div className="container">
-        <div className="row">
-          {FeatureList.map((props, idx) => (
-            <Feature key={idx} {...props} />
-          ))}
-        </div>
+      <div className={styles.grid}>
+        {FeatureList.map((props, idx) => (
+          <Feature key={idx} {...props} />
+        ))}
       </div>
     </section>
-  );
+  )
 }

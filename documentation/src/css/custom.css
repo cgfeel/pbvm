@@ -1,30 +1,41 @@
 /**
- * Any CSS included here will be global. The classic template
- * bundles Infima by default. Infima is a CSS framework designed to
- * work well for content-centric websites.
+ * pbvm — Clean theme
  */
 
-/* You can override the default Infima variables here. */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
 :root {
-  --ifm-color-primary: #2e8555;
-  --ifm-color-primary-dark: #29784c;
-  --ifm-color-primary-darker: #277148;
-  --ifm-color-primary-darkest: #205d3b;
-  --ifm-color-primary-light: #33925d;
-  --ifm-color-primary-lighter: #359962;
-  --ifm-color-primary-lightest: #3cad6e;
+  --ifm-font-family-base: 'Inter', system-ui, -apple-system, sans-serif;
+  --ifm-heading-font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  --ifm-color-primary: #1a1a1a;
+  --ifm-color-primary-dark: #000;
+  --ifm-color-primary-darker: #000;
+  --ifm-color-primary-darkest: #000;
+  --ifm-color-primary-light: #333;
+  --ifm-color-primary-lighter: #555;
+  --ifm-color-primary-lightest: #777;
   --ifm-code-font-size: 95%;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.06);
+  --ifm-navbar-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.08);
+  --ifm-global-radius: 0.5rem;
+  --ifm-background-color: #fff;
 }
 
-/* For readability concerns, you should choose a lighter palette in dark mode. */
 [data-theme='dark'] {
-  --ifm-color-primary: #25c2a0;
-  --ifm-color-primary-dark: #21af90;
-  --ifm-color-primary-darker: #1fa588;
-  --ifm-color-primary-darkest: #1a8870;
-  --ifm-color-primary-light: #29d5b0;
-  --ifm-color-primary-lighter: #32d8b4;
-  --ifm-color-primary-lightest: #4fddbf;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+  --ifm-color-primary: #f0f0f0;
+  --ifm-color-primary-dark: #ddd;
+  --ifm-color-primary-darker: #ccc;
+  --ifm-color-primary-darkest: #aaa;
+  --ifm-color-primary-light: #fff;
+  --ifm-color-primary-lighter: #fff;
+  --ifm-color-primary-lightest: #fff;
+  --ifm-background-color: #0a0a0a;
+  --ifm-background-surface-color: #111;
+  --ifm-navbar-background-color: #0a0a0a;
+  --ifm-footer-background-color: #0a0a0a;
+  --docusaurus-highlighted-code-line-bg: rgba(255, 255, 255, 0.06);
+}
+
+html {
+  scroll-behavior: smooth;
 }

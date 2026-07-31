@@ -1,0 +1,54 @@
+---
+sidebar_position: 8
+---
+
+# remove
+
+删除浏览器。可从 `browserlist.json` 移除记录，或从全局 Store 删除二进制文件，或两者同时删除。
+
+## 用法
+
+```bash
+pbvm remove [-p <platform>] [-b <browser>] [-i <buildId>] [-f] [-s]
+```
+
+## 选项
+
+| 选项 | 简写 | 说明 |
+|------|------|------|
+| `--platform` | `-p` | 目标平台 |
+| `--browser` | `-b` | 浏览器名称 |
+| `--build-id` | `-i` | 浏览器版本号 |
+| `--focus` | `-f` | 同时删除 Store 缓存中的二进制文件和 profile 目录 |
+| `--store` | `-s` | 仅删除 Store 缓存中的二进制文件 |
+
+## 删除范围
+
+| 模式 | 参数 | 删除 browserlist 记录 | 删除 Store 二进制 | 删除 profile 目录 |
+|------|------|:---:|:---:|:---:|
+| 默认 | 无 `-f` 无 `-s` | ✅ | ❌ | ❌ |
+| focus 模式 | `-f` | ✅ | ✅ | ✅ |
+| store 模式 | `-s` | ❌ | ✅ | ❌ |
+
+## 示例
+
+```bash
+# 仅从 browserlist.json 中移除记录
+pbvm remove -b chrome -i 134.0.6998.35
+
+# 同时删除 Store 中的二进制文件和 profile
+pbvm remove -b chrome -i 134.0.6998.35 -f
+
+# 仅删除 Store 中的二进制文件
+pbvm remove -b chrome -i 134.0.6998.35 -s
+
+# 交互模式
+pbvm remove
+```
+
+## 注意事项
+
+- 删除前请**确保浏览器已关闭**，否则可能删除失败
+- 删除操作会要求二次确认，防止误操作
+- 默认模式下，如果未使用 `-f` 或 `-s`，会询问是否也要删除 Store 缓存
+- `remove` 不支持通过别名定位浏览器，必须使用 `browser@buildId`
