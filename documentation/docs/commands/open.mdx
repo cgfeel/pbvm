@@ -1,0 +1,64 @@
+---
+sidebar_position: 3
+---
+
+# open
+
+打开指定的浏览器。支持别名或 `browser@buildId` 方式定位浏览器，可配置初始访问地址。
+
+## 用法
+
+```bash
+pbvm open [-t <target>] [-u <url>]
+```
+
+## 选项
+
+| 选项 | 简写 | 说明 |
+|------|------|------|
+| `--target` | `-t` | 浏览器标识：`{browser}@{buildId}` 或 `{alias}` |
+| `--url` | `-u` | 打开浏览器后访问的 URL |
+
+## 工作原理
+
+1. 根据 `-t` 参数在 `browserlist.json` 中查找匹配的浏览器
+2. 如果 Store 中尚未安装，自动触发下载安装
+3. 启动浏览器并关闭更新检查、首次运行向导等干扰项
+4. 如果指定了 `-u`，在浏览器启动时访问该 URL
+
+### Firefox 特殊处理
+
+对于 Firefox，打开前会自动配置：
+- `user.js`：禁用自动更新、默认浏览器检查
+- `policies.json`：通过企业策略硬阻断更新、遥测
+
+### Chromium/Chrome 特殊处理
+
+通过启动参数禁用：
+- 自动更新
+- 首次运行向导
+- 默认浏览器检查
+
+若安装了 `chromium-bidi`，Chrome 系列会自动启用 BiDi 协议支持。
+
+## 示例
+
+```bash
+# 通过别名打开
+pbvm open -t my-chrome
+
+# 通过 browser@buildId 打开
+pbvm open -t chrome@134.0.6998.35
+
+# 打开并访问指定 URL
+pbvm open -t my-chrome -u https://example.com
+
+# 缺少参数时进入交互选择
+pbvm open
+```
+
+## 注意事项
+
+- 浏览器以 **detached** 模式启动，关闭终端不影响浏览器运行
+- 每个浏览器实例使用独立的 profile 目录（`~/.local/share/pbvm/profiles/`），互不干扰
+- 不支持同时打开同一个浏览器版本（profile 目录会冲突），如需多个实例请安装同一浏览器的不同版本

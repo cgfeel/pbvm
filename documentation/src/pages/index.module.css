@@ -1,23 +1,431 @@
-/**
- * CSS files with the .module.css suffix will be treated as CSS modules
- * and scoped locally.
- */
+/* ── Hero ─────────────────────────────────────────────── */
 
-.heroBanner {
-  padding: 4rem 0;
-  text-align: center;
+.hero {
   position: relative;
+  padding: 5rem 0;
   overflow: hidden;
+  background: #fff;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 }
 
-@media screen and (max-width: 996px) {
-  .heroBanner {
-    padding: 2rem;
-  }
+[data-theme='dark'] .hero {
+  background: #080808;
+  border-bottom-color: rgba(255, 255, 255, 0.08);
 }
 
-.buttons {
+.heroContainer {
+  position: relative;
+  z-index: 1;
   display: flex;
   align-items: center;
+  gap: 3rem;
+}
+
+.heroLeft {
+  flex: 1 1 50%;
+  min-width: 0;
+}
+
+.heroRight {
+  flex: 0 0 460px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 1rem;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  color: #666;
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+}
+
+[data-theme='dark'] .badge {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: #999;
+}
+
+.badgeDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #22c55e;
+}
+
+.heroTitle {
+  font-size: 3.25rem;
+  font-weight: 800;
+  color: #000;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin-bottom: 1rem;
+}
+
+[data-theme='dark'] .heroTitle {
+  color: #fff;
+}
+
+.heroGradient {
+  color: #666;
+}
+
+[data-theme='dark'] .heroGradient {
+  color: #999;
+}
+
+.heroSubtitle {
+  font-size: 1.15rem;
+  color: #666;
+  max-width: 480px;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+[data-theme='dark'] .heroSubtitle {
+  color: #999;
+}
+
+.heroActions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.btnPrimary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 2rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  background: #000;
+  color: #fff;
+  transition: all 0.15s;
+}
+
+.btnPrimary:hover {
+  background: #333;
+  text-decoration: none;
+  color: #fff;
+}
+
+[data-theme='dark'] .btnPrimary {
+  background: #fff;
+  color: #000;
+}
+
+[data-theme='dark'] .btnPrimary:hover {
+  background: #ddd;
+  color: #000;
+}
+
+.btnGhost {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 2rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  text-decoration: none;
+  background: transparent;
+  color: #333;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  transition: all 0.15s;
+}
+
+.btnGhost:hover {
+  background: rgba(0, 0, 0, 0.05);
+  text-decoration: none;
+  color: #000;
+}
+
+[data-theme='dark'] .btnGhost {
+  color: #ccc;
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+[data-theme='dark'] .btnGhost:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+}
+
+/* ── Terminal ─────────────────────────────────────────── */
+
+.terminal {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.08),
+    0 20px 60px -20px rgba(0, 0, 0, 0.15);
+  background: #1a1a1a;
+}
+
+[data-theme='dark'] .terminal {
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.08),
+    0 20px 60px -20px rgba(0, 0, 0, 0.5);
+  background: #111;
+}
+
+.terminalBar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0.75rem 1rem;
+  background: rgba(255, 255, 255, 0.04);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.terminalDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.terminalDot:nth-child(1) { background: #ff5f56; }
+.terminalDot:nth-child(2) { background: #ffbd2e; }
+.terminalDot:nth-child(3) { background: #27c93f; }
+
+.terminalTitle {
+  margin-left: 0.5rem;
+  color: rgba(255, 255, 255, 0.35);
+  font-size: 0.75rem;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+}
+
+.terminalBody {
+  padding: 1.25rem 1.5rem;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-size: 0.85rem;
+  line-height: 1.7;
+  overflow-x: auto;
+}
+
+.terminalPrompt {
+  color: #999;
+}
+
+.terminalCmd {
+  color: #e2e8f0;
+}
+
+.terminalOut {
+  color: #888;
+}
+
+.terminalComment {
+  color: #555;
+}
+
+/* ── Install Bar ──────────────────────────────────────── */
+
+.installBar {
+  margin-top: 1rem;
+  width: 100%;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  background: #1a1a1a;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+[data-theme='dark'] .installBar {
+  background: #111;
+  border-color: rgba(255, 255, 255, 0.06);
+}
+
+.installTabs {
+  display: flex;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.installTab {
+  flex: 1;
+  padding: 0.5rem 1rem;
+  border: none;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.8rem;
+  font-weight: 500;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  cursor: pointer;
+  transition: all 0.15s;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.installTab:hover {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.installTabActive {
+  color: #fff;
+  box-shadow: inset 0 -2px 0 #fff;
+}
+
+.installCmd {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+}
+
+.installCode {
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-size: 0.85rem;
+  color: #e2e8f0;
+  white-space: nowrap;
+  overflow-x: auto;
+}
+
+.copyBtn {
+  flex-shrink: 0;
+  padding: 0.3rem 0.6rem;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 0.375rem;
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.copyBtn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
+
+/* ── Section Labels ───────────────────────────────────── */
+
+.sectionLabel {
+  text-align: center;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #999;
+  margin-bottom: 0.75rem;
+}
+
+.sectionTitle {
+  text-align: center;
+  font-size: 2.25rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 1rem;
+}
+
+.sectionSub {
+  text-align: center;
+  font-size: 1.1rem;
+  color: #888;
+  margin-bottom: 3rem;
+}
+
+/* ── Quick Start ──────────────────────────────────────── */
+
+.quickstart {
+  padding: 5rem 0;
+}
+
+.codeCard {
+  max-width: 640px;
+  margin: 0 auto;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08), 0 4px 24px rgba(0, 0, 0, 0.06);
+}
+
+[data-theme='dark'] .codeCard {
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08), 0 4px 24px rgba(0, 0, 0, 0.3);
+}
+
+.codeCard pre {
+  margin: 0;
+  border-radius: 0;
+}
+
+/* ── CTA ──────────────────────────────────────────────── */
+
+.cta {
+  padding: 5rem 0;
+  text-align: center;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+[data-theme='dark'] .cta {
+  border-top-color: rgba(255, 255, 255, 0.08);
+}
+
+.ctaTitle {
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.75rem;
+}
+
+.ctaSub {
+  font-size: 1.1rem;
+  color: #888;
+  margin-bottom: 2rem;
+}
+
+/* ── Responsive ───────────────────────────────────────── */
+
+@media screen and (max-width: 996px) {
+  .hero {
+    padding: 3rem 0;
+  }
+
+  .heroContainer {
+    flex-direction: column;
+    gap: 2.5rem;
+    text-align: center;
+  }
+
+  .heroLeft {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .heroRight {
+    flex: 1 1 auto;
+    width: 100%;
+    max-width: 480px;
+  }
+
+  .heroTitle {
+    font-size: 2.25rem;
+  }
+
+  .heroSubtitle {
+    font-size: 1.05rem;
+  }
+
+  .heroActions {
+    justify-content: center;
+  }
+
+  .sectionTitle {
+    font-size: 1.75rem;
+  }
 }
