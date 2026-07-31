@@ -16,7 +16,7 @@ const rootPkg = JSON.parse(
 const config: Config = {
   title: rootPkg?.name ?? 'pbvm',
   tagline: rootPkg?.description ?? 'pbvm documentation',
-  favicon: 'img/favicon.ico',
+  favicon: 'img/favicon.svg',
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
   future: {
