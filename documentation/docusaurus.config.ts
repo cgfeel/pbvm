@@ -34,6 +34,8 @@ const config: Config = {
   organizationName: 'cgfeel', // Usually your GitHub org/user name.
   projectName: 'pbvm', // Usually your repo name.
 
+  plugins: ['./plugins/tailwind-plugin.ts'],
+
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
 

@@ -2,9 +2,38 @@
  * pbvm — Clean theme
  */
 
+@layer theme, base, components, utilities;
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
+/* Tailwind v4 — 层导入，无 preflight(base) 避免重置 Infima */
+
+/* Infima 变量映射为 Tailwind token，暗色模式自动跟随 */
+@theme inline {
+  --color-brand: var(--ifm-color-primary);
+  --color-brand-dark: var(--ifm-color-primary-dark);
+  --color-brand-light: var(--ifm-color-primary-light);
+  --color-surface: var(--ifm-background-color);
+  --color-surface-raised: var(--ifm-background-surface-color);
+  --color-navbar: var(--ifm-navbar-background-color);
+  --color-footer: var(--ifm-footer-background-color);
+}
+
+@import 'tailwindcss/theme.css' layer(theme);
+@import 'tailwindcss/utilities.css' layer(utilities);
+
+/* 暗色模式对齐 Docusaurus 的 data-theme 切换 */
+@custom-variant dark (&:is([data-theme="dark"] *));
+
+/* Tailwind v4 — 扫描 src 下所有组件 */
+@source "../";
+
+@theme {
+  --font-code: 'SF Mono', 'Fira Code', Menlo, Consolas, monospace;
+}
+
 :root {
+  --ifm-navbar-link-hover-color: #000;
   --ifm-font-family-base: 'Inter', system-ui, -apple-system, sans-serif;
   --ifm-heading-font-family: 'Inter', system-ui, -apple-system, sans-serif;
   --ifm-color-primary: #1a1a1a;
@@ -19,9 +48,13 @@
   --ifm-navbar-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.08);
   --ifm-global-radius: 0.5rem;
   --ifm-background-color: #fff;
+
+  /* 通用变量 */
+  --max-width: 960;
 }
 
 [data-theme='dark'] {
+  --ifm-navbar-link-hover-color: #fff;
   --ifm-color-primary: #f0f0f0;
   --ifm-color-primary-dark: #ddd;
   --ifm-color-primary-darker: #ccc;
@@ -29,13 +62,79 @@
   --ifm-color-primary-light: #fff;
   --ifm-color-primary-lighter: #fff;
   --ifm-color-primary-lightest: #fff;
-  --ifm-background-color: #0a0a0a;
+  --ifm-background-color: #0a0e17ff;
   --ifm-background-surface-color: #111;
-  --ifm-navbar-background-color: #0a0a0a;
-  --ifm-footer-background-color: #0a0a0a;
+  --ifm-navbar-background-color: #0a0e17ff;
+  --ifm-footer-background-color: #0a0e17ff;
   --docusaurus-highlighted-code-line-bg: rgba(255, 255, 255, 0.06);
 }
 
 html {
   scroll-behavior: smooth;
+}
+
+.bg-transparent {
+  --ifm-code-background: transparent;
+}
+
+.my-0 {
+  --ifm-heading-margin-bottom: 0;
+  --ifm-heading-margin-top: 0;
+}
+
+.mb-8 {
+  --ifm-paragraph-margin-bottom: calc(var(--spacing) * 8);
+}
+
+.no-underline {
+  --ifm-link-hover-decoration: 'none';
+}
+
+.text-6xl,
+.text-5xl {
+  --ifm-h1-font-size: var(--text-6xl);
+  --ifm-heading-line-height: 1.15;
+  --ifm-heading-font-weight: 800;
+}
+
+.text-5xl {
+  --ifm-h2-font-size: var(--text-5xl);
+}
+
+.text-black {
+  --ifm-heading-color: var(--color-black);
+}
+
+.text-neutral-500 {
+  --ifm-heading-color: var(--color-neutral-500);
+}
+
+.text-sm {
+  --ifm-code-font-size: var(--text-sm);
+}
+
+.text-white {
+  --ifm-link-color: var(--color-white);
+}
+
+.dark\:text-white:is([data-theme='dark'] *) {
+  --ifm-heading-color: var(--color-white);
+}
+
+.dark\:text-neutral-400:is([data-theme='dark'] *) {
+  --ifm-heading-color: var(--color-neutral-400);
+}
+
+.dark\:text-black:is([data-theme='dark'] *) {
+  --ifm-link-color: var(--color-black);
+}
+
+@media (hover: hover) {
+  .text-white:hover {
+    --ifm-link-hover-color: var(--color-white);
+  }
+
+  .hover\:bg-neutral-800:is([data-theme='dark'] *):hover {
+    --ifm-link-hover-color: var(--color-neutral-800);
+  }
 }
