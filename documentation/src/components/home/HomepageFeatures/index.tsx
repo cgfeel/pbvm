@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import styles from './styles.module.css'
+import styles from './style.module.css'
 
 type FeatureItem = {
   icon: string
@@ -35,8 +35,7 @@ const FeatureList: FeatureItem[] = [
   {
     icon: '🌐',
     title: '跨平台',
-    description:
-      '支持 macOS、Linux、Windows，自动检测平台并匹配对应的浏览器二进制文件。',
+    description: '支持 macOS、Linux、Windows，自动检测平台并匹配对应的浏览器二进制文件。',
   },
   {
     icon: '🛠️',

@@ -6,7 +6,7 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem;
-  max-width: 960px;
+  max-width: calc(var(--max-width) * 1px);
   margin: 0 auto;
   padding: 0 1rem;
 }
@@ -16,7 +16,9 @@
   border-radius: 0.75rem;
   border: 1px solid rgba(0, 0, 0, 0.08);
   background: #fafafa;
-  transition: border-color 0.15s, box-shadow 0.15s;
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s;
 }
 
 .card:hover {
