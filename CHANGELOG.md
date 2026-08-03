@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.25](https://github.com/cgfeel/pbvm/compare/pbvm@v1.0.24...pbvm@v1.0.25) (2026-08-03)
+
+
+### Bug Fixes
+
+* update readme ([c1903bd](https://github.com/cgfeel/pbvm/commit/c1903bdcaa5e67820e2f634f6de0d3018357b767))
+* update readme add icon ([076ac76](https://github.com/cgfeel/pbvm/commit/076ac76c4c2521c31c1122d3dd701742ce4b7d89))
+
 ## [1.0.24](https://github.com/cgfeel/pbvm/compare/pbvm@v1.0.23...pbvm@v1.0.24) (2026-08-03)
 
 
