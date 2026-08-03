@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.24](https://github.com/cgfeel/pbvm/compare/pbvm@v1.0.23...pbvm@v1.0.24) (2026-08-03)
+
+
+### Bug Fixes
+
+* update a to link ([1101af8](https://github.com/cgfeel/pbvm/commit/1101af84ae653b9f40eddbd8783acf8f57029e59))
+* update a to link ([94f3aed](https://github.com/cgfeel/pbvm/commit/94f3aed5b0cc6bf3c2a1a4490a66ec9eeee771a5))
+
 ## [1.0.23](https://github.com/cgfeel/pbvm/compare/pbvm@v1.0.22...pbvm@v1.0.23) (2026-07-31)
 
 
