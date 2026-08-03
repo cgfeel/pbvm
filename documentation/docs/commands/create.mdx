@@ -14,20 +14,20 @@ pbvm create [-b <browser>] [-i <buildId>] [-a <alias>] [-s]
 
 ## 选项
 
-| 选项 | 简写 | 说明 |
-|------|------|------|
-| `--browser` | `-b` | 浏览器名称：`chrome`、`chromium`、`firefox` |
-| `--build-id` | `-i` | 浏览器版本号，格式因浏览器而异 |
-| `--alias` | `-a` | 浏览器别名，用于简化后续操作 |
-| `--store` | `-s` | 仅下载到全局 Store，不写入 `browserlist.json` |
+| 选项         | 简写 | 说明                                          |
+| ------------ | ---- | --------------------------------------------- |
+| `--browser`  | `-b` | 浏览器名称：`chrome`、`chromium`、`firefox`   |
+| `--build-id` | `-i` | 浏览器版本号，格式因浏览器而异                |
+| `--alias`    | `-a` | 浏览器别名，用于简化后续操作                  |
+| `--store`    | `-s` | 仅下载到全局 Store，不写入 `browserlist.json` |
 
 ## buildId 格式
 
-| 浏览器      | buildId 格式            | 示例                          |
-|-------------|------------------------|-------------------------------|
-| chrome      | `x.x.x.x`（四段版本号）  | `134.0.6998.35`               |
-| chromium    | 纯数字 revision 号       | `1435764`                     |
-| firefox     | `channel_version`       | `stable_136.0.0`              |
+| 浏览器   | buildId 格式            | 示例             |
+| -------- | ----------------------- | ---------------- |
+| chrome   | `x.x.x.x`（四段版本号） | `134.0.6998.35`  |
+| chromium | 纯数字 revision 号      | `1435764`        |
+| firefox  | `channel_version`       | `stable_136.0.0` |
 
 ## 示例
 
@@ -40,6 +40,7 @@ pbvm create
 ```
 
 交互流程：
+
 1. 选择浏览器类型（chrome / chromium / firefox）
 2. 输入对应的 buildId
 3. 输入别名（可选，留空则自动生成）

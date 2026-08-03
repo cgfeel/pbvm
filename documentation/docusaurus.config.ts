@@ -35,9 +35,13 @@ const config: Config = {
   projectName: 'pbvm', // Usually your repo name.
 
   plugins: ['./plugins/tailwind-plugin.ts'],
+  themes: ['@docusaurus/theme-mermaid'],
 
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
+  markdown: {
+    mermaid: true,
+  },
 
   // Even if you don't use internationalization, you can use this field to set
   // useful metadata like html lang. For example, if your site is Chinese, you
@@ -105,21 +109,22 @@ const config: Config = {
           href: 'https://github.com/cgfeel/pbvm',
           label: 'GitHub',
           position: 'right',
+          className: 'navbar-github-link',
         },
       ],
     },
     footer: {
       // style: 'dark',
       links: [
-        {
-          title: 'Docs',
-          items: [
-            {
-              label: '文档',
-              to: '/',
-            },
-          ],
-        },
+        // {
+        //   title: 'Docs',
+        //   items: [
+        //     {
+        //       label: '文档',
+        //       to: '/',
+        //     },
+        //   ],
+        // },
         // {
         //   title: 'Community',
         //   items: [
@@ -137,19 +142,19 @@ const config: Config = {
         //     },
         //   ],
         // },
-        {
-          title: 'More',
-          items: [
-            // {
-            //   label: 'Blog',
-            //   to: '/blog',
-            // },
-            {
-              label: 'GitHub',
-              href: 'https://github.com/cgfeel/pbvm',
-            },
-          ],
-        },
+        // {
+        //   title: 'More',
+        //   items: [
+        //     // {
+        //     //   label: 'Blog',
+        //     //   to: '/blog',
+        //     // },
+        //     {
+        //       label: 'GitHub',
+        //       href: 'https://github.com/cgfeel/pbvm',
+        //     },
+        //   ],
+        // },
       ],
       copyright: `Copyright © ${new Date().getFullYear()} pbvm. Built with Docusaurus.`,
     },

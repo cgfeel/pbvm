@@ -1,3 +1,6 @@
+export const objectEntries = <T extends object, K = keyof T>(obj: T) =>
+  Object.entries(obj) as Array<[K, T[keyof T]]>
+
 export type PickVariants<T, K extends keyof GetVariants<T>> = [K] extends [never]
   ? never
   : {

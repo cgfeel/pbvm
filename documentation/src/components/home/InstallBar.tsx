@@ -1,10 +1,12 @@
 import { copyText } from '@site/src/utils/copyText'
 import { useRef, useState, type FC } from 'react'
 import { tv } from 'tailwind-variants'
+import { Card } from '../card'
 
 const PKG_MANAGERS = [
   { key: 'npm', label: 'npm', cmd: 'npm install -g pbvm-cli' },
   { key: 'pnpm', label: 'pnpm', cmd: 'pnpm add -g pbvm-cli' },
+  { key: 'npx', label: 'npx', cmd: 'npx pbvm-cli create' },
 ] as const
 
 const style = tv({
@@ -14,7 +16,7 @@ const style = tv({
     code: 'text-sm text-[#e2e8f0] whitespace-nowrap overflow-x-auto bg-transparent',
     item: 'flex-1 py-2 px-4 border-0 bg-transparent text-white/40 font-medium uppercase tracking-[0.04em] hover:text-white/70',
     tabs: 'flex border-b',
-    wrap: 'mt-4 w-full rounded-xl overflow-hidden bg-[#1a1a1a] border dark:bg-[#111] dark:border-white/6',
+    wrap: 'mt-4',
   },
   variants: {
     active: {
@@ -47,7 +49,7 @@ const InstallBar: FC = () => {
   const [copied, setCopied] = useState(false)
 
   return (
-    <div className={wrap()}>
+    <Card className={wrap()}>
       <div className={tabs()}>
         {PKG_MANAGERS.map((pkg, i) => (
           <button
@@ -79,7 +81,7 @@ const InstallBar: FC = () => {
           {copied ? '✓ Copied' : 'Copy'}
         </button>
       </div>
-    </div>
+    </Card>
   )
 }
 

@@ -1,35 +1,48 @@
-import Link from '@docusaurus/Link'
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
-// import BrowserFeatures from '@site/src/components/home/BrowserFeatures'
+import BrowserFeatures from '@site/src/components/home/BrowserFeatures'
 import Header from '@site/src/components/home/Header'
-import HomepageFeatures from '@site/src/components/home/HomepageFeatures'
 import InstallBar from '@site/src/components/home/InstallBar'
-import CodeBlock from '@theme/CodeBlock'
 import Layout from '@theme/Layout'
 import type { ReactNode } from 'react'
+import ChromeIcon from '../../static/img/chrome-browser.svg'
+import ChromiumIcon from '../../static/img/chromium-browser.svg'
+import FirefoxIcon from '../../static/img/firefox-browser.svg'
+import WhiteCard from '../components/card/WhiteCard'
+import BottomStart from '../components/home/BottomStart'
+import BrowserCard from '../components/home/BrowserCard'
+import BuildTools from '../components/home/BuildTools'
+import DevEnvironment from '../components/home/DevEnvironment'
+import { BuildScript, CreateScript } from '../components/home/Script'
+import System from '../components/home/System'
 import Terminal from '../components/home/Terminal'
-import styles from './index.module.css'
+import { objectEntries } from '../utils/fields'
 
-const INSTALL_CODE = `# npm
-npm install -g pbvm-cli
+const browserItems = Object.freeze({
+  chrome: <ChromeIcon />,
+  chromium: <ChromiumIcon />,
+  firefox: <FirefoxIcon />,
+})
 
-# pnpm
-pnpm add -g pbvm-cli`
+const chromeTags = [
+  { alias: 'mobile-test', version: '114.0.5734.0', active: true },
+  { alias: 'bug-repro', version: '130.0.6723.116' },
+] as const
 
-const QUICKSTART_CODE = `# 安装 Chrome 并设置别名
-pbvm create -b chrome -i 134.0.6998.35 -a prod
+const chromiumTags = [
+  { alias: 'old-device', version: '998119' },
+  { alias: 'automatization', version: '121231', active: true },
+  { alias: 'compatibility-test', version: '1012729' },
+] as const
 
-# 查看已安装的浏览器
-pbvm ls
+const firefoxTags = [
+  { alias: 'style-consistency', version: 'firefox@stable_129.0.2', active: true },
+] as const
 
-# 以别名打开浏览器
-pbvm open -t prod
-
-# 查看浏览器详细信息（含运行时）
-pbvm info -t prod -r
-
-# 查询远程是否有可用版本
-pbvm search -b firefox -i stable_136.0.0`
+const browserTags = Object.freeze({
+  chrome: chromeTags,
+  chromium: chromiumTags,
+  firefox: firefoxTags,
+})
 
 export default function Home(): ReactNode {
   const { siteConfig } = useDocusaurusContext()
@@ -43,41 +56,31 @@ export default function Home(): ReactNode {
         <InstallBar />
       </Header>
 
-      {/* <BrowserFeatures /> */}
+      <BrowserFeatures>
+        {objectEntries(browserItems).map(([name, val]) => (
+          <WhiteCard key={name}>
+            <BrowserCard
+              logo={val}
+              name={name}
+              tags={name in browserTags ? browserTags[name] : []}
+            />
+          </WhiteCard>
+        ))}
+      </BrowserFeatures>
 
-      <HomepageFeatures />
+      <System />
 
-      <section className={styles.quickstart}>
-        <div className="container">
-          <p className={styles.sectionLabel}>Quick Start</p>
-          <h2 className={styles.sectionTitle}>三分钟上手</h2>
-          <p className={styles.sectionSub}>安装 pbvm，下载你的第一个浏览器</p>
+      <DevEnvironment />
 
-          <div style={{ maxWidth: 640, margin: '0 auto 2rem' }}>
-            <p style={{ fontWeight: 600, marginBottom: '0.5rem' }}>安装</p>
-            <div className={styles.codeCard}>
-              <CodeBlock language="bash">{INSTALL_CODE}</CodeBlock>
-            </div>
-          </div>
+      <BuildTools subTitle="保障开发、构建与测试环境的一致性" title="可无缝集成到构建工具链中">
+        <BuildScript />
+      </BuildTools>
 
-          <div style={{ maxWidth: 640, margin: '0 auto' }}>
-            <p style={{ fontWeight: 600, marginBottom: '0.5rem' }}>常用命令</p>
-            <div className={styles.codeCard}>
-              <CodeBlock language="bash">{QUICKSTART_CODE}</CodeBlock>
-            </div>
-          </div>
-        </div>
-      </section>
+      <BuildTools subTitle="安装 pbvm，下载你的第一个浏览器" title="三分钟上手">
+        <CreateScript />
+      </BuildTools>
 
-      <section className={styles.cta}>
-        <div className="container">
-          <h2 className={styles.ctaTitle}>准备好开始了吗？</h2>
-          <p className={styles.ctaSub}>安装 pbvm，享受流畅的浏览器版本管理体验。</p>
-          <Link className={styles.btnPrimary} to="/intro">
-            阅读文档 →
-          </Link>
-        </div>
-      </section>
+      <BottomStart />
     </Layout>
   )
 }
