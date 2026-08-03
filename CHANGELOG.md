@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.26](https://github.com/cgfeel/pbvm/compare/pbvm@v1.0.25...pbvm@v1.0.26) (2026-08-03)
+
+
+### Bug Fixes
+
+* up ca test ([850c632](https://github.com/cgfeel/pbvm/commit/850c6322ef42526dfc65134efc356617c99bff2e))
+* up ca test ([049f6fe](https://github.com/cgfeel/pbvm/commit/049f6fe37f4093edf7cffd70cd91256ad9270dde))
+
 ## [1.0.25](https://github.com/cgfeel/pbvm/compare/pbvm@v1.0.24...pbvm@v1.0.25) (2026-08-03)
 
 
