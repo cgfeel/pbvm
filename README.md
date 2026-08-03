@@ -1,13 +1,6 @@
 # pbvm
 
-```
-  ██████╗ ██████╗ ██╗   ██╗███╗   ███╗
-  ██╔══██╗██╔══██╗██║   ██║████╗ ████║
-  ██████╔╝██████╔╝██║   ██║██╔████╔██║
-  ██╔═══╝ ██╔══██╗╚██╗ ██╔╝██║╚██╔╝██║
-  ██║     ██████╔╝ ╚████╔╝ ██║ ╚═╝ ██║
-  ╚═╝     ╚═════╝   ╚═══╝  ╚═╝     ╚═╝
-```
+<img src="https://raw.githubusercontent.com/cgfeel/pbvm/refs/heads/feature/bin-dev/documentation/static/img/logo.svg" alt="Logo" width="180" style="float: right;"> 
 
 基于 `@puppeteer/browsers` 的浏览器版本管理器，统一管理 Chrome、Chromium、Firefox 的多个版本。
 
@@ -123,5 +116,14 @@ await launchBrowser({ target: 'chrome@130.0.6723.116' })
 ```
 
 ## License
+
+```
+  ██████╗ ██████╗ ██╗   ██╗███╗   ███╗
+  ██╔══██╗██╔══██╗██║   ██║████╗ ████║
+  ██████╔╝██████╔╝██║   ██║██╔████╔██║
+  ██╔═══╝ ██╔══██╗╚██╗ ██╔╝██║╚██╔╝██║
+  ██║     ██████╔╝ ╚████╔╝ ██║ ╚═╝ ██║
+  ╚═╝     ╚═════╝   ╚═══╝  ╚═╝     ╚═╝
+```
 
 MIT © [cgfeel](https://github.com/cgfeel)
