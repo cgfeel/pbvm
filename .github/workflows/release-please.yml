@@ -9,10 +9,12 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
+
     outputs:
       release_created: ${{ steps.release.outputs.release_created }}
       tag_name: ${{ steps.release.outputs.tag_name }}
       version: ${{ steps.release.outputs.version }}
+
     steps:
       - name: Run Release Please
         id: release
@@ -21,18 +23,13 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           config-file: release-please-config.json
           manifest-file: .release-please-manifest.json
+
       - name: Debug outputs
         run: |
-          echo "===== Release Please Outputs ====="
-          cat <<'EOF'
-          ${{ toJson(steps.release.outputs) }}
-          EOF
-      - name: Print important outputs
-        run: |
           echo "release_created=${{ steps.release.outputs.release_created }}"
-          echo "releases_created=${{ steps.release.outputs.releases_created }}"
           echo "tag_name=${{ steps.release.outputs.tag_name }}"
           echo "version=${{ steps.release.outputs.version }}"
+
   publish:
     needs: release-please
     if: needs.release-please.outputs.release_created == 'true'
@@ -40,20 +37,49 @@ jobs:
     permissions:
       contents: read
       id-token: write
+
     steps:
-      - name: Checkout
+      - name: Checkout release tag
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ needs.release-please.outputs.tag_name }}
+
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: pnpm
           registry-url: https://registry.npmjs.org
+
+      # Trusted Publishing requires newer npm
+      - name: Update npm
+        run: npm install -g npm@latest
+
+      - name: Debug environment
+        run: |
+          echo "Node:"
+          node -v
+
+          echo "npm:"
+          npm -v
+
+          echo "pnpm:"
+          pnpm -v
+
+          echo "GitHub:"
+          echo "repository=${GITHUB_REPOSITORY}"
+          echo "workflow=${GITHUB_WORKFLOW}"
+          echo "ref=${GITHUB_REF}"
+
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+
       - name: Build
         run: pnpm build
+
       - name: Publish npm package
         run: pnpm publish --no-git-checks --provenance
