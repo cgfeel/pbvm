@@ -1,3 +1,4 @@
+import Link from '@docusaurus/Link'
 import { type FC } from 'react'
 import { tv } from 'tailwind-variants'
 import { cliOps, devOps, lockOps, stroeMD } from '../../utils/mermaidMD'
@@ -87,10 +88,10 @@ const DevEnvironment: FC<DevEnvironmentProps> = () => {
           {items.map(({ className, md, key, title, url }) => (
             <div className={item()} key={key}>
               <Card className={card()}>
-                <a className={link()} href={url}>
+                <Link className={link()} to={url}>
                   <Mermaid className={svg({ className })} value={md} />
                   <button className={buttonStyle({ className: btn() })}>查看详情</button>
-                </a>
+                </Link>
               </Card>
               <span>{title}</span>
             </div>
