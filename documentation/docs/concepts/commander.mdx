@@ -1,0 +1,54 @@
+---
+sidebar_position: 2
+---
+
+# CLI 命令执行流程
+
+```mermaid
+  sequenceDiagram
+      actor User
+      participant CLI as Commander (index.ts)
+      participant Cmd as Command Handler
+      participant Prompt as Inquirer Prompts
+      participant Script as bin/*.script.ts
+      participant Manifest as manifest.ts
+      participant Lock as lock.ts
+      participant Browser as @puppeteer/browsers
+      participant FS as File System
+
+      User->>CLI: pbvm create -b chrome -i 123
+      CLI->>Cmd: registerCreateCommand()
+      Cmd->>Cmd: Zod parse options
+      Cmd->>Prompt: promptCreateOptions() - 补全缺失参数
+      Prompt-->>Cmd: {browser, buildId, alias, store}
+      Cmd->>Prompt: promptConfirm() - 确认操作
+      Prompt-->>Cmd: true
+
+      Cmd->>Script: installBrowser(args)
+      Script->>Manifest: checkoutInStore() - 检查是否已安装
+      Manifest->>Lock: waitForLock(cacheDir)
+      Manifest->>Browser: getInstalledBrowsers(cacheDir)
+      Browser-->>Manifest: 已安装列表
+
+      alt 已安装
+          Manifest-->>Script: found ✓
+      else 未安装
+          Manifest-->>Script: null
+          Script->>Browser: install({browser, buildId, platform})
+          Browser->>FS: 下载 + 解压到 cacheDir
+          Note over Script,Browser: SIGINT/SIGTERM 时清理半成品
+          Browser-->>Script: {executablePath}
+      end
+
+      alt store mode
+          Script-->>Cmd: 仅安装到 cache，不写入 browserlist
+      else 项目模式
+          Script->>Manifest: logCurrentList() - 写入 browserlist.json
+          Manifest->>Lock: acquireLock(cwd)
+          Manifest->>FS: readFile + writeFile browserlist.json
+          Manifest-->>Script: alias name
+      end
+
+      Script-->>Cmd: success
+      Cmd-->>User: ✅ Installed success...
+```

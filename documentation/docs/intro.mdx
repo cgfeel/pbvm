@@ -60,8 +60,54 @@ pbvm -h
 
 ## 支持浏览器
 
-| 浏览器      | buildId 格式              | 示例                          |
-|-------------|--------------------------|-------------------------------|
-| chrome      | `x.x.x.x`（四段版本号）    | `134.0.6998.35`               |
-| chromium    | revision 号（纯数字）      | `1435764`                     |
-| firefox     | `channel_version`        | `stable_136.0.0`              |
+| 浏览器   | buildId 格式            | 示例             |
+| -------- | ----------------------- | ---------------- |
+| chrome   | `x.x.x.x`（四段版本号） | `134.0.6998.35`  |
+| chromium | revision 号（纯数字）   | `1435764`        |
+| firefox  | `channel_version`       | `stable_136.0.0` |
+
+## 文档站点架构
+
+```mermaid
+  graph TB
+      subgraph "documentation/"
+          CONFIG["docusaurus.config.ts<br/>baseUrl: /pbvm/<br/>locale: zh-Hans<br/>docs 即首页"]
+          PLUGIN["plugins/tailwind-plugin.ts<br/>Tailwind 4 集成"]
+
+          subgraph "src/pages/"
+              INDEX["index.tsx<br/>首页"]
+              MDX["markdown-page.mdx"]
+          end
+
+          subgraph "src/components/"
+              CARD["card/index.tsx"]
+              TAG["tag/index.tsx"]
+              BUTTON["button/index.tsx"]
+              HOME_HEADER["home/Header.tsx"]
+              HOME_INSTALL["home/InstallBar.tsx"]
+              HOME_TERMINAL["home/Terminal.tsx"]
+              HOME_BROWSER["home/BrowserCard.tsx"]
+              HOME_FEATURES["home/BrowserFeatures.tsx"]
+              HOME_FEATURES_OLD["home/HomepageFeatures/"]
+          end
+
+          subgraph "src/"
+              CSS["css/custom.css<br/>Tailwind + 自定义样式"]
+              UTILS["utils/<br/>copyText.ts / fields.ts"]
+          end
+
+          subgraph "docs/"
+              DOC_FILES["📄 *.md / *.mdx<br/>文档内容<br/>routeBasePath: '/'"]
+          end
+
+          subgraph "static/"
+              IMG["img/<br/>logo.svg / favicon.svg<br/>chrome-icon.svg<br/>chromium-icon.svg<br/>firefox-icon.svg"]
+          end
+      end
+
+      CONFIG --> INDEX
+      INDEX --> HOME_HEADER & HOME_INSTALL & HOME_TERMINAL & HOME_BROWSER & HOME_FEATURES
+      HOME_FEATURES --> CARD & TAG & BUTTON
+      CONFIG --> PLUGIN
+      PLUGIN --> CSS
+```

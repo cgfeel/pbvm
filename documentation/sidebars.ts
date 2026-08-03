@@ -23,7 +23,12 @@ const sidebars: SidebarsConfig = {
       type: 'category',
       label: '核心概念',
       collapsed: false,
-      items: ['concepts/browserlist', 'concepts/store-and-cache'],
+      items: [
+        'concepts/browserlist',
+        'concepts/store-and-cache',
+        'concepts/monorepo',
+        'concepts/commander',
+      ],
     },
   ],
 }

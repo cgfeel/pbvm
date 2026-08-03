@@ -14,25 +14,25 @@ pbvm info [-t <target>] [-r]
 
 ## 选项
 
-| 选项 | 简写 | 说明 |
-|------|------|------|
-| `--target` | `-t` | 浏览器标识：`{browser}@{buildId}` 或 `{alias}` |
-| `--runtime` | `-r` | 同时获取运行时信息（需启动 headless 浏览器） |
+| 选项        | 简写 | 说明                                           |
+| ----------- | ---- | ---------------------------------------------- |
+| `--target`  | `-t` | 浏览器标识：`{browser}@{buildId}` 或 `{alias}` |
+| `--runtime` | `-r` | 同时获取运行时信息（需启动 headless 浏览器）   |
 
 ## 静态信息
 
 始终显示的信息包括：
 
-| 字段 | 说明 |
-|------|------|
-| `platform` | 浏览器对应平台 |
-| `browser` | 浏览器名称（chrome / chromium / firefox） |
-| `buildId` | 浏览器版本号 |
-| `executablePath` | 可执行文件路径 |
-| `profilePath` | 用户数据（profile）目录路径 |
-| `exists` | 可执行文件是否存在 |
-| `size` | 文件大小 |
-| `createdAt` | 安装时间 |
+| 字段             | 说明                                      |
+| ---------------- | ----------------------------------------- |
+| `platform`       | 浏览器对应平台                            |
+| `browser`        | 浏览器名称（chrome / chromium / firefox） |
+| `buildId`        | 浏览器版本号                              |
+| `executablePath` | 可执行文件路径                            |
+| `profilePath`    | 用户数据（profile）目录路径               |
+| `exists`         | 可执行文件是否存在                        |
+| `size`           | 文件大小                                  |
+| `createdAt`      | 安装时间                                  |
 
 ## 运行时信息
 
@@ -77,4 +77,55 @@ The following information comes from a headless browser
   "userAgent": "Mozilla/5.0 ...",
   "webSocketDebuggerUrl": "ws://127.0.0.1:xxx/..."
 }
+```
+
+## 运行时信息采集流
+
+Chromium CDP / Firefox BiDi
+
+```mermaid
+  sequenceDiagram
+      participant Script as info/open script
+      participant Chromium as chromium.browser.ts
+      participant Firefox as firefox.browser.ts
+      participant Base as base.browser.ts
+      participant WS as WebSocket
+      participant Browser as Browser Process
+
+      Note over Script,Base: Chromium 路径 (CDP 协议)
+      Script->>Chromium: getChromiumRuntimeInfo({executablePath, args})
+      Chromium->>Base: generateBrowserRuntimeInfo(task)
+      Base->>Browser: spawn(executablePath, ['--headless=new', '--remote-debugging-port=0', ...])
+      Browser-->>Base: stderr → "DevTools listening on ws://..."
+      Base->>Base: captureEndpoint() - 正则匹配 WS 地址
+
+      Base->>WS: new WebSocket(wsEndpoint)
+      Base->>Chromium: DevConnection (CDP)
+
+      Chromium->>WS: Browser.getVersion → {product, revision, jsVersion}
+      Chromium->>WS: Target.getTargets → [{targetId, type: 'page'}]
+      Chromium->>WS: Target.attachToTarget(sessionId, flatten:true)
+
+      Note over Chromium: 启动本地 localhost HTTP server<br/>(获取 secure context 使 userAgentData 可用)
+      Chromium->>WS: Page.navigate(localhost)
+      Chromium->>WS: Runtime.evaluate(buildEnvScript)
+      Browser-->>WS: {userAgent, platform, webgl, screen, timezone, ...}
+
+      Chromium->>WS: Browser.close
+      Chromium-->>Script: {cdp info, pid, version, environment, wsEndpoint}
+
+      Note over Script,Base: Firefox 路径 (WebDriver BiDi 协议)
+      Script->>Firefox: getFirefoxRuntimeInfo({executablePath, args})
+      Firefox->>Base: generateBrowserRuntimeInfo(task)
+      Base->>Browser: spawn(executablePath, ['-headless', '--remote-debugging-port=0', ...])
+      Browser-->>Base: stderr → "WebDriver BiDi listening on ws://..."
+      Base->>Firefox: DevConnection (BiDi)
+
+      Firefox->>WS: session.new (WebDriver)
+      Firefox->>WS: browsingContext.create ({type: 'tab'})
+      Firefox->>WS: script.evaluate(buildEnvScript)
+      Browser-->>WS: RemoteValue → fromRemoteValue() 反序列化
+
+      Firefox->>WS: browser.close
+      Firefox-->>Script: {pid, version, environment, wsEndpoint}
 ```

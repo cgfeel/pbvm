@@ -26,23 +26,23 @@ pbvm 使用符合系统标准的目录结构存储浏览器二进制文件、用
 
 ## 各目录说明
 
-| 目录 | 用途 | 可否删除 |
-|------|------|:---:|
-| `cache` | 浏览器二进制文件（通过 `@puppeteer/browsers` 下载） | ✅ 系统清理工具可清空 |
-| `data/profiles` | 浏览器用户数据：cookies、偏好设置、历史记录等 | ❌ |
-| `config` | 用户自定义配置（代理、镜像源等） | ⚠️ 视内容而定 |
-| `log` | 运行时日志 | ✅ |
-| `temp` | 临时检测数据（`info -r` 的 headless 启动） | ✅ |
+| 目录            | 用途                                                |       可否删除        |
+| --------------- | --------------------------------------------------- | :-------------------: |
+| `cache`         | 浏览器二进制文件（通过 `@puppeteer/browsers` 下载） | ✅ 系统清理工具可清空 |
+| `data/profiles` | 浏览器用户数据：cookies、偏好设置、历史记录等       |          ❌           |
+| `config`        | 用户自定义配置（代理、镜像源等）                    |     ⚠️ 视内容而定     |
+| `log`           | 运行时日志                                          |          ✅           |
+| `temp`          | 临时检测数据（`info -r` 的 headless 启动）          |          ✅           |
 
 ## 实际路径
 
 因操作系统而异，由 [`env-paths`](https://github.com/sindresorhus/env-paths) 解析：
 
-| 平台 | 路径 |
-|------|------|
-| macOS | `~/Library/Caches/pbvm/`、`~/Library/Application Support/pbvm/` |
-| Linux | `~/.cache/pbvm/`、`~/.local/share/pbvm/` |
-| Windows | `%LOCALAPPDATA%/pbvm/` |
+| 平台    | 路径                                                            |
+| ------- | --------------------------------------------------------------- |
+| macOS   | `~/Library/Caches/pbvm/`、`~/Library/Application Support/pbvm/` |
+| Linux   | `~/.cache/pbvm/`、`~/.local/share/pbvm/`                        |
+| Windows | `%LOCALAPPDATA%/pbvm/`                                          |
 
 ## Store 与 browserlist 的关系
 
@@ -67,3 +67,73 @@ pbvm 使用符合系统标准的目录结构存储浏览器二进制文件、用
 ```
 
 同一个二进制文件可被多个项目引用，每个项目的 profile 数据独立。
+
+## 数据存储 & 文件结构
+
+```mermaid
+  graph LR
+      subgraph "操作系统目录 (env-paths)"
+          CACHE["📁 cache/<br/>浏览器二进制安装目录<br/>(可删除、可重建)"]
+          DATA["📁 data/profiles/<br/>用户 Profile 数据<br/>(cookies/书签/偏好设置)"]
+          CONFIG["📁 config/<br/>用户配置文件<br/>(代理/镜像源/默认模板)"]
+          LOG["📁 log/<br/>日志"]
+          TEMP["📁 temp/<br/>临时目录 (info 检测用)"]
+      end
+
+      subgraph "项目目录 (cwd)"
+          BROWSERLIST["📄 browserlist.json<br/>当前项目的浏览器映射<br/>[{alias, browser, buildId, platform}, ...]"]
+          LOCKFILE["📄 .pbvm.lock<br/>进程级文件锁<br/>(写入 PID)"]
+      end
+      BROWSER_LOCK --> UTIL_LOCK
+      UTIL_LOCK --> UTIL_PATHS
+
+      TYPES --> ZOD
+      CMD_CREATE & CMD_REMOVE & CMD_ALIAS & CMD_INFO & CMD_OPEN --> TYPES
+      API --> PUPPETEER
+      API --> UTIL_MANIFEST
+      API --> SCRIPT_OPEN
+```
+
+## 文件锁机制
+
+```mermaid
+  stateDiagram-v2
+      [*] --> WaitLock: waitForLock()
+      [*] --> AcquireLock: acquireLock()
+
+      state WaitLock {
+          CheckExist: 检查 .pbvm.lock 是否存在
+          WaitStale: 等待 retryDelay ms
+          CheckTimeout: 超时检查
+          CheckExist --> WaitStale: 锁存在
+          WaitStale --> CheckExist: 重试
+          CheckExist --> [*]: 锁释放 (ENOENT)
+          CheckExist --> CleanStale: 锁存在
+      }
+
+      state AcquireLock {
+          TryCreate: fs.writeFile(pid, {flag:'wx'})
+          Exists: EEXIST - 锁已被占用
+          CreateSuccess: 创建成功 → 返回 release()
+          TryCreate --> Exists
+          TryCreate --> CreateSuccess
+          Exists --> CleanStale
+          Exists --> WaitRetry: 非超时
+          WaitRetry --> TryCreate
+          Exists --> ThrowTimeout: 超时抛错
+      }
+
+      state CleanStale {
+          ReadPid: 读取锁文件 PID
+          CheckAlive: process.kill(pid, 0)
+          RemoveStale: fs.unlink() 清理死锁
+          ReadPid --> CheckAlive
+          CheckAlive --> RemoveStale: 进程不存在
+          CheckAlive --> WaitStale: 进程存活
+
+      }
+
+      CreateSuccess --> Release: 操作完成
+      Release: release() → fs.unlink(.pbvm.lock)
+      Release --> [*]
+```
