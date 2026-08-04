@@ -27,8 +27,17 @@ export async function install(
   const onInterrupt = async () => {
     if (isInterrupted || isInstalled) return
     isInterrupted = true
-    await interrupt()
+
+    // 先释放锁再执行清理，否则 interrupt 回调里的 removeBrowser → uninstall
+    // 会尝试 acquireLock 同一把锁，形成死锁，导致 process.exit(1) 永远执行不到
     await releaseLock()
+
+    try {
+      await interrupt()
+    } catch {
+      // 中断清理过程中的错误忽略，确保 process.exit 一定执行
+    }
+
     process.exit(1)
   }
 

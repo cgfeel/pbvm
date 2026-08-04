@@ -104,6 +104,10 @@ class MirrorProvider extends DefaultProvider implements BrowserProvider {
     return this.#name
   }
 
+  getSourceUrl(options: DownloadOptions) {
+    return this.supports(options) ? this.getDownloadUrl(options) : super.getDownloadUrl(options)
+  }
+
   #readMirrorMap() {
     try {
       const data = fs.readFileSync(this.#path, 'utf8')
