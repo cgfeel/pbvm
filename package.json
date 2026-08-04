@@ -18,7 +18,7 @@
     "dev": "tsx src/index.ts",
     "docs:build": "pnpm --filter documentation build",
     "docs:dev": "pnpm --filter documentation start",
-    "build": "tsc",
+    "build": "tsc && cp -r public dist/",
     "format": "oxfmt --write .",
     "format:check": "oxfmt --check .",
     "lint": "oxlint && tsc --noEmit",

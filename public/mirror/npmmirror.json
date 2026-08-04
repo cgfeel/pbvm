@@ -1,0 +1,59 @@
+{
+  "chrome": {
+    "mirror": "https://registry.npmmirror.com/-/binary/chrome-for-testing/<buildId>/<platform>/chrome-<platform>.zip",
+    "platform": {
+      "linux": "linux64",
+      "linux_arm": null,
+      "mac": "mac-x64",
+      "mac_arm": "mac-arm64",
+      "win32": "win32",
+      "win64": "win64"
+    }
+  },
+  "chromium": {
+    "mirror": "https://registry.npmmirror.com/-/binary/chromium-browser-snapshots/<platform>/<buildId>/chrome-<suffix>.zip",
+    "platform": {
+      "linux": "Linux_x64",
+      "linux_arm": null,
+      "mac": "Mac",
+      "mac_arm": "Mac_Arm",
+      "win32": "win",
+      "win64": "Win_x64"
+    },
+    "suffix": {
+      "linux": "linux",
+      "linux_arm": null,
+      "mac": "mac",
+      "mac_arm": "mac",
+      "win32": "win",
+      "win64": "win"
+    }
+  },
+  "firefox": {
+    "mirror": "https://registry.npmmirror.com/-/binary/firefox/<buildId>/<platform>/<lang>/<suffix><buildId>.<ext>",
+    "platform": {
+      "linux": "linux-x86_64",
+      "linux_arm": null,
+      "mac": "mac",
+      "mac_arm": "mac",
+      "win32": "win32",
+      "win64": "win64"
+    },
+    "suffix": {
+      "linux": "firefox",
+      "linux_arm": null,
+      "mac": "Firefox%20",
+      "mac_arm": "Firefox%20",
+      "win32": "Firefox%20Setup%20",
+      "win64": "Firefox%20Setup%20"
+    },
+    "ext": {
+      "linux": "bz2",
+      "linux_arm": null,
+      "mac": "dmg",
+      "mac_arm": "dmg",
+      "win32": "exe",
+      "win64": "exe"
+    }
+  }
+}

@@ -12,10 +12,12 @@ export function registerCreateCommand(program: Command) {
     .option('-b, --browser <browser>', "Browser's name")
     .option('-i, --build-id <buildId>', "Browser's buildId")
     .option('-a, --alias <alias>', "Browser's alias")
-    .option('-s, --store', 'Only saved in the store directory')
+    .option('-m, --mirror <mirror>', 'Image file path')
+    .option('-r, --rule  <rule>', 'Image rule like url search path: a=1&b=2')
+    .option('-s, --store', 'Dynamic replacement of mirroring rules')
     .action(async function (opts: unknown) {
       // 参数缺失则唤起交互
-      const { store, ...options } = createBrowserSchema.parse(opts)
+      const { mirror, rule, store, ...options } = createBrowserSchema.parse(opts)
       const args = await promptCreateOptions(options)
       const ok = await promptConfirm(
         `Create browser: ${args.browser}@${args.buildId}, alias: ${args.alias || 'Dynamic name'} ?`
@@ -27,6 +29,6 @@ export function registerCreateCommand(program: Command) {
         return
       }
 
-      await installBrowser({ ...args, store })
+      await installBrowser({ ...args, mirror, rule, store })
     })
 }

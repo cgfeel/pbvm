@@ -1,3 +1,7 @@
+export function escapeRegExp(str: string): string {
+  return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+}
+
 export const isDefined = <T>(value: T | undefined): value is T => value !== undefined
 
 export const isKey = <T extends Record<string, unknown>>(key: unknown, data: T): key is keyof T =>

@@ -1,6 +1,7 @@
 import { detectBrowserPlatform } from '@puppeteer/browsers'
 import type { z } from 'zod'
 import { install } from '../browser/browser.lock.js'
+import { MirrorProvider } from '../mirror/mirror.provider.js'
 import { createBrowserSchema } from '../types/index.js'
 import { logger } from '../utils/logger.js'
 import { checkoutInStore, logCurrentList } from '../utils/manifest.js'
@@ -13,7 +14,12 @@ const installBrowserSchema = createBrowserSchema.required({
   buildId: true,
 })
 
-export async function installBrowser({ store, ...opts }: z.infer<typeof installBrowserSchema>) {
+export async function installBrowser({
+  store,
+  mirror,
+  rule,
+  ...opts
+}: z.infer<typeof installBrowserSchema>) {
   const { alias, browser, buildId } = opts
   const platform = detectBrowserPlatform()
 
@@ -46,6 +52,7 @@ export async function installBrowser({ store, ...opts }: z.infer<typeof installB
           browser,
           buildId,
           platform,
+          providers: [new MirrorProvider({ path: mirror, rule })],
         },
         onInterrupt
       )

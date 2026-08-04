@@ -4,6 +4,7 @@ import { registerClearCommand } from './commands/clear.js'
 import { registerCreateCommand } from './commands/create.js'
 import { registerInfoCommand } from './commands/info.js'
 import { registerListCommand } from './commands/list.js'
+import { registerMirrorCommand } from './commands/mirror.js'
 import { registerOpenCommand } from './commands/open.js'
 import { registerRemoveCommand } from './commands/remove.js'
 import { registerRestoreCommand } from './commands/restore.js'
@@ -27,6 +28,7 @@ async function bootstrap() {
   registerCreateCommand(program)
   registerInfoCommand(program)
   registerListCommand(program)
+  registerMirrorCommand(program)
   registerOpenCommand(program)
   registerRemoveCommand(program)
   registerRestoreCommand(program)
