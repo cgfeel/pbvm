@@ -34,7 +34,17 @@ const config: Config = {
   organizationName: 'cgfeel', // Usually your GitHub org/user name.
   projectName: 'pbvm', // Usually your repo name.
 
-  plugins: ['./plugins/tailwind-plugin.ts'],
+  plugins: [
+    './plugins/tailwind-plugin.ts',
+    './plugins/pwa-manifest-plugin.ts',
+    [
+      '@docusaurus/plugin-pwa',
+      {
+        debug: process.env.NODE_ENV !== 'production',
+        offlineModeActivationStrategies: ['appInstalled', 'standalone', 'queryString'],
+      },
+    ],
+  ],
   themes: ['@docusaurus/theme-mermaid'],
 
   onBrokenLinks: 'throw',
@@ -93,6 +103,29 @@ const config: Config = {
       attributes: {
         name: 'viewport',
         content: 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no',
+      },
+    },
+    {
+      tagName: 'link',
+      attributes: {
+        rel: 'manifest',
+        href: process.env.BASE_URL ? `${process.env.BASE_URL}manifest.json` : '/pbvm/manifest.json',
+      },
+    },
+    {
+      tagName: 'link',
+      attributes: {
+        rel: 'apple-touch-icon',
+        href: process.env.BASE_URL
+          ? `${process.env.BASE_URL}img/icon-192.png`
+          : '/pbvm/img/icon-192.png',
+      },
+    },
+    {
+      tagName: 'meta',
+      attributes: {
+        name: 'apple-mobile-web-app-capable',
+        content: 'yes',
       },
     },
   ],
