@@ -24,6 +24,8 @@ export const browserResultSchema = browserItemSchema.required({
 
 export const createBrowserSchema = z.object({
   ...browserItemSchema.shape,
+  mirror: z.string().optional(),
+  rule: z.string().optional(),
   store: z.boolean().optional(),
 })
 
@@ -33,6 +35,11 @@ export const globalResultSchema = currentResultSchema.partial({ alias: true })
 export const infoBrowserSchema = z.object({
   target: z.string().optional(),
   runtime: z.boolean().optional(),
+})
+
+export const mirrorSchema = z.object({
+  init: z.boolean().optional(),
+  source: z.string().optional(),
 })
 
 export const openBrowserSchema = z.object({

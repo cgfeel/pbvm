@@ -126,7 +126,7 @@ export default function MermaidWrapper(props: Props): ReactNode {
         >
           -
         </button>
-        <span className={point()}>{pct}</span>
+        <span className={point()}>{pct}%</span>
         <button
           className={btn()}
           disabled={scale >= MAX_SCALE}
