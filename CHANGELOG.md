@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.28](https://github.com/cgfeel/pbvm/compare/pbvm@v1.0.27...pbvm@v1.0.28) (2026-08-04)
+
+
+### Bug Fixes
+
+* use new ci to update ([2e3c458](https://github.com/cgfeel/pbvm/commit/2e3c458360dbbcfd1773afe0c3fd6671a590bd2e))
+* use new ci to update ([00657dc](https://github.com/cgfeel/pbvm/commit/00657dc544b763620483ebbb1ee017c89f618b8a))
+
 ## [1.0.27](https://github.com/cgfeel/pbvm/compare/pbvm@v1.0.26...pbvm@v1.0.27) (2026-08-04)
 
 
