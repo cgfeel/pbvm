@@ -24,7 +24,7 @@ export async function searchBrowser({
   spin.start()
 
   const provider = new MirrorProvider({ path: mirror, rule })
-  const url = await provider.getDownloadUrl({
+  const url = await provider.getSourceUrl({
     browser,
     buildId,
     platform,
