@@ -14,12 +14,14 @@ pbvm open [-t <target>] [-u <url>]
 
 ## 选项
 
-| 选项 | 简写 | 说明 |
-|------|------|------|
+| 选项       | 简写 | 说明                                           |
+| ---------- | ---- | ---------------------------------------------- |
 | `--target` | `-t` | 浏览器标识：`{browser}@{buildId}` 或 `{alias}` |
-| `--url` | `-u` | 打开浏览器后访问的 URL |
+| `--url`    | `-u` | 打开浏览器后访问的 URL                         |
 
 ## 工作原理
+
+目前通过 `pbvm open` 命令只能打开当前目录下 `browserlist.json` 中已存在记录的浏览器，还未记录前需通过 `pbvm create` 添加浏览器。
 
 1. 根据 `-t` 参数在 `browserlist.json` 中查找匹配的浏览器
 2. 如果 Store 中尚未安装，自动触发下载安装
@@ -29,17 +31,17 @@ pbvm open [-t <target>] [-u <url>]
 ### Firefox 特殊处理
 
 对于 Firefox，打开前会自动配置：
+
 - `user.js`：禁用自动更新、默认浏览器检查
 - `policies.json`：通过企业策略硬阻断更新、遥测
 
 ### Chromium/Chrome 特殊处理
 
 通过启动参数禁用：
+
 - 自动更新
 - 首次运行向导
 - 默认浏览器检查
-
-若安装了 `chromium-bidi`，Chrome 系列会自动启用 BiDi 协议支持。
 
 ## 示例
 
@@ -61,4 +63,6 @@ pbvm open
 
 - 浏览器以 **detached** 模式启动，关闭终端不影响浏览器运行
 - 每个浏览器实例使用独立的 profile 目录（`~/.local/share/pbvm/profiles/`），互不干扰
-- 不支持同时打开同一个浏览器版本（profile 目录会冲突），如需多个实例请安装同一浏览器的不同版本
+- 同一浏览器版本可重复打开，Chrome 系列会自动委托给已有实例（视觉上无变化），Firefox 会打开新窗口
+
+关于 profile 目录结构和浏览器文件的存储位置，详见 [Store 与缓存目录](../concepts/store-and-cache.mdx)。

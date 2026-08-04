@@ -3,6 +3,7 @@ import type { SidebarsConfig } from '@docusaurus/plugin-content-docs'
 const sidebars: SidebarsConfig = {
   docSidebar: [
     'intro',
+    'source',
     {
       type: 'category',
       label: '命令',
@@ -17,6 +18,7 @@ const sidebars: SidebarsConfig = {
         'commands/clear',
         'commands/remove',
         'commands/restore',
+        'commands/mirror',
       ],
     },
     {
