@@ -55,7 +55,7 @@ jobs:
           cache: pnpm
           registry-url: https://registry.npmjs.org
 
-      # Trusted Publishing requires newer npm
+      # Trusted Publishing requires newer npm-
       - name: Update npm
         run: npm install -g npm@latest
 
