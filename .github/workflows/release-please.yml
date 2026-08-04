@@ -55,25 +55,9 @@ jobs:
           cache: pnpm
           registry-url: https://registry.npmjs.org
 
-      # Trusted Publishing requires newer npm-
+      # Trusted Publishing requires newer npm
       - name: Update npm
         run: npm install -g npm@latest
-
-      - name: Debug environment
-        run: |
-          echo "Node:"
-          node -v
-
-          echo "npm:"
-          npm -v
-
-          echo "pnpm:"
-          pnpm -v
-
-          echo "GitHub:"
-          echo "repository=${GITHUB_REPOSITORY}"
-          echo "workflow=${GITHUB_WORKFLOW}"
-          echo "ref=${GITHUB_REF}"
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
