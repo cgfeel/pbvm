@@ -1,10 +1,19 @@
-import { DefaultProvider, detectBrowserPlatform } from '@puppeteer/browsers'
+import { detectBrowserPlatform } from '@puppeteer/browsers'
+import type z from 'zod'
 import { getInstalledBrowsers } from '../browser/browser.lock.js'
-import type { BrowserResultType } from '../types/index.js'
+import { MirrorProvider } from '../mirror/mirror.provider.js'
+import { createBrowserSchema } from '../types/index.js'
 import { logger, printLine } from '../utils/logger.js'
 import { baseInfo } from '../utils/paths.js'
 
-export async function searchBrowser({ browser, buildId }: BrowserResultType) {
+const searchSchema = createBrowserSchema.required({ browser: true, buildId: true })
+
+export async function searchBrowser({
+  browser,
+  buildId,
+  mirror,
+  rule,
+}: z.infer<typeof searchSchema>) {
   const platform = detectBrowserPlatform()
   if (!platform) {
     logger.error('Unable to retrieve platform.')
@@ -14,8 +23,8 @@ export async function searchBrowser({ browser, buildId }: BrowserResultType) {
   const spin = logger.spinner('Obtaining resource information...')
   spin.start()
 
-  const provider = new DefaultProvider()
-  const url = await provider.getDownloadUrl({
+  const provider = new MirrorProvider({ path: mirror, rule })
+  const url = await provider.getSourceUrl({
     browser,
     buildId,
     platform,
