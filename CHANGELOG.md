@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.27](https://github.com/cgfeel/pbvm/compare/pbvm@v1.0.26...pbvm@v1.0.27) (2026-08-04)
+
+
+### Bug Fixes
+
+* success mirror ([e22eb40](https://github.com/cgfeel/pbvm/commit/e22eb4035fcab7702ee5b6fbff77cd7469085d9f))
+* success mirror ([2dd834b](https://github.com/cgfeel/pbvm/commit/2dd834b392e3ed4b94cb8a693a1de20c128bf43f))
+
 ## [1.0.26](https://github.com/cgfeel/pbvm/compare/pbvm@v1.0.25...pbvm@v1.0.26) (2026-08-03)
 
 
