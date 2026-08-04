@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.29](https://github.com/cgfeel/pbvm/compare/pbvm@v1.0.28...pbvm@v1.0.29) (2026-08-04)
+
+
+### Bug Fixes
+
+* replace getSourceUrl ([399f27b](https://github.com/cgfeel/pbvm/commit/399f27bb80ac13076edaf52e6245e6d90915886a))
+* update search provider mirror & fix cancel at install & up mirror tips ([95756b3](https://github.com/cgfeel/pbvm/commit/95756b3b3deaecab124302db9ac607fd12feec57))
+
 ## [1.0.28](https://github.com/cgfeel/pbvm/compare/pbvm@v1.0.27...pbvm@v1.0.28) (2026-08-04)
 
 
