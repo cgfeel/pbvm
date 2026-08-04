@@ -1,6 +1,6 @@
 # pbvm
 
-<img src="https://raw.githubusercontent.com/cgfeel/pbvm/refs/heads/feature/bin-dev/documentation/static/img/logo.svg" alt="Logo" width="180" style="float: right;"> 
+<img src="https://raw.githubusercontent.com/cgfeel/pbvm/refs/heads/feature/bin-dev/documentation/static/img/logo.svg" alt="Logo" width="180">
 
 基于 `@puppeteer/browsers` 的浏览器版本管理器，统一管理 Chrome、Chromium、Firefox 的多个版本。
 
@@ -51,6 +51,25 @@ pbvm ls
 | `pbvm restore` | 重新安装浏览器                           |
 
 所有命令在缺少参数时会进入交互式选择，无需记忆命令行选项。
+
+## 资源和镜像
+
+`create` / `search` 需要提供 `buildId`，不同浏览器可通过以下入口查询：
+
+| 浏览器   | buildId 格式      | 示例             | 查询入口                                                                                                                                                                      |
+| -------- | ----------------- | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Chrome   | 四段版本号        | `134.0.6998.35`  | [Chrome for Testing](https://googlechromelabs.github.io/chrome-for-testing/known-good-versions-with-downloads.json) · [Puppeteer 对照表](https://pptr.dev/supported-browsers) |
+| Chromium | 纯数字 revision   | `1435764`        | [Chromium Dash](https://chromiumdash.appspot.com/home) · [Snapshot Index](https://commondatastorage.googleapis.com/chromium-browser-snapshots/index.html)                     |
+| Firefox  | `channel_version` | `stable_136.0.0` | [Mozilla Archive](https://archive.mozilla.org/pub/firefox/)                                                                                                                   |
+
+通过 [npmmirror](https://registry.npmmirror.com/binary.html?path=chrome-for-testing/) 镜像源可加速下载：
+
+```bash
+pbvm mirror -s npmmirror      # 全局启用
+pbvm mirror -s npmmirror -i   # 仅当前项目
+```
+
+详见 [资源和镜像文档](https://cgfeel.github.io/pbvm/source)。
 
 ## 编程 API
 

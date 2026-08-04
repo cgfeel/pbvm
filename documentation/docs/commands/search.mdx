@@ -9,7 +9,7 @@ sidebar_position: 6
 ## 用法
 
 ```bash
-pbvm search [-b <browser>] [-i <buildId>]
+pbvm search [-b <browser>] [-i <buildId>] [-m <mirror>] [-r <rule>]
 ```
 
 ## 选项
@@ -18,6 +18,8 @@ pbvm search [-b <browser>] [-i <buildId>]
 |------|------|------|
 | `--browser` | `-b` | 浏览器名称：`chrome`、`chromium`、`firefox` |
 | `--build-id` | `-i` | 浏览器版本号 |
+| `--mirror` | `-m` | 镜像规则文件路径，不指定则优先查找当前目录及全局 `.browsermr` |
+| `--rule` | `-r` | 镜像模板自定义参数，URL search 格式：`a=1&b=2`，用于替换模板变量 |
 
 ## 输出信息
 

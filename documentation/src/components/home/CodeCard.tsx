@@ -16,7 +16,7 @@ const CodeCard: FC<PropsWithChildren<CodeCardProps>> = ({ children, title }) => 
   <div className={wrap()}>
     <p className={titleStyle()}>{title}</p>
     <div className={card()}>
-      <CodeBlock language="bash">{children}</CodeBlock>
+      <CodeBlock language="javascript">{children}</CodeBlock>
     </div>
   </div>
 )

@@ -14,22 +14,23 @@ pbvm alias [-p <platform>] [-t <target>]
 
 ## 选项
 
-| 选项 | 简写 | 说明 |
-|------|------|------|
-| `--platform` | `-p` | 目标平台，不指定则不过滤平台 |
-| `--target` | `-t` | 浏览器标识：`{browser}@{buildId}` 或已有 `{alias}` |
+| 选项         | 简写 | 说明                                               |
+| ------------ | ---- | -------------------------------------------------- |
+| `--platform` | `-p` | 目标平台，不指定则不过滤平台                       |
+| `--target`   | `-t` | 浏览器标识：`{browser}@{buildId}` 或已有 `{alias}` |
 
 ## 说明
 
 别名保存在 `browserlist.json` 中。设置别名后，以下命令均可用别名替代 `browser@buildId`：
 
 - `pbvm open -t <alias>`
-- `pbvm info -t <alias>`
 - `pbvm alias -t <alias>`（修改已有别名）
 
 **不支持通过别名操作：**
+
 - `pbvm remove` — 因为别名可重名，为避免误删，只能通过 `browser@buildId` 指定
 - `pbvm create`
+- `pbvm info`
 - `pbvm restore`
 
 ## 示例
@@ -47,6 +48,6 @@ pbvm alias
 
 ## 注意事项
 
-- 别名可以设置为空字符串（删除别名）
+- 别名只能修改，不可为空字符删除别名
 - 别名允许重复，但使用别名启动时会取第一个匹配项 — 建议保持别名唯一
 - 别名修改是原地替换，不会产生新记录

@@ -1,0 +1,85 @@
+---
+sidebar_position: 10
+---
+
+# mirror
+
+管理浏览器下载镜像源。
+
+## 用法
+
+```bash
+pbvm mirror [-s <source>] [-i]
+```
+
+## 选项
+
+| 选项 | 简写 | 说明 |
+|------|------|------|
+| `--source` | `-s` | 镜像源名称，如 `npmmirror`；不指定则执行交互选择 |
+| `--init` | `-i` | 在当前目录创建镜像配置文件（项目级），默认写入全局配置 |
+
+## 工作原理
+
+`pbvm mirror` 通过写入 `.browsermr` 配置文件来控制下载镜像源。`MirrorProvider` 会拦截 `@puppeteer/browsers` 的下载请求，将原始 URL 替换为镜像地址。
+
+镜像模板使用以下变量进行 URL 替换：
+
+| 变量 | 说明 |
+|------|------|
+| `<browser>` | 浏览器名称（`chrome` / `chromium` / `firefox`） |
+| `<buildId>` | 不含 channel 前缀的版本号 |
+| `<channelId>` | 完整 channel + 版本号（Firefox 专用） |
+| `<platform>` | 平台标识 |
+| `<lang>` | 语言（Firefox 专用，默认 `zh-CN`） |
+| `<ext>` | 文件扩展名 |
+| `<suffix>` | 浏览器专属后缀 |
+
+可通过 `--rule`（`create` / `search` 命令）传入自定义参数覆盖模板中的同名变量。
+
+## 配置文件层级
+
+- **项目级**（`-i`）：在当前目录生成 `.browsermr`，仅对当前项目生效
+- **全局级**（默认）：写入 pbvm 配置目录，对全局所有项目生效
+
+`create` 和 `search` 命令会优先使用项目级的 `.browsermr`，若不存在则回退到全局配置。
+
+## 示例
+
+### 交互模式
+
+不带参数运行，按提示选择：
+
+```bash
+pbvm mirror
+```
+
+交互选项：
+1. **Use npmmirror** — 启用 npmmirror 镜像源
+2. **Remove the mirror** — 禁用镜像（删除 `.browsermr`）
+
+### 命令行模式
+
+```bash
+# 启用全局 npmmirror 镜像
+pbvm mirror -s npmmirror
+
+# 在当前项目目录启用镜像
+pbvm mirror -s npmmirror -i
+
+# 禁用全局镜像
+pbvm mirror
+# 交互选择 "Remove the mirror"，或不指定 source 直接执行
+```
+
+## 在 create / search 中使用镜像
+
+即使没有全局或项目级的 `.browsermr` 配置，也可以在 `create` 或 `search` 命令中临时指定镜像：
+
+```bash
+# 临时使用镜像搜索
+pbvm search -b chrome -i 134.0.6998.35 -m ./path/to/.browsermr
+
+# 临时使用镜像安装，并自定义模板变量
+pbvm create -b firefox -i stable_136.0.0 -m ./custom.mr -r "lang=en-US&ext=tar.bz2"
+```

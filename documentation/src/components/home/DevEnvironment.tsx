@@ -1,7 +1,7 @@
 import Link from '@docusaurus/Link'
 import { type FC } from 'react'
 import { tv } from 'tailwind-variants'
-import { cliOps, devOps, lockOps, stroeMD } from '../../utils/mermaidMD'
+import { cliOps, devOps, lockOps, mirrorOps } from '../../utils/mermaidMD'
 import { styles as buttonStyle } from '../button'
 import { Card } from '../card'
 import Mermaid from '../mermaid'
@@ -9,10 +9,11 @@ import Wraper from './Wraper'
 
 const items: ItemType[] = [
   {
-    md: stroeMD,
-    key: 'store-and-cache',
-    title: '数据存储 & 文件结构',
-    url: '/concepts/store-and-cache#数据存储--文件结构',
+    className: 'scale-375 hover:scale-250',
+    md: cliOps,
+    key: 'commander',
+    title: 'CLI 命令执行流程',
+    url: '/concepts/commander',
   },
   {
     className: 'scale-375 hover:scale-250',
@@ -22,18 +23,17 @@ const items: ItemType[] = [
     url: '/concepts/monorepo',
   },
   {
-    className: 'scale-375 hover:scale-250',
-    md: cliOps,
-    key: 'commander',
-    title: 'CLI 命令执行流程',
-    url: '/concepts/commander',
+    md: mirrorOps,
+    key: 'source-and-mirror',
+    title: '资源和镜像',
+    url: '/source#整体流程',
   },
   {
     className: 'pt-9 scale-600 hover:scale-450',
     md: lockOps,
     key: 'lock',
-    title: '文件锁机制',
-    url: '/concepts/store-and-cache#文件锁机制',
+    title: '数据存储和文件锁',
+    url: '/concepts/store-and-cache#数据存储--文件结构',
   },
 ]
 

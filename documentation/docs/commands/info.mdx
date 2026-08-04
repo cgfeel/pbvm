@@ -16,7 +16,7 @@ pbvm info [-t <target>] [-r]
 
 | 选项        | 简写 | 说明                                           |
 | ----------- | ---- | ---------------------------------------------- |
-| `--target`  | `-t` | 浏览器标识：`{browser}@{buildId}` 或 `{alias}` |
+| `--target`  | `-t` | 浏览器标识，格式：`{browser}@{buildId}` |
 | `--runtime` | `-r` | 同时获取运行时信息（需启动 headless 浏览器）   |
 
 ## 静态信息
@@ -47,7 +47,7 @@ pbvm info [-t <target>] [-r]
 
 ```bash
 # 查看静态信息
-pbvm info -t my-chrome
+pbvm info -t chrome@134.0.6998.35
 
 # 查看静态 + 运行时信息
 pbvm info -t chrome@134.0.6998.35 -r

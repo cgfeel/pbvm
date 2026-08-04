@@ -121,6 +121,35 @@ export const lockOps = `
       Release: release() → fs.unlink(.pbvm.lock)
       Release --> [*]`.trim()
 
+export const mirrorOps = `
+  flowchart TD
+    A["<code>pbvm create</code> / <code>pbvm search</code>"] --> B{"指定了 <code>-m</code>？"}
+    B -->|是| C["加载指定镜像文件"]
+    B -->|否| D{"当前目录有<br/><code>.browsermr</code>？"}
+    D -->|是| E["加载项目级 .browsermr"]
+    D -->|否| F{"全局配置目录有<br/><code>.browsermr</code>？"}
+    F -->|是| G["加载全局 .browsermr"]
+    F -->|否| H["走默认下载地址<br/>（@puppeteer/browsers）"]
+
+    C --> I["解析 JSON，提取浏览器配置"]
+    E --> I
+    G --> I
+
+    I --> J["获取镜像 URL 模板"]
+    I --> K["获取平台映射字段<br/>（platform / suffix / ext …）"]
+
+    K --> L["根据当前平台查映射值"]
+    L --> M["替换映射变量<br/>（&lt;platform&gt; &lt;suffix&gt; &lt;ext&gt; …）"]
+    J --> N["替换固定变量<br/>（&lt;browser&gt; &lt;buildId&gt; …）"]
+    N --> M
+
+    M --> O{"指定了 <code>--rule</code>？"}
+    O -->|是| P["用 --rule 键值对覆盖同名变量"]
+    O -->|否| Q["组装最终下载 URL"]
+    P --> Q
+    Q --> R["发起 HTTP 下载"]
+`
+
 export const stroeMD = `
   graph LR
       subgraph "操作系统目录 (env-paths)"

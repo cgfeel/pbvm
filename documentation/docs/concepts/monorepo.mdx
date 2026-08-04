@@ -1,10 +1,10 @@
 ---
-sidebar_position: 2
+sidebar_position: 3
 ---
 
 # 项目架构
 
-monorepo
+pbvm 采用 pnpm workspace 单仓架构，包含 CLI 核心包和文档站点两个子项目。
 
 ```mermaid
   graph TB
@@ -110,9 +110,20 @@ monorepo
       API --> SCRIPT_OPEN
 ```
 
-## 组件依赖关联
+## 关键模块说明
 
-关键模块耦合
+| 模块                  | 路径           | 职责                                                                                                                                         |
+| --------------------- | -------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| `browser.lock.ts`     | `src/browser/` | 对 `@puppeteer/browsers` 的 `install` / `uninstall` / `getInstalledBrowsers` 加锁封装，防止并发读写 cache 目录                               |
+| `base.browser.ts`     | `src/browser/` | WebSocket 连接抽象（`DevConnection`）、进程启动、endpoint 捕获，Chromium 和 Firefox 共用                                                     |
+| `chromium.browser.ts` | `src/browser/` | CDP 协议实现，通过 `Browser.getVersion` / `Target.attachToTarget` / `Runtime.evaluate` 采集运行时信息，支持 `headless=new` 降级到 `headless` |
+| `firefox.browser.ts`  | `src/browser/` | WebDriver BiDi 协议实现，通过 `session.new` / `script.evaluate` 采集运行时信息，`RemoteValue` 反序列化                                       |
+| `buildEnvScript.ts`   | `src/browser/` | 注入浏览器页面执行的指纹采集脚本，收集 `userAgent`、`webgl`、`screen`、`timezone` 等环境信息                                                 |
+| `manifest.ts`         | `src/utils/`   | `browserlist.json` 读写 + Store 列表查询，支持按 alias 或 `browser@buildId` 查找                                                             |
+| `lock.ts`             | `src/utils/`   | 进程级文件锁，`acquireLock` 获取写锁（排他），`waitForLock` 等待读锁释放                                                                     |
+| `paths.ts`            | `src/utils/`   | 基于 `env-paths` 的目录管理，提供 `cache` / `data` / `config` / `log` / `temp` 五个标准路径                                                  |
+
+## 核心依赖链
 
 ```mermaid
   graph TB
@@ -152,7 +163,7 @@ monorepo
 
 | 层级      | 职责                                  | 关键文件             |
 | --------- | ------------------------------------- | -------------------- |
-| 入口      | Commander CLI 启动、10 个命令注册     | src/index.ts         |
+| 入口      | Commander CLI 启动、命令注册          | src/index.ts         |
 | 命令层    | 参数解析、交互式补全、权限确认        | src/commands/\*.ts   |
 | Prompt 层 | @inquirer/prompts 交互式问答          | src/prompts/\*.ts    |
 | 脚本层    | 核心业务逻辑                          | src/bin/\*.script.ts |

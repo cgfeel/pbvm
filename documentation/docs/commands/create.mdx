@@ -9,17 +9,19 @@ sidebar_position: 1
 ## 用法
 
 ```bash
-pbvm create [-b <browser>] [-i <buildId>] [-a <alias>] [-s]
+pbvm create [-b <browser>] [-i <buildId>] [-a <alias>] [-m <mirror>] [-r <rule>] [-s]
 ```
 
 ## 选项
 
-| 选项         | 简写 | 说明                                          |
-| ------------ | ---- | --------------------------------------------- |
-| `--browser`  | `-b` | 浏览器名称：`chrome`、`chromium`、`firefox`   |
-| `--build-id` | `-i` | 浏览器版本号，格式因浏览器而异                |
-| `--alias`    | `-a` | 浏览器别名，用于简化后续操作                  |
-| `--store`    | `-s` | 仅下载到全局 Store，不写入 `browserlist.json` |
+| 选项         | 简写 | 说明                                                              |
+| ------------ | ---- | ----------------------------------------------------------------- |
+| `--browser`  | `-b` | 浏览器名称：`chrome`、`chromium`、`firefox`                       |
+| `--build-id` | `-i` | 浏览器版本号，格式因浏览器而异                                    |
+| `--alias`    | `-a` | 浏览器别名，用于简化后续操作                                      |
+| `--mirror`   | `-m` | 镜像规则文件路径，不指定则优先查找当前目录及全局 `.browsermr`     |
+| `--rule`     | `-r` | 镜像模板自定义参数，URL search 格式：`a=1&b=2`，用于替换模板变量 |
+| `--store`    | `-s` | 仅下载到全局 Store，不写入 `browserlist.json`                     |
 
 ## buildId 格式
 
