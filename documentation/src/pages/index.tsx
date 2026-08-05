@@ -29,14 +29,11 @@ const chromeTags = [
   { alias: 'bug-repro', version: '130.0.6723.116' },
 ] as const
 
-const chromiumTags = [
-  { alias: 'old-device', version: '998119' },
-  { alias: 'automatization', version: '121231', active: true },
-  { alias: 'compatibility-test', version: '1012729' },
-] as const
+const chromiumTags = [{ alias: 'automatization', version: '121231', active: true }] as const
 
 const firefoxTags = [
-  { alias: 'style-consistency', version: 'firefox@stable_129.0.2', active: true },
+  { alias: 'style-consistency', version: 'stable_129.0.2', active: true },
+  { alias: 'mac-stable_131.0.3', version: 'stable_131.0.3' },
 ] as const
 
 const browserTags = Object.freeze({
@@ -90,15 +87,9 @@ export default function Home(): ReactNode {
 
       <BuildTools
         subTitle={
-          <Translate id="home.buildtools.sub2">
-            Install pbvm, download your first browser
-          </Translate>
+          <Translate id="home.buildtools.sub2">Install pbvm, download your first browser</Translate>
         }
-        title={
-          <Translate id="home.buildtools.title2">
-            Get Started in 3 Minutes
-          </Translate>
-        }
+        title={<Translate id="home.buildtools.title2">Get Started in 3 Minutes</Translate>}
       >
         <CreateScript />
       </BuildTools>

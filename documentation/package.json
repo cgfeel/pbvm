@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "docusaurus": "docusaurus",
-    "start": "BASE_URL='/' docusaurus start",
+    "start": "cross-env BASE_URL=/ docusaurus start",
+    "start:en": "cross-env BASE_URL=/ docusaurus start --locale en",
+    "start:zh": "cross-env BASE_URL=/ docusaurus start --locale zh-Hans",
     "build": "docusaurus build",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
@@ -33,6 +35,7 @@
     "@docusaurus/types": "3.10.2",
     "@tailwindcss/postcss": "^4.3.3",
     "@types/react": "^19.0.0",
+    "cross-env": "^10.1.0",
     "tailwind-merge": "^3.6.0",
     "tailwind-variants": "^3.3.0",
     "tailwindcss": "^4.3.3",

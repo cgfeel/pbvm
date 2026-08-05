@@ -116,39 +116,9 @@ const config: Config = {
       },
     },
     {
-      tagName: 'link',
-      attributes: {
-        rel: 'manifest',
-        href: process.env.BASE_URL ? `${process.env.BASE_URL}manifest.json` : '/pbvm/manifest.json',
-      },
-    },
-    {
-      tagName: 'link',
-      attributes: {
-        rel: 'apple-touch-icon',
-        href: process.env.BASE_URL
-          ? `${process.env.BASE_URL}img/icon-192.png`
-          : '/pbvm/img/icon-192.png',
-      },
-    },
-    {
-      tagName: 'meta',
-      attributes: {
-        name: 'apple-mobile-web-app-capable',
-        content: 'yes',
-      },
-    },
-    {
       tagName: 'script',
       attributes: { type: 'text/javascript' },
       innerHTML: `window.__BASE_URL__='${process.env.BASE_URL ?? '/pbvm/'}'`,
-    },
-    {
-      tagName: 'script',
-      attributes: {
-        type: 'text/javascript',
-        src: `${process.env.BASE_URL ?? '/pbvm/'}js/locale-redirect.js`,
-      },
     },
   ],
 

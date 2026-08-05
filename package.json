@@ -18,6 +18,8 @@
     "dev": "tsx src/index.ts",
     "docs:build": "pnpm --filter documentation build",
     "docs:dev": "pnpm --filter documentation start",
+    "docs:en": "pnpm --filter documentation start:en",
+    "docs:zh": "pnpm --filter documentation start:zh",
     "build": "tsc && cp -r public dist/",
     "format": "oxfmt --write .",
     "format:check": "oxfmt --check .",
