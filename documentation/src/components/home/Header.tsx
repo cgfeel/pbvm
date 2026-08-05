@@ -1,8 +1,8 @@
-import Translate from '@docusaurus/Translate'
 import Logo from '@site/static/img/logo.svg'
 import type { FC, PropsWithChildren } from 'react'
 import { tv } from 'tailwind-variants'
 import { LinkButton } from '../button'
+import { t } from '../../utils/i18n'
 
 const secondary = ['text-neutral-500', 'dark:text-neutral-400']
 const styles = tv({
@@ -63,31 +63,24 @@ const Header: FC<PropsWithChildren> = ({ children }) => (
           <div className={cli()}>
             <h1 className={title({ className: 'font-arial text-7xl' })}>PBVM</h1>
             <div>
-              <Translate id="home.hero.tagline">
-                Cross-platform Multi-browser Version Manager
-              </Translate>
+              {t('home.hero.tagline')}
             </div>
           </div>
         </div>
         <div className={slogan()}>
           <h2 className={title({ type: 'secondary' })}>
-            <Translate id="home.hero.slogan">
-              Browser Management Made Simple
-            </Translate>
+            {t('home.hero.slogan')}
           </h2>
         </div>
         <p className={subtitle()}>
-          <Translate id="home.hero.description">
-            Built on @puppeteer/browsers. Install, switch, and manage multiple browser
-            versions with a single command. Designed for development and testing.
-          </Translate>
+          {t('home.hero.description')}
         </p>
         <div className={actions()}>
           <LinkButton to="/intro" type="primary">
-            <Translate id="home.hero.cta">Get Started →</Translate>
+            {t('home.hero.cta')}
           </LinkButton>
           <LinkButton to="/commands/create" type="secondary">
-            <Translate id="home.hero.commands">Commands</Translate>
+            {t('home.hero.commands')}
           </LinkButton>
         </div>
       </div>

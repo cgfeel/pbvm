@@ -1,0 +1,86 @@
+{
+  "home.hero.tagline": {
+    "message": "Cross-platform Multi-browser Version Manager"
+  },
+  "home.hero.slogan": {
+    "message": "Browser Management Made Simple"
+  },
+  "home.hero.description": {
+    "message": "Built on @puppeteer/browsers. Install, switch, and manage multiple browser versions with a single command. Designed for development and testing."
+  },
+  "home.hero.cta": {
+    "message": "Get Started →"
+  },
+  "home.hero.commands": {
+    "message": "Commands"
+  },
+  "home.buildtools.sub1": {
+    "message": "Ensure consistency across development, build, and testing environments"
+  },
+  "home.buildtools.title1": {
+    "message": "Seamlessly Integrates into Your Build Toolchain"
+  },
+  "home.buildtools.sub2": {
+    "message": "Install pbvm, download your first browser"
+  },
+  "home.buildtools.title2": {
+    "message": "Get Started in 3 Minutes"
+  },
+  "home.script.install": {
+    "message": "Installation"
+  },
+  "home.script.common": {
+    "message": "Common Commands"
+  },
+  "home.system.label": {
+    "message": "Cross-platform Compatibility"
+  },
+  "home.system.title": {
+    "message": "Run Anywhere, Switch Seamlessly"
+  },
+  "home.system.desc": {
+    "message": "pbvm runs on Windows, macOS, and Linux, helping developers install, switch, and manage multiple browser versions in any environment."
+  },
+  "home.features.desc": {
+    "message": "Switch with simple aliases — no more memorizing complex buildIds"
+  },
+  "home.features.title": {
+    "message": "Manage Multiple Versions of Chrome, Chromium & Firefox"
+  },
+  "home.bottom.title": {
+    "message": "Ready to Get Started?"
+  },
+  "home.bottom.desc": {
+    "message": "Install pbvm and enjoy a smooth browser version management experience."
+  },
+  "home.bottom.cta": {
+    "message": "Read the Docs →"
+  },
+  "home.dev.item.commander": {
+    "message": "CLI Command Flow"
+  },
+  "home.dev.item.architecture": {
+    "message": "Project Architecture"
+  },
+  "home.dev.item.resources": {
+    "message": "Resources & Mirrors"
+  },
+  "home.dev.item.storage": {
+    "message": "Storage & File Lock"
+  },
+  "home.dev.header.title": {
+    "message": "Designed for frontend engineering — generate independent browserlist.json configs for different projects"
+  },
+  "home.dev.header.desc": {
+    "message": "Achieve project-level browser version management. Integrate with modern build tools to provide a consistent browser environment for development, testing, and CI/CD."
+  },
+  "home.dev.header.titleShort": {
+    "message": "Designed for Frontend Engineering"
+  },
+  "home.dev.header.descShort": {
+    "message": "Generate independent browserlist.json configs for different projects, achieving project-level browser version management. Integrate with modern build tools to provide a consistent browser environment for development, testing, and CI/CD."
+  },
+  "home.dev.item.viewDetails": {
+    "message": "View Details"
+  }
+}

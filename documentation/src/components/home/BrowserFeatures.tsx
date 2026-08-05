@@ -1,7 +1,7 @@
-import Translate from '@docusaurus/Translate'
 import type { FC, PropsWithChildren } from 'react'
 import { tv } from 'tailwind-variants'
 import Wraper from './Wraper'
+import { t } from '../../utils/i18n'
 
 const styles = tv({
   slots: {
@@ -20,14 +20,10 @@ const BrowserFeatures: FC<PropsWithChildren> = ({ children }) => (
     <div className={selector()}>
       <div>
         <div className={desc()}>
-          <Translate id="home.features.desc">
-            Switch with simple aliases — no more memorizing complex buildIds
-          </Translate>
+          {t('home.features.desc')}
         </div>
         <h2 className={title()}>
-          <Translate id="home.features.title">
-            Manage Multiple Versions of Chrome, Chromium & Firefox
-          </Translate>
+          {t('home.features.title')}
         </h2>
       </div>
       <div className={grid()}>{children}</div>
