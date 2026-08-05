@@ -1,3 +1,4 @@
+import Translate from '@docusaurus/Translate'
 import Vite from '@site/static/img/vite-light.svg'
 import Webpack from '@site/static/img/webpack.svg'
 import type { FC } from 'react'
@@ -95,7 +96,11 @@ export const BuildScript: FC = () => [
 
 export const CreateScript: FC = () => (
   <div className={script()}>
-    <CodeCard title="安装">{INSTALL_CODE}</CodeCard>
-    <CodeCard title="常用命令">{QUICKSTART_CODE}</CodeCard>
+    <CodeCard title={<Translate id="home.script.install">Installation</Translate>}>
+      {INSTALL_CODE}
+    </CodeCard>
+    <CodeCard title={<Translate id="home.script.common">Common Commands</Translate>}>
+      {QUICKSTART_CODE}
+    </CodeCard>
   </div>
 )

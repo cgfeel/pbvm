@@ -1,3 +1,4 @@
+import Translate from '@docusaurus/Translate'
 import type { FC, PropsWithChildren } from 'react'
 import { tv } from 'tailwind-variants'
 import Wraper from './Wraper'
@@ -18,8 +19,16 @@ const BrowserFeatures: FC<PropsWithChildren> = ({ children }) => (
   <Wraper>
     <div className={selector()}>
       <div>
-        <div className={desc()}>通过简单别名切换，无需记住复杂的 buildId</div>
-        <h2 className={title()}>统一管理 Chrome、Chromium、Firefox 多个版本</h2>
+        <div className={desc()}>
+          <Translate id="home.features.desc">
+            Switch with simple aliases — no more memorizing complex buildIds
+          </Translate>
+        </div>
+        <h2 className={title()}>
+          <Translate id="home.features.title">
+            Manage Multiple Versions of Chrome, Chromium & Firefox
+          </Translate>
+        </h2>
       </div>
       <div className={grid()}>{children}</div>
     </div>

@@ -6,7 +6,7 @@ const sidebars: SidebarsConfig = {
     'source',
     {
       type: 'category',
-      label: '命令',
+      label: 'Commands',
       collapsed: false,
       items: [
         'commands/create',
@@ -23,7 +23,7 @@ const sidebars: SidebarsConfig = {
     },
     {
       type: 'category',
-      label: '核心概念',
+      label: 'Core Concepts',
       collapsed: false,
       items: [
         'concepts/browserlist',

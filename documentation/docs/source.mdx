@@ -2,39 +2,39 @@
 sidebar_position: 2
 ---
 
-# 资源和镜像
+# Resources & mirrors
 
-获取各浏览器版本号及可用镜像源的在线参考。
+Online references for obtaining browser version numbers and available mirror sources.
 
-## 获取版本号
+## Getting version numbers
 
-`create` 和 `search` 命令需要的 `buildId` 因浏览器而异，以下是最权威的查询入口。
+The `buildId` required by `create` and `search` varies by browser. Below are the most authoritative lookup sources.
 
 ### Chrome
 
-| 资源                                                                                                                                      | 说明                                                               |
-| ----------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------ |
-| [Chrome for Testing - Known Good Versions](https://googlechromelabs.github.io/chrome-for-testing/known-good-versions-with-downloads.json) | Google 官方提供的可用版本 JSON，包含各平台下载地址                 |
-| [Puppeteer Supported Browsers](https://pptr.dev/supported-browsers)                                                                       | Puppeteer 官方维护的浏览器支持列表，列出了 Chrome 对应的 `buildId` |
+| Resource                                                                                                                                  | Description                                                                          |
+| ----------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
+| [Chrome for Testing - Known Good Versions](https://googlechromelabs.github.io/chrome-for-testing/known-good-versions-with-downloads.json) | Official JSON of available Chrome versions from Google, including per-platform download URLs |
+| [Puppeteer Supported Browsers](https://pptr.dev/supported-browsers)                                                                       | Puppeteer's officially maintained browser support list, mapping Chrome versions to `buildId` |
 
-`buildId` 格式：四段版本号，如 `134.0.6998.35`。
+`buildId` format: 4-part version number, e.g. `134.0.6998.35`.
 
 ```bash
-# 从 JSON 中直接获取 buildId 后安装
+# Get buildId from JSON and install directly
 pbvm create -b chrome -i 134.0.6998.35
 
-# 先搜索确认远程是否存在
+# Search first to confirm the remote version exists
 pbvm search -b chrome -i 134.0.6998.35
 ```
 
 ### Chromium
 
-| 资源                                                                                                      | 说明                                                        |
-| --------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------- |
-| [Chromium Dash](https://chromiumdash.appspot.com/home)                                                    | Chromium 版本发布面板，可查询各平台的 revision 号和构建进度 |
-| [Chromium Snapshot Index](https://commondatastorage.googleapis.com/chromium-browser-snapshots/index.html) | Chromium 快照存储桶根目录，按平台和 revision 号直接浏览文件 |
+| Resource                                                                                                  | Description                                                                          |
+| --------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
+| [Chromium Dash](https://chromiumdash.appspot.com/home)                                                    | Chromium release dashboard; query revision numbers and build progress by platform    |
+| [Chromium Snapshot Index](https://commondatastorage.googleapis.com/chromium-browser-snapshots/index.html) | Chromium snapshot storage bucket root; browse files directly by platform and revision |
 
-`buildId` 格式：纯数字 revision 号，如 `1435764`。
+`buildId` format: numeric revision number, e.g. `1435764`.
 
 ```bash
 pbvm create -b chromium -i 1435764
@@ -42,97 +42,97 @@ pbvm create -b chromium -i 1435764
 
 ### Firefox
 
-| 资源                                                                  | 说明                                                                      |
-| --------------------------------------------------------------------- | ------------------------------------------------------------------------- |
-| [Mozilla Archive (Firefox)](https://archive.mozilla.org/pub/firefox/) | Mozilla 官方 FTP 归档，按 channel（release / beta / nightly）和版本号组织 |
+| Resource                                                              | Description                                                                                 |
+| --------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
+| [Mozilla Archive (Firefox)](https://archive.mozilla.org/pub/firefox/) | Mozilla's official FTP archive, organized by channel (release / beta / nightly) and version |
 
-`buildId` 格式：`channel_version`，如 `stable_136.0.0`。注意前缀和版本号之间用下划线分隔。
+`buildId` format: `channel_version`, e.g. `stable_136.0.0`. Note the underscore separating the channel prefix and version number.
 
 ```bash
 pbvm create -b firefox -i stable_136.0.0
 ```
 
-## 镜像资源
+## Mirror resources
 
-国内网络环境下，通过 npmmirror 镜像可显著提升下载速度。以下列出各浏览器的 npmmirror 浏览入口和对应的 pbvm 镜像配置。
+In mainland China, using the npmmirror mirror can significantly improve download speed. Below are the npmmirror browse URLs for each browser and the corresponding pbvm mirror configuration.
 
-| 浏览器   | npmmirror 浏览入口                                                                                        |
+| Browser  | npmmirror browse URL                                                                                      |
 | -------- | --------------------------------------------------------------------------------------------------------- |
 | Chrome   | [chrome-for-testing](https://registry.npmmirror.com/binary.html?path=chrome-for-testing/)                 |
 | Chromium | [chromium-browser-snapshots](https://registry.npmmirror.com/binary.html?path=chromium-browser-snapshots/) |
 | Firefox  | [firefox](https://registry.npmmirror.com/binary.html?path=firefox/)                                       |
 
-### 启用镜像
+### Enabling a mirror
 
 ```bash
-# 全局启用 npmmirror 镜像
+# Enable npmmirror globally
 pbvm mirror -s npmmirror
 
-# 仅当前项目启用
+# Enable for the current project only
 pbvm mirror -s npmmirror -i
 ```
 
-启用后，所有 `create` 和 `search` 命令会自动通过镜像下载。实际使用的镜像规则文件位于 `public/mirror/npmmirror.json`，定义了各浏览器的 URL 模板和平台映射。
+Once enabled, all `create` and `search` commands automatically use the mirror for downloads. The actual mirror rule file is located at `public/mirror/npmmirror.json`, which defines the URL templates and platform mappings for each browser.
 
-### 临时使用
+### One-off use
 
-不设置全局镜像时，也可以单次指定：
+Even without a global mirror, you can specify one on a per-command basis:
 
 ```bash
 pbvm create -b chrome -i 134.0.6998.35 -m ./path/to/.browsermr
 pbvm search -b firefox -i stable_136.0.0 -m ./path/to/.browsermr
 ```
 
-更多镜像配置细节参见 [mirror 命令文档](./commands/mirror.mdx)。
+For more mirror configuration details, see the [mirror command docs](./commands/mirror.mdx).
 
-## Puppeteer 浏览器支持总览
+## Puppeteer browser support overview
 
-Puppeteer 对每个版本都关联了特定版本的 Chrome 和 Firefox，[pptr.dev/supported-browsers](https://pptr.dev/supported-browsers) 是最直接的对照表。如果你不确定该装哪个版本，按以下流程操作：
+Each Puppeteer version is associated with specific Chrome and Firefox versions. [pptr.dev/supported-browsers](https://pptr.dev/supported-browsers) is the most direct reference. If you're unsure which version to install:
 
-1. 访问 [Puppeteer Supported Browsers](https://pptr.dev/supported-browsers) 找到目标 Puppeteer 版本对应的浏览器 `buildId`
-2. 用 `pbvm search -b <browser> -i <buildId>` 确认远程可用
-3. 用 `pbvm create -b <browser> -i <buildId>` 安装
+1. Visit [Puppeteer Supported Browsers](https://pptr.dev/supported-browsers) to find the browser `buildId` for your target Puppeteer version
+2. Run `pbvm search -b <browser> -i <buildId>` to confirm the remote is available
+3. Run `pbvm create -b <browser> -i <buildId>` to install
 
-## 自定义镜像
+## Custom mirrors
 
-### 获取模板文件
+### Getting a template file
 
 ```bash
-# 在当前目录生成一份 .browsermr 模板
+# Generate a .browsermr template in the current directory
 pbvm mirror -i
-# 交互界面选择镜像源（如 npmmirror）
+# Follow the interactive prompts to choose a mirror source (e.g. npmmirror)
 ```
 
-也可以直接参考内置模板：[npmmirror.json](https://github.com/cgfeel/pbvm/blob/main/public/mirror/npmmirror.json)。
+You can also reference the built-in template directly: [npmmirror.json](https://github.com/cgfeel/pbvm/blob/main/public/mirror/npmmirror.json).
 
-### 文件结构
+### File structure
 
-`.browsermr` 是一个 JSON 文件，顶层 key 为浏览器名称（与 `@puppeteer/browsers` 的 `Browser` 枚举一致），每个浏览器下必须包含 `mirror` 字段，其余字段为平台映射，按需定义。
+`.browsermr` is a JSON file. The top-level keys are browser names (matching the `Browser` enum from `@puppeteer/browsers`). Each browser entry must contain a `mirror` field; the remaining fields are platform mappings defined on demand.
 
 ```json
 {
   "chrome": {
-    "mirror": "<镜像 URL 模板>",
-    "<映射字段>": { "linux": "...", "mac": "...", "mac_arm": "..." }
+    "mirror": "<mirror URL template>",
+    "<mapping field>": { "linux": "...", "mac": "...", "mac_arm": "..." }
   }
 }
 ```
 
-### URL 模板变量
+### URL template variables
 
-镜像 URL 中用 `<>` 包裹的占位符会在下载时被替换为实际值：
+Placeholders enclosed in `<>` in the mirror URL are replaced with actual values at download time:
 
-| 变量          | 来源     | 说明                                                                 |
-| ------------- | -------- | -------------------------------------------------------------------- |
-| `<browser>`   | 固定值   | 浏览器名称，如 `chrome`、`chromium`、`firefox`                       |
-| `<platform>`  | 固定值   | 当前平台标识，由 `@puppeteer/browsers` 提供                          |
-| `<buildId>`   | 固定值   | 去除 channel 前缀的版本号（Firefox 的 `stable_136.0.0` → `136.0.0`） |
-| `<channelId>` | 固定值   | 完整 channel + 版本号，Firefox 专用                                  |
-| `<lang>`      | 固定值   | 语言，Firefox 专用，默认 `zh-CN`                                     |
-| `<ext>`       | 映射字段 | 文件扩展名，从 `ext` 映射按平台取值                                  |
-| `<suffix>`    | 映射字段 | 浏览器专属文件名后缀，从 `suffix` 映射按平台取值                     |
+| Variable      | Source       | Description                                                                       |
+| ------------- | ------------ | --------------------------------------------------------------------------------- |
+| `<browser>`   | Fixed        | Browser name: `chrome`, `chromium`, `firefox`                                     |
+| `<platform>`  | Fixed        | Current platform identifier, provided by `@puppeteer/browsers`                    |
+| `<buildId>`   | Fixed        | Version number with the channel prefix stripped (Firefox `stable_136.0.0` → `136.0.0`) |
+| `<channelId>` | Fixed        | Full channel + version, Firefox only                                              |
+| `<lang>`      | Fixed        | Language, Firefox only, default `zh-CN`                                           |
+| `<ext>`       | Mapping field | File extension, resolved by platform from the `ext` mapping                       |
+| `<suffix>`    | Mapping field | Browser-specific filename suffix, resolved by platform from the `suffix` mapping  |
 
-**映射字段**是指在 JSON 中与 `mirror` 同级的对象，key 会作为模板变量名，value 是一个 `{ 平台: 取值 }` 的映射表。例如：
+**Mapping fields** are the top-level keys alongside `mirror` in the JSON. The key name acts as a template variable name, and its value is a `{ platform: value }` map. For example:
 
 ```json
 "platform": {
@@ -144,67 +144,66 @@ pbvm mirror -i
 }
 ```
 
-此时 `<platform>` 在 macOS ARM 上会被替换为 `mac-arm64`。`null` 表示该平台不支持。
+In this case `<platform>` is replaced by `mac-arm64` on macOS ARM. `null` means the platform is not supported.
 
-### 替换示例
+### Substitution example
 
-以 npmmirror 的 Chromium 配置为例，在 macOS (arm64) 下载 revision `1435764`：
+Using npmmirror's Chromium config, downloading revision `1435764` on macOS (arm64):
 
-- 模板：`https://.../<platform>/<buildId>/chrome-<suffix>.zip`
-- `platform` 映射取 `mac_arm` → `Mac_Arm`
-- `suffix` 映射取 `mac_arm` → `mac`
-- `buildId` 固定值 → `1435764`
+- Template: `https://.../<platform>/<buildId>/chrome-<suffix>.zip`
+- `platform` mapping for `mac_arm` → `Mac_Arm`
+- `suffix` mapping for `mac_arm` → `mac`
+- `buildId` fixed → `1435764`
 
-最终 URL：
+Resulting URL:
 
 ```
 https://registry.npmmirror.com/-/binary/chromium-browser-snapshots/Mac_Arm/1435764/chrome-mac.zip
 ```
 
-### 运行时覆盖：`--rule`
+### Runtime overrides: `--rule`
 
-`create` 和 `search` 命令支持 `-r/--rule` 参数，以 URL query-string 格式传入键值对，覆盖模板中的同名变量：
+The `create` and `search` commands accept a `-r/--rule` flag to pass key-value pairs in URL query-string format, overriding identically-named variables in the template:
 
 ```bash
-# 强制指定 lang 和 ext，忽略 .browsermr 中的映射值
+# Force lang and ext, ignoring mapped values in .browsermr
 pbvm create -b firefox -i stable_136.0.0 -r "lang=en-US&ext=tar.bz2"
 ```
 
-### 加载优先级
+### Loading priority
 
-1. `-m` 指定的镜像文件路径
-2. 当前目录下的 `.browsermr`
-3. pbvm 全局配置目录下的 `.browsermr`
-4. 以上都不存在则走 `@puppeteer/browsers` 默认下载地址
+1. Mirror file path specified via `-m`
+2. `.browsermr` in the current directory
+3. `.browsermr` in the pbvm global config directory
+4. If none of the above exist: fall back to `@puppeteer/browsers` default download URL
 
-### 整体流程
+### Overall flow
 
 ```mermaid
 flowchart TD
-    A["<code>pbvm create</code> / <code>pbvm search</code>"] --> B{"指定了 <code>-m</code>？"}
-    B -->|是| C["加载指定镜像文件"]
-    B -->|否| D{"当前目录有<br/><code>.browsermr</code>？"}
-    D -->|是| E["加载项目级 .browsermr"]
-    D -->|否| F{"全局配置目录有<br/><code>.browsermr</code>？"}
-    F -->|是| G["加载全局 .browsermr"]
-    F -->|否| H["走默认下载地址<br/>（@puppeteer/browsers）"]
+    A["<code>pbvm create</code> / <code>pbvm search</code>"] --> B{"<code>-m</code> specified?"}
+    B -->|Yes| C["Load specified mirror file"]
+    B -->|No| D{"Current directory has<br/><code>.browsermr</code>?"}
+    D -->|Yes| E["Load project-level .browsermr"]
+    D -->|No| F{"Global config directory has<br/><code>.browsermr</code>?"}
+    F -->|Yes| G["Load global .browsermr"]
+    F -->|No| H["Use default download URL<br/>(@puppeteer/browsers)"]
 
-    C --> I["解析 JSON，提取浏览器配置"]
+    C --> I["Parse JSON, extract browser config"]
     E --> I
     G --> I
 
-    I --> J["获取镜像 URL 模板"]
-    I --> K["获取平台映射字段<br/>（platform / suffix / ext …）"]
+    I --> J["Get mirror URL template"]
+    I --> K["Get platform mapping fields<br/>(platform / suffix / ext …)"]
 
-    K --> L["根据当前平台查映射值"]
-    L --> M["替换映射变量<br/>（&lt;platform&gt; &lt;suffix&gt; &lt;ext&gt; …）"]
-    J --> N["替换固定变量<br/>（&lt;browser&gt; &lt;buildId&gt; …）"]
+    K --> L["Look up mapping values for current platform"]
+    L --> M["Replace mapping variables<br/>(&lt;platform&gt; &lt;suffix&gt; &lt;ext&gt; …)"]
+    J --> N["Replace fixed variables<br/>(&lt;browser&gt; &lt;buildId&gt; …)"]
     N --> M
 
-    M --> O{"指定了 <code>--rule</code>？"}
-    O -->|是| P["用 --rule 键值对覆盖同名变量"]
-    O -->|否| Q["组装最终下载 URL"]
+    M --> O{"<code>--rule</code> specified?"}
+    O -->|Yes| P["Override matching variables with --rule values"]
+    O -->|No| Q["Assemble final download URL"]
     P --> Q
-    Q --> R["发起 HTTP 下载"]
+    Q --> R["Initiate HTTP download"]
 ```
-

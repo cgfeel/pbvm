@@ -1,3 +1,4 @@
+import Translate from '@docusaurus/Translate'
 import { objectEntries } from '@site/src/utils/fields'
 import Linux from '@site/static/img/linux.svg'
 import Osx from '@site/static/img/osx.svg'
@@ -44,13 +45,23 @@ const System: FC = () => (
     <div className={selector()}>
       <div className={desc()}>
         <div className={header()}>
-          <div>跨平台兼容性</div>
-          <h3 className={title()}>随处运行，无缝切换</h3>
+          <div>
+            <Translate id="home.system.label">
+              Cross-platform Compatibility
+            </Translate>
+          </div>
+          <h3 className={title()}>
+            <Translate id="home.system.title">
+              Run Anywhere, Switch Seamlessly
+            </Translate>
+          </h3>
         </div>
         <div className={footer()}>
           <div>
-            pbvm 支持 Windows、macOS、Linux
-            多平台运行，帮助开发者在任意环境下安装、切换和管理多个浏览器版本。
+            <Translate id="home.system.desc">
+              pbvm runs on Windows, macOS, and Linux, helping developers install, switch,
+              and manage multiple browser versions in any environment.
+            </Translate>
           </div>
           <div className={tags()}>
             {objectEntries(iconMap).map(([name, Element]) => (

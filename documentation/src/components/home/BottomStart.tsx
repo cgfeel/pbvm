@@ -1,4 +1,5 @@
 import Link from '@docusaurus/Link'
+import Translate from '@docusaurus/Translate'
 import type { FC } from 'react'
 import { tv } from 'tailwind-variants'
 import Wraper from './Wraper'
@@ -25,12 +26,20 @@ const BottomStart: FC = () => (
   <Wraper>
     <div className={container()}>
       <div>
-        <h3 className={title()}>准备好开始了吗？</h3>
-        <div className={tips()}>安装 pbvm，享受流畅的浏览器版本管理体验。</div>
+        <h3 className={title()}>
+          <Translate id="home.bottom.title">Ready to Get Started?</Translate>
+        </h3>
+        <div className={tips()}>
+          <Translate id="home.bottom.desc">
+            Install pbvm and enjoy a smooth browser version management experience.
+          </Translate>
+        </div>
       </div>
       <pre className={logo()}>{logoText}</pre>
       <div>
-        <Link to="/intro">阅读文档 →</Link>
+        <Link to="/intro">
+          <Translate id="home.bottom.cta">Read the Docs →</Translate>
+        </Link>
       </div>
     </div>
   </Wraper>

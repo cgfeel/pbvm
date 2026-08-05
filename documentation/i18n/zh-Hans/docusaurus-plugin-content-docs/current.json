@@ -1,0 +1,14 @@
+{
+  "version.label": {
+    "message": "Next",
+    "description": "The label for version current"
+  },
+  "sidebar.docSidebar.category.Commands": {
+    "message": "命令",
+    "description": "The label for category 'Commands' in sidebar 'docSidebar'"
+  },
+  "sidebar.docSidebar.category.Core Concepts": {
+    "message": "核心概念",
+    "description": "The label for category 'Core Concepts' in sidebar 'docSidebar'"
+  }
+}

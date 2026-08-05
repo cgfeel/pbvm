@@ -4,63 +4,63 @@ sidebar_position: 6
 
 # search
 
-查询远程资源是否存在，检测目标浏览器是否可下载。
+Query whether a remote resource exists and check if a target browser is downloadable.
 
-## 用法
+## Usage
 
 ```bash
 pbvm search [-b <browser>] [-i <buildId>] [-m <mirror>] [-r <rule>]
 ```
 
-## 选项
+## Options
 
-| 选项 | 简写 | 说明 |
-|------|------|------|
-| `--browser` | `-b` | 浏览器名称：`chrome`、`chromium`、`firefox` |
-| `--build-id` | `-i` | 浏览器版本号 |
-| `--mirror` | `-m` | 镜像规则文件路径，不指定则优先查找当前目录及全局 `.browsermr` |
-| `--rule` | `-r` | 镜像模板自定义参数，URL search 格式：`a=1&b=2`，用于替换模板变量 |
+| Option       | Short | Description                                                                 |
+| ------------ | ----- | --------------------------------------------------------------------------- |
+| `--browser`  | `-b`  | Browser name: `chrome`, `chromium`, `firefox`                               |
+| `--build-id` | `-i`  | Browser version                                                             |
+| `--mirror`   | `-m`  | Path to a mirror rule file; defaults to `.browsermr` in CWD then global     |
+| `--rule`     | `-r`  | Custom mirror template params in URL search format: `a=1&b=2`, replaces template variables |
 
-## 输出信息
+## Output
 
-### Browser info（本地状态）
+### Browser info (local state)
 
-| 字段 | 说明 |
-|------|------|
-| `platform` | 当前平台 |
-| `browser` | 浏览器名称 |
-| `buildId` | 版本号 |
-| `installed` | 是否已安装到本地 Store |
+| Field      | Description                        |
+| ---------- | ---------------------------------- |
+| `platform` | Current platform                   |
+| `browser`  | Browser name                       |
+| `buildId`  | Version                            |
+| `installed`| Whether installed in the local Store |
 
-### Search info（远程状态）
+### Search info (remote state)
 
-| 字段 | 说明 |
-|------|------|
-| `exists` | 远程资源是否存在 |
-| `url` | 下载地址 |
-| `status` | HTTP 响应状态码 |
-| `redirected` | 是否发生了重定向 |
-| `size` | 文件大小（字节） |
-| `contentType` | 内容类型 |
-| `lastModified` | 远程文件最后修改时间 |
-| `etag` | 资源 ETag |
-| `acceptRanges` | 是否支持断点续传 |
+| Field          | Description                       |
+| -------------- | --------------------------------- |
+| `exists`       | Whether the remote resource exists |
+| `url`          | Download URL                      |
+| `status`       | HTTP response status code         |
+| `redirected`   | Whether a redirect occurred       |
+| `size`         | File size (bytes)                 |
+| `contentType`  | Content type                      |
+| `lastModified` | Remote file last-modified time    |
+| `etag`         | Resource ETag                     |
+| `acceptRanges` | Whether range requests are supported |
 
-## 示例
+## Examples
 
 ```bash
-# 查询 Chrome 指定版本
+# Search for a specific Chrome version
 pbvm search -b chrome -i 134.0.6998.35
 
-# 查询 Chromium revision
+# Search for a Chromium revision
 pbvm search -b chromium -i 1435764
 
-# 交互模式
+# Interactive mode
 pbvm search
 ```
 
-## 典型用途
+## Typical use cases
 
-- **验证版本号**：在 `create` 前确认 buildId 有效
-- **检查可用性**：确认远程 CDN 是否可访问
-- **获取文件大小**：预估下载所需时间和空间
+- **Verify a version**: confirm a buildId is valid before `create`
+- **Check availability**: verify the remote CDN is reachable
+- **Get file size**: estimate download time and disk space

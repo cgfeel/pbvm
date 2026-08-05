@@ -1,0 +1,59 @@
+---
+sidebar_position: 1
+---
+
+# browserlist.json
+
+`browserlist.json` 是 pbvm 的项目级浏览器清单文件，位于项目根目录。
+
+## 作用
+
+记录当前项目使用的浏览器及其配置，使团队成员可以共享统一的浏览器环境。
+
+## 文件结构
+
+```json
+[
+  {
+    "platform": "mac_arm",
+    "alias": "my-chrome",
+    "browser": "chrome",
+    "buildId": "134.0.6998.35"
+  },
+  {
+    "platform": "mac_arm",
+    "alias": "dev-firefox",
+    "browser": "firefox",
+    "buildId": "stable_136.0.0"
+  }
+]
+```
+
+## 字段说明
+
+| 字段 | 类型 | 说明 |
+|------|------|------|
+| `platform` | `string` | 浏览器平台（`mac_arm`、`linux_64`、`win_64` 等） |
+| `alias` | `string` | 用户定义的别名，用于简化命令中的浏览器引用 |
+| `browser` | `string` | 浏览器名称：`chrome`、`chromium`、`firefox` |
+| `buildId` | `string` | 浏览器版本号 |
+
+## 读写操作
+
+| 命令 | 读 | 写 |
+|------|:--:|:--:|
+| `pbvm create` | - | ✅ 添加记录 |
+| `pbvm ls` | ✅ 读取列表 | - |
+| `pbvm open` | ✅ 查找目标 | - |
+| `pbvm alias` | ✅ 查找目标 | ✅ 更新别名 |
+| `pbvm remove` | - | ✅ 移除记录 |
+| `pbvm restore` | - | ✅ 更新记录 |
+
+## 文件锁
+
+对 `browserlist.json` 的写入操作使用**文件锁**保护，防止多进程并发写入导致数据丢失。锁超时时间为 1 分钟。
+
+## 建议
+
+- 将 `browserlist.json` 纳入版本控制（git），确保团队使用一致的浏览器环境
+- 让 CI 读取此文件安装依赖的浏览器版本

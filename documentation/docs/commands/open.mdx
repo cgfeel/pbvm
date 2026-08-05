@@ -4,65 +4,65 @@ sidebar_position: 3
 
 # open
 
-打开指定的浏览器。支持别名或 `browser@buildId` 方式定位浏览器，可配置初始访问地址。
+Open a specified browser. Supports targeting via alias or `browser@buildId`, with an optional initial URL.
 
-## 用法
+## Usage
 
 ```bash
 pbvm open [-t <target>] [-u <url>]
 ```
 
-## 选项
+## Options
 
-| 选项       | 简写 | 说明                                           |
-| ---------- | ---- | ---------------------------------------------- |
-| `--target` | `-t` | 浏览器标识：`{browser}@{buildId}` 或 `{alias}` |
-| `--url`    | `-u` | 打开浏览器后访问的 URL                         |
+| Option     | Short | Description                                          |
+| ---------- | ----- | ---------------------------------------------------- |
+| `--target` | `-t`  | Browser identifier: `{browser}@{buildId}` or `{alias}` |
+| `--url`    | `-u`  | URL to open in the browser on launch                 |
 
-## 工作原理
+## How it works
 
-目前通过 `pbvm open` 命令只能打开当前目录下 `browserlist.json` 中已存在记录的浏览器，还未记录前需通过 `pbvm create` 添加浏览器。
+Currently, `pbvm open` can only open browsers that already have a record in the current directory's `browserlist.json`. Use `pbvm create` to add a browser first.
 
-1. 根据 `-t` 参数在 `browserlist.json` 中查找匹配的浏览器
-2. 如果 Store 中尚未安装，自动触发下载安装
-3. 启动浏览器并关闭更新检查、首次运行向导等干扰项
-4. 如果指定了 `-u`，在浏览器启动时访问该 URL
+1. Look up the matching browser in `browserlist.json` using the `-t` argument
+2. If the browser is not yet installed in the Store, trigger a download and install automatically
+3. Launch the browser with update checks, first-run wizards, and other distractions disabled
+4. If `-u` is provided, navigate to that URL on launch
 
-### Firefox 特殊处理
+### Firefox-specific handling
 
-对于 Firefox，打开前会自动配置：
+Before launching Firefox, pbvm automatically configures:
 
-- `user.js`：禁用自动更新、默认浏览器检查
-- `policies.json`：通过企业策略硬阻断更新、遥测
+- `user.js`: disables auto-update and default browser check
+- `policies.json`: hard-blocks updates and telemetry via enterprise policy
 
-### Chromium/Chrome 特殊处理
+### Chromium/Chrome-specific handling
 
-通过启动参数禁用：
+Disables the following via launch flags:
 
-- 自动更新
-- 首次运行向导
-- 默认浏览器检查
+- Auto-update
+- First-run wizard
+- Default browser check
 
-## 示例
+## Examples
 
 ```bash
-# 通过别名打开
+# Open by alias
 pbvm open -t my-chrome
 
-# 通过 browser@buildId 打开
+# Open by browser@buildId
 pbvm open -t chrome@134.0.6998.35
 
-# 打开并访问指定 URL
+# Open and navigate to a specific URL
 pbvm open -t my-chrome -u https://example.com
 
-# 缺少参数时进入交互选择
+# Interactive selection when arguments are missing
 pbvm open
 ```
 
-## 注意事项
+## Notes
 
-- 浏览器以 **detached** 模式启动，关闭终端不影响浏览器运行
-- 每个浏览器实例使用独立的 profile 目录（`~/.local/share/pbvm/profiles/`），互不干扰
-- 同一浏览器版本可重复打开，Chrome 系列会自动委托给已有实例（视觉上无变化），Firefox 会打开新窗口
+- The browser is launched in **detached** mode — closing the terminal does not affect the browser
+- Each browser instance uses an independent profile directory (`~/.local/share/pbvm/profiles/`), so they don't interfere with each other
+- The same browser version can be opened multiple times: Chrome-based browsers delegate to the existing instance (no visual change), while Firefox opens a new window
 
-关于 profile 目录结构和浏览器文件的存储位置，详见 [Store 与缓存目录](../concepts/store-and-cache.mdx)。
+For details on profile directory structure and browser file locations, see [Store & cache directory](../concepts/store-and-cache.mdx).

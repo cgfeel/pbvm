@@ -4,13 +4,13 @@ sidebar_position: 1
 
 # browserlist.json
 
-`browserlist.json` 是 pbvm 的项目级浏览器清单文件，位于项目根目录。
+`browserlist.json` is pbvm's project-level browser manifest file, located in the project root.
 
-## 作用
+## Purpose
 
-记录当前项目使用的浏览器及其配置，使团队成员可以共享统一的浏览器环境。
+Records which browsers a project uses and their configuration, so team members can share a consistent browser environment.
 
-## 文件结构
+## File structure
 
 ```json
 [
@@ -29,31 +29,31 @@ sidebar_position: 1
 ]
 ```
 
-## 字段说明
+## Fields
 
-| 字段 | 类型 | 说明 |
-|------|------|------|
-| `platform` | `string` | 浏览器平台（`mac_arm`、`linux_64`、`win_64` 等） |
-| `alias` | `string` | 用户定义的别名，用于简化命令中的浏览器引用 |
-| `browser` | `string` | 浏览器名称：`chrome`、`chromium`、`firefox` |
-| `buildId` | `string` | 浏览器版本号 |
+| Field      | Type     | Description                                                     |
+| ---------- | -------- | --------------------------------------------------------------- |
+| `platform` | `string` | Browser platform (`mac_arm`, `linux_64`, `win_64`, etc.)        |
+| `alias`    | `string` | User-defined alias to simplify browser references in commands   |
+| `browser`  | `string` | Browser name: `chrome`, `chromium`, `firefox`                   |
+| `buildId`  | `string` | Browser version                                                 |
 
-## 读写操作
+## Read/write operations
 
-| 命令 | 读 | 写 |
-|------|:--:|:--:|
-| `pbvm create` | - | ✅ 添加记录 |
-| `pbvm ls` | ✅ 读取列表 | - |
-| `pbvm open` | ✅ 查找目标 | - |
-| `pbvm alias` | ✅ 查找目标 | ✅ 更新别名 |
-| `pbvm remove` | - | ✅ 移除记录 |
-| `pbvm restore` | - | ✅ 更新记录 |
+| Command         | Read | Write         |
+| --------------- |:----:|:-------------:|
+| `pbvm create`   | -    | ✅ Add record |
+| `pbvm ls`       | ✅   | -             |
+| `pbvm open`     | ✅   | -             |
+| `pbvm alias`    | ✅   | ✅ Update alias |
+| `pbvm remove`   | -    | ✅ Remove record |
+| `pbvm restore`  | -    | ✅ Update record |
 
-## 文件锁
+## File locking
 
-对 `browserlist.json` 的写入操作使用**文件锁**保护，防止多进程并发写入导致数据丢失。锁超时时间为 1 分钟。
+Write operations on `browserlist.json` are protected by **file locks** to prevent data loss from concurrent writes by multiple processes. The lock timeout is 1 minute.
 
-## 建议
+## Recommendations
 
-- 将 `browserlist.json` 纳入版本控制（git），确保团队使用一致的浏览器环境
-- 让 CI 读取此文件安装依赖的浏览器版本
+- Check `browserlist.json` into version control (git) so the team uses a consistent browser environment
+- Have CI read this file to install the required browser versions

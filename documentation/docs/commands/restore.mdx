@@ -5,43 +5,43 @@ sidebar_position: 9
 
 # restore
 
-重新安装浏览器。流程为先删除再重新下载安装。
+Reinstall a browser. Deletes the existing install first, then downloads and reinstalls.
 
-## 用法
+## Usage
 
 ```bash
 pbvm restore [-b <browser>] [-i <buildId>] [-a <alias>]
 ```
 
-## 选项
+## Options
 
-| 选项 | 简写 | 说明 |
-|------|------|------|
-| `--browser` | `-b` | 浏览器名称：`chrome`、`chromium`、`firefox` |
-| `--build-id` | `-i` | 浏览器版本号 |
-| `--alias` | `-a` | 浏览器别名 |
+| Option       | Short | Description                                    |
+| ------------ | ----- | ---------------------------------------------- |
+| `--browser`  | `-b`  | Browser name: `chrome`, `chromium`, `firefox`  |
+| `--build-id` | `-i`  | Browser version                                |
+| `--alias`    | `-a`  | Browser alias                                  |
 
-## 执行流程
+## Execution flow
 
-1. 删除已有的 Store 缓存二进制文件 + profile 目录（等同于 `remove -f`）
-2. 重新下载安装浏览器（等同于 `create`）
-3. 更新 `browserlist.json` 中的记录
+1. Remove the existing Store binary + profile directory (equivalent to `remove -f`)
+2. Download and install the browser again (equivalent to `create`)
+3. Update the record in `browserlist.json`
 
-## 示例
+## Examples
 
 ```bash
-# 重新安装 Chrome
+# Reinstall Chrome
 pbvm restore -b chrome -i 134.0.6998.35
 
-# 重新安装并设置别名
+# Reinstall with a new alias
 pbvm restore -b firefox -i stable_136.0.0 -a dev-firefox
 
-# 交互模式
+# Interactive mode
 pbvm restore
 ```
 
-## 使用场景
+## Use cases
 
-- 浏览器版本损坏，需要干净重装
-- 升级到同一版本的新构建（通过 restore 触发重新下载）
-- 切换别名或重置浏览器配置
+- Browser installation is corrupted — needs a clean reinstall
+- Upgrade to a new build of the same version (restore triggers a fresh download)
+- Switch aliases or reset browser configuration

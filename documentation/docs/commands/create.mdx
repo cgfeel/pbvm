@@ -4,66 +4,66 @@ sidebar_position: 1
 
 # create
 
-下载并安装指定的浏览器。
+Download and install a specified browser.
 
-## 用法
+## Usage
 
 ```bash
 pbvm create [-b <browser>] [-i <buildId>] [-a <alias>] [-m <mirror>] [-r <rule>] [-s]
 ```
 
-## 选项
+## Options
 
-| 选项         | 简写 | 说明                                                              |
-| ------------ | ---- | ----------------------------------------------------------------- |
-| `--browser`  | `-b` | 浏览器名称：`chrome`、`chromium`、`firefox`                       |
-| `--build-id` | `-i` | 浏览器版本号，格式因浏览器而异                                    |
-| `--alias`    | `-a` | 浏览器别名，用于简化后续操作                                      |
-| `--mirror`   | `-m` | 镜像规则文件路径，不指定则优先查找当前目录及全局 `.browsermr`     |
-| `--rule`     | `-r` | 镜像模板自定义参数，URL search 格式：`a=1&b=2`，用于替换模板变量 |
-| `--store`    | `-s` | 仅下载到全局 Store，不写入 `browserlist.json`                     |
+| Option       | Short | Description                                                                 |
+| ------------ | ----- | --------------------------------------------------------------------------- |
+| `--browser`  | `-b`  | Browser name: `chrome`, `chromium`, `firefox`                               |
+| `--build-id` | `-i`  | Browser version; format varies by browser                                   |
+| `--alias`    | `-a`  | Alias for the browser, to simplify subsequent commands                      |
+| `--mirror`   | `-m`  | Path to a mirror rule file; defaults to `.browsermr` in CWD then global     |
+| `--rule`     | `-r`  | Custom mirror template params in URL search format: `a=1&b=2`, replaces template variables |
+| `--store`    | `-s`  | Download to the global Store only; do not write to `browserlist.json`       |
 
-## buildId 格式
+## buildId format
 
-| 浏览器   | buildId 格式            | 示例             |
-| -------- | ----------------------- | ---------------- |
-| chrome   | `x.x.x.x`（四段版本号） | `134.0.6998.35`  |
-| chromium | 纯数字 revision 号      | `1435764`        |
-| firefox  | `channel_version`       | `stable_136.0.0` |
+| Browser  | buildId format              | Example          |
+| -------- | --------------------------- | ---------------- |
+| chrome   | `x.x.x.x` (4-part version)  | `134.0.6998.35`  |
+| chromium | Numeric revision number     | `1435764`        |
+| firefox  | `channel_version`           | `stable_136.0.0` |
 
-## 示例
+## Examples
 
-### 交互模式
+### Interactive mode
 
-不带参数运行，按提示逐步选择：
+Run without arguments and follow the prompts:
 
 ```bash
 pbvm create
 ```
 
-交互流程：
+Interactive flow:
 
-1. 选择浏览器类型（chrome / chromium / firefox）
-2. 输入对应的 buildId
-3. 输入别名（可选，留空则自动生成）
-4. 确认后开始下载安装
+1. Select browser type (chrome / chromium / firefox)
+2. Enter the corresponding buildId
+3. Enter an alias (optional; auto-generated if left empty)
+4. Confirm to start download and installation
 
-### 命令行模式
+### CLI mode
 
 ```bash
-# 安装 Chrome 并设置别名
+# Install Chrome and set an alias
 pbvm create -b chrome -i 134.0.6998.35 -a my-chrome
 
-# 安装 Chromium（仅保存到 Store，不写入项目清单）
+# Install Chromium (save to Store only, no project record)
 pbvm create -b chromium -i 1435764 -s
 
-# 安装 Firefox
+# Install Firefox
 pbvm create -b firefox -i stable_136.0.0
 ```
 
-## 行为说明
+## Behavior
 
-- 安装前会自动检查全局 Store 中是否已有相同浏览器，若有则跳过下载
-- 安装成功后，默认将浏览器记录到当前目录的 `browserlist.json`
-- 使用 `-s` 参数只下载二进制文件到全局缓存，不做项目关联
-- 安装中断或失败时，已下载的不完整文件会被自动清理
+- Before installing, pbvm checks whether the same browser already exists in the global Store and skips the download if found
+- After a successful install, the browser is recorded in `browserlist.json` by default
+- The `-s` flag downloads the binary to the global cache only, without a project association
+- If the install is interrupted or fails, partially downloaded files are automatically cleaned up

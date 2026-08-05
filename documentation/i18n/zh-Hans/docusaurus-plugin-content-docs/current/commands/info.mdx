@@ -4,59 +4,59 @@ sidebar_position: 4
 
 # info
 
-View locally stored browser information and runtime information.
+查看浏览器本地存储信息和运行时信息。
 
-## Usage
+## 用法
 
 ```bash
 pbvm info [-t <target>] [-r]
 ```
 
-## Options
+## 选项
 
-| Option      | Short | Description                                                    |
-| ----------- | ----- | -------------------------------------------------------------- |
-| `--target`  | `-t`  | Browser identifier: `{browser}@{buildId}`                      |
-| `--runtime` | `-r`  | Also retrieve runtime information (starts a headless browser)  |
+| 选项        | 简写 | 说明                                           |
+| ----------- | ---- | ---------------------------------------------- |
+| `--target`  | `-t` | 浏览器标识，格式：`{browser}@{buildId}` |
+| `--runtime` | `-r` | 同时获取运行时信息（需启动 headless 浏览器）   |
 
-## Static info
+## 静态信息
 
-Always displayed:
+始终显示的信息包括：
 
-| Field            | Description                                  |
-| ---------------- | -------------------------------------------- |
-| `platform`       | Browser platform                             |
-| `browser`        | Browser name (chrome / chromium / firefox)   |
-| `buildId`        | Browser version                              |
-| `executablePath` | Path to the executable                       |
-| `profilePath`    | Path to the user data (profile) directory    |
-| `exists`         | Whether the executable exists                |
-| `size`           | File size                                    |
-| `createdAt`      | Install timestamp                            |
+| 字段             | 说明                                      |
+| ---------------- | ----------------------------------------- |
+| `platform`       | 浏览器对应平台                            |
+| `browser`        | 浏览器名称（chrome / chromium / firefox） |
+| `buildId`        | 浏览器版本号                              |
+| `executablePath` | 可执行文件路径                            |
+| `profilePath`    | 用户数据（profile）目录路径               |
+| `exists`         | 可执行文件是否存在                        |
+| `size`           | 文件大小                                  |
+| `createdAt`      | 安装时间                                  |
 
-## Runtime info
+## 运行时信息
 
-When `-r` is used, pbvm starts a headless browser to collect runtime information:
+当使用 `-r` 参数时，会启动 headless 浏览器获取运行时信息：
 
-- **Chrome / Chromium**: User-Agent, WebDriver endpoint, DevTools frontend URL, etc.
-- **Firefox**: User-Agent, WebDriver endpoint, Gecko version, etc.
+- **Chrome / Chromium**：User-Agent、WebDriver 端点、DevTools 前端地址等
+- **Firefox**：User-Agent、WebDriver 端点、Gecko 版本等
 
-Runtime info is output in JSON format.
+运行时信息以 JSON 格式输出。
 
-## Examples
+## 示例
 
 ```bash
-# View static info
+# 查看静态信息
 pbvm info -t chrome@134.0.6998.35
 
-# View static + runtime info
+# 查看静态 + 运行时信息
 pbvm info -t chrome@134.0.6998.35 -r
 
-# Interactive selection
+# 交互选择
 pbvm info
 ```
 
-## Sample output
+## 输出示例
 
 ```
 Static info:
@@ -79,7 +79,7 @@ The following information comes from a headless browser
 }
 ```
 
-## Runtime info collection flow
+## 运行时信息采集流
 
 Chromium CDP / Firefox BiDi
 
@@ -92,12 +92,12 @@ Chromium CDP / Firefox BiDi
       participant WS as WebSocket
       participant Browser as Browser Process
 
-      Note over Script,Base: Chromium path (CDP protocol)
+      Note over Script,Base: Chromium 路径 (CDP 协议)
       Script->>Chromium: getChromiumRuntimeInfo({executablePath, args})
       Chromium->>Base: generateBrowserRuntimeInfo(task)
       Base->>Browser: spawn(executablePath, ['--headless=new', '--remote-debugging-port=0', ...])
       Browser-->>Base: stderr → "DevTools listening on ws://..."
-      Base->>Base: captureEndpoint() - regex match WS address
+      Base->>Base: captureEndpoint() - 正则匹配 WS 地址
 
       Base->>WS: new WebSocket(wsEndpoint)
       Base->>Chromium: DevConnection (CDP)
@@ -106,7 +106,7 @@ Chromium CDP / Firefox BiDi
       Chromium->>WS: Target.getTargets → [{targetId, type: 'page'}]
       Chromium->>WS: Target.attachToTarget(sessionId, flatten:true)
 
-      Note over Chromium: Starts localhost HTTP server<br/>(to get secure context for userAgentData)
+      Note over Chromium: 启动本地 localhost HTTP server<br/>(获取 secure context 使 userAgentData 可用)
       Chromium->>WS: Page.navigate(localhost)
       Chromium->>WS: Runtime.evaluate(buildEnvScript)
       Browser-->>WS: {userAgent, platform, webgl, screen, timezone, ...}
@@ -114,7 +114,7 @@ Chromium CDP / Firefox BiDi
       Chromium->>WS: Browser.close
       Chromium-->>Script: {cdp info, pid, version, environment, wsEndpoint}
 
-      Note over Script,Base: Firefox path (WebDriver BiDi protocol)
+      Note over Script,Base: Firefox 路径 (WebDriver BiDi 协议)
       Script->>Firefox: getFirefoxRuntimeInfo({executablePath, args})
       Firefox->>Base: generateBrowserRuntimeInfo(task)
       Base->>Browser: spawn(executablePath, ['-headless', '--remote-debugging-port=0', ...])
@@ -124,7 +124,7 @@ Chromium CDP / Firefox BiDi
       Firefox->>WS: session.new (WebDriver)
       Firefox->>WS: browsingContext.create ({type: 'tab'})
       Firefox->>WS: script.evaluate(buildEnvScript)
-      Browser-->>WS: RemoteValue → deserialize via fromRemoteValue()
+      Browser-->>WS: RemoteValue → fromRemoteValue() 反序列化
 
       Firefox->>WS: browser.close
       Firefox-->>Script: {pid, version, environment, wsEndpoint}

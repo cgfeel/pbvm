@@ -1,3 +1,4 @@
+import Translate from '@docusaurus/Translate'
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
 import BrowserFeatures from '@site/src/components/home/BrowserFeatures'
 import Header from '@site/src/components/home/Header'
@@ -49,7 +50,7 @@ export default function Home(): ReactNode {
   return (
     <Layout
       title={siteConfig.title}
-      description="基于 @puppeteer/browsers 的浏览器版本管理器，统一管理 Chrome、Chromium、Firefox 多个版本"
+      description="Browser version manager based on @puppeteer/browsers — manage multiple versions of Chrome, Chromium, and Firefox"
     >
       <Header>
         <Terminal />
@@ -72,11 +73,33 @@ export default function Home(): ReactNode {
 
       <DevEnvironment />
 
-      <BuildTools subTitle="保障开发、构建与测试环境的一致性" title="可无缝集成到构建工具链中">
+      <BuildTools
+        subTitle={
+          <Translate id="home.buildtools.sub1">
+            Ensure consistency across development, build, and testing environments
+          </Translate>
+        }
+        title={
+          <Translate id="home.buildtools.title1">
+            Seamlessly Integrates into Your Build Toolchain
+          </Translate>
+        }
+      >
         <BuildScript />
       </BuildTools>
 
-      <BuildTools subTitle="安装 pbvm，下载你的第一个浏览器" title="三分钟上手">
+      <BuildTools
+        subTitle={
+          <Translate id="home.buildtools.sub2">
+            Install pbvm, download your first browser
+          </Translate>
+        }
+        title={
+          <Translate id="home.buildtools.title2">
+            Get Started in 3 Minutes
+          </Translate>
+        }
+      >
         <CreateScript />
       </BuildTools>
 

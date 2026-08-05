@@ -1,3 +1,4 @@
+import Translate from '@docusaurus/Translate'
 import Logo from '@site/static/img/logo.svg'
 import type { FC, PropsWithChildren } from 'react'
 import { tv } from 'tailwind-variants'
@@ -61,21 +62,32 @@ const Header: FC<PropsWithChildren> = ({ children }) => (
           <Logo className={logoIcon()} />
           <div className={cli()}>
             <h1 className={title({ className: 'font-arial text-7xl' })}>PBVM</h1>
-            <div>跨平台多浏览器版本管理</div>
+            <div>
+              <Translate id="home.hero.tagline">
+                Cross-platform Multi-browser Version Manager
+              </Translate>
+            </div>
           </div>
         </div>
         <div className={slogan()}>
-          <h2 className={title({ type: 'secondary' })}>浏览器管理如此简单</h2>
+          <h2 className={title({ type: 'secondary' })}>
+            <Translate id="home.hero.slogan">
+              Browser Management Made Simple
+            </Translate>
+          </h2>
         </div>
         <p className={subtitle()}>
-          基于 @puppeteer/browsers，一条命令安装、切换、管理多个浏览器版本， 为开发与测试而生。
+          <Translate id="home.hero.description">
+            Built on @puppeteer/browsers. Install, switch, and manage multiple browser
+            versions with a single command. Designed for development and testing.
+          </Translate>
         </p>
         <div className={actions()}>
           <LinkButton to="/intro" type="primary">
-            快速开始 →
+            <Translate id="home.hero.cta">Get Started →</Translate>
           </LinkButton>
           <LinkButton to="/commands/create" type="secondary">
-            命令参考
+            <Translate id="home.hero.commands">Commands</Translate>
           </LinkButton>
         </div>
       </div>
