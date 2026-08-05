@@ -27,7 +27,7 @@
 
 // 2. Save manual language switch via event delegation
 document.addEventListener('click', function (e) {
-  var link = e.target.closest('.dropdown__link[lang]')
+  var link = e.target.closest('.dropdown__link[lang], .menu__link[lang]')
   if (link) {
     var lang = link.getAttribute('lang') === 'zh-Hans' ? 'zh' : 'en'
     localStorage.setItem('pbvm-lang', lang)
