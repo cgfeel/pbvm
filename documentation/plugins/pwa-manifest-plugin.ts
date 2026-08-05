@@ -69,6 +69,11 @@ export default function pwaManifestPlugin(context: LoadContext): Plugin {
           },
           {
             tagName: 'script',
+            attributes: { type: 'text/javascript' },
+            innerHTML: `window.__BASE_URL__='${process.env.BASE_URL ?? '/pbvm/'}'`,
+          },
+          {
+            tagName: 'script',
             attributes: {
               type: 'text/javascript',
               src: `${baseUrl}js/locale-redirect.js`,
