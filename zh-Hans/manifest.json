@@ -2,8 +2,8 @@
   "background_color": "#ffffff",
   "theme_color": "#1a1a1a",
   "short_name": "pbvm",
-  "scope": "/pbvm/",
-  "start_url": "/pbvm/",
+  "scope": "/pbvm/zh-Hans/",
+  "start_url": "/pbvm/zh-Hans/",
   "icons": [
     {
       "src": "img/icon-192.png",
