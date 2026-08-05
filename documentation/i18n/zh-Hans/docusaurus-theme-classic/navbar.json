@@ -1,0 +1,18 @@
+{
+  "title": {
+    "message": "pbvm-cli",
+    "description": "The title in the navbar"
+  },
+  "logo.alt": {
+    "message": "基于 @puppeteer/browsers 浏览器版本管理器",
+    "description": "The alt text of navbar logo"
+  },
+  "item.label.Docs": {
+    "message": "文档",
+    "description": "Navbar item with label Docs"
+  },
+  "item.label.GitHub": {
+    "message": "GitHub",
+    "description": "Navbar item with label GitHub"
+  }
+}

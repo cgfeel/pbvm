@@ -1,5 +1,7 @@
 import Link from '@docusaurus/Link'
-import { type FC } from 'react'
+import Translate from '@docusaurus/Translate'
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
+import { type FC, type ReactNode } from 'react'
 import { tv } from 'tailwind-variants'
 import { cliOps, devOps, lockOps, mirrorOps } from '../../utils/mermaidMD'
 import { styles as buttonStyle } from '../button'
@@ -7,33 +9,35 @@ import { Card } from '../card'
 import Mermaid from '../mermaid'
 import Wraper from './Wraper'
 
-const items: ItemType[] = [
+const getItems = (isZh: boolean): ItemType[] => [
   {
     className: 'scale-375 hover:scale-250',
     md: cliOps,
     key: 'commander',
-    title: 'CLI 命令执行流程',
+    title: <Translate id="home.dev.item.commander">CLI Command Flow</Translate>,
     url: '/concepts/commander',
   },
   {
     className: 'scale-375 hover:scale-250',
     md: devOps,
     key: 'monorepo',
-    title: '项目架构/组件依赖关联',
+    title: <Translate id="home.dev.item.architecture">Project Architecture</Translate>,
     url: '/concepts/monorepo',
   },
   {
     md: mirrorOps,
     key: 'source-and-mirror',
-    title: '资源和镜像',
-    url: '/source#整体流程',
+    title: <Translate id="home.dev.item.resources">Resources & Mirrors</Translate>,
+    url: isZh ? '/source#整体流程' : '/source#overall-flow',
   },
   {
     className: 'pt-9 scale-600 hover:scale-450',
     md: lockOps,
     key: 'lock',
-    title: '数据存储和文件锁',
-    url: '/concepts/store-and-cache#数据存储--文件结构',
+    title: <Translate id="home.dev.item.storage">Storage & File Lock</Translate>,
+    url: isZh
+      ? '/concepts/store-and-cache#数据存储--文件结构'
+      : '/concepts/store-and-cache#store-vs-browserlist-relationship',
   },
 ]
 
@@ -66,22 +70,39 @@ const styles = tv({
 const { btn, card, container, demo, header, item, link, svg, title } = styles()
 
 const DevEnvironment: FC<DevEnvironmentProps> = () => {
+  const { i18n } = useDocusaurusContext()
+  const items = getItems(i18n.currentLocale === 'zh-Hans')
+
   return (
     <Wraper>
       <div className={container()}>
         <div className={header()}>
           <h3 className={title()}>
-            面向前端工程化场景设计，可为不同项目生成独立的 browserlist.json 配置
+            <Translate id="home.dev.header.title">
+              Designed for frontend engineering — generate independent browserlist.json
+              configs for different projects
+            </Translate>
           </h3>
           <h3 className={title({ type: 'secondary' })}>
-            实现项目级浏览器版本管理。同时支持与现代构建工具结合，为开发、测试和构建流程提供一致的浏览器环境
+            <Translate id="home.dev.header.desc">
+              Achieve project-level browser version management. Integrate with modern build
+              tools to provide a consistent browser environment for development, testing,
+              and CI/CD.
+            </Translate>
           </h3>
         </div>
         <div className={header({ type: 'secondary' })}>
-          <h3 className={title({ type: 'primary' })}>面向前端工程化场景设计</h3>
+          <h3 className={title({ type: 'primary' })}>
+            <Translate id="home.dev.header.titleShort">
+              Designed for Frontend Engineering
+            </Translate>
+          </h3>
           <div>
-            可为不同项目生成独立的 browserlist.json
-            配置，实现项目级浏览器版本管理。同时支持与现代构建工具结合，为开发、测试和构建流程提供一致的浏览器环境
+            <Translate id="home.dev.header.descShort">
+              Generate independent browserlist.json configs for different projects, achieving
+              project-level browser version management. Integrate with modern build tools to
+              provide a consistent browser environment for development, testing, and CI/CD.
+            </Translate>
           </div>
         </div>
         <div className={demo()}>
@@ -90,7 +111,9 @@ const DevEnvironment: FC<DevEnvironmentProps> = () => {
               <Card className={card()}>
                 <Link className={link()} to={url}>
                   <Mermaid className={svg({ className })} value={md} />
-                  <button className={buttonStyle({ className: btn() })}>查看详情</button>
+                  <button className={buttonStyle({ className: btn() })}>
+                    <Translate id="home.dev.item.viewDetails">View Details</Translate>
+                  </button>
                 </Link>
               </Card>
               <span>{title}</span>
@@ -106,6 +129,10 @@ export default DevEnvironment
 
 interface DevEnvironmentProps {}
 
-type ItemType = Record<'md' | 'key' | 'title' | 'url', string> & {
+type ItemType = {
+  md: string
+  key: string
+  title: ReactNode
+  url: string
   className?: string
 }

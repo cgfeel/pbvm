@@ -4,82 +4,82 @@ sidebar_position: 10
 
 # mirror
 
-管理浏览器下载镜像源。
+Manage browser download mirror sources.
 
-## 用法
+## Usage
 
 ```bash
 pbvm mirror [-s <source>] [-i]
 ```
 
-## 选项
+## Options
 
-| 选项 | 简写 | 说明 |
-|------|------|------|
-| `--source` | `-s` | 镜像源名称，如 `npmmirror`；不指定则执行交互选择 |
-| `--init` | `-i` | 在当前目录创建镜像配置文件（项目级），默认写入全局配置 |
+| Option     | Short | Description                                                                 |
+| ---------- | ----- | --------------------------------------------------------------------------- |
+| `--source` | `-s`  | Mirror source name, e.g. `npmmirror`; interactive selection if not specified |
+| `--init`   | `-i`  | Create a mirror config file in the current directory (project-level); defaults to global config |
 
-## 工作原理
+## How it works
 
-`pbvm mirror` 通过写入 `.browsermr` 配置文件来控制下载镜像源。`MirrorProvider` 会拦截 `@puppeteer/browsers` 的下载请求，将原始 URL 替换为镜像地址。
+`pbvm mirror` controls the download mirror by writing a `.browsermr` configuration file. The `MirrorProvider` intercepts `@puppeteer/browsers` download requests and replaces the original URL with the mirror address.
 
-镜像模板使用以下变量进行 URL 替换：
+Mirror templates use the following variables for URL substitution:
 
-| 变量 | 说明 |
-|------|------|
-| `<browser>` | 浏览器名称（`chrome` / `chromium` / `firefox`） |
-| `<buildId>` | 不含 channel 前缀的版本号 |
-| `<channelId>` | 完整 channel + 版本号（Firefox 专用） |
-| `<platform>` | 平台标识 |
-| `<lang>` | 语言（Firefox 专用，默认 `zh-CN`） |
-| `<ext>` | 文件扩展名 |
-| `<suffix>` | 浏览器专属后缀 |
+| Variable      | Description                                                |
+| ------------- | ---------------------------------------------------------- |
+| `<browser>`   | Browser name (`chrome` / `chromium` / `firefox`)           |
+| `<buildId>`   | Version number without the channel prefix                  |
+| `<channelId>` | Full channel + version (Firefox only)                      |
+| `<platform>`  | Platform identifier                                        |
+| `<lang>`      | Language (Firefox only, default `zh-CN`)                   |
+| `<ext>`       | File extension                                             |
+| `<suffix>`    | Browser-specific suffix                                    |
 
-可通过 `--rule`（`create` / `search` 命令）传入自定义参数覆盖模板中的同名变量。
+Use `--rule` (on `create` / `search` commands) to pass custom params that override identically-named variables in the template.
 
-## 配置文件层级
+## Config file hierarchy
 
-- **项目级**（`-i`）：在当前目录生成 `.browsermr`，仅对当前项目生效
-- **全局级**（默认）：写入 pbvm 配置目录，对全局所有项目生效
+- **Project-level** (`-i`): Creates `.browsermr` in the current directory; applies only to the current project
+- **Global** (default): Writes to the pbvm config directory; applies to all projects globally
 
-`create` 和 `search` 命令会优先使用项目级的 `.browsermr`，若不存在则回退到全局配置。
+`create` and `search` commands prefer the project-level `.browsermr`; fall back to the global config if none is found.
 
-## 示例
+## Examples
 
-### 交互模式
+### Interactive mode
 
-不带参数运行，按提示选择：
+Run without arguments and follow the prompts:
 
 ```bash
 pbvm mirror
 ```
 
-交互选项：
-1. **Use npmmirror** — 启用 npmmirror 镜像源
-2. **Remove the mirror** — 禁用镜像（删除 `.browsermr`）
+Interactive options:
+1. **Use npmmirror** — enable the npmmirror mirror source
+2. **Remove the mirror** — disable mirroring (delete `.browsermr`)
 
-### 命令行模式
+### CLI mode
 
 ```bash
-# 启用全局 npmmirror 镜像
+# Enable the global npmmirror mirror
 pbvm mirror -s npmmirror
 
-# 在当前项目目录启用镜像
+# Enable the mirror for the current project only
 pbvm mirror -s npmmirror -i
 
-# 禁用全局镜像
+# Disable the global mirror
 pbvm mirror
-# 交互选择 "Remove the mirror"，或不指定 source 直接执行
+# Choose "Remove the mirror" interactively, or run without specifying a source
 ```
 
-## 在 create / search 中使用镜像
+## Using a mirror with create / search
 
-即使没有全局或项目级的 `.browsermr` 配置，也可以在 `create` 或 `search` 命令中临时指定镜像：
+Even without a global or project-level `.browsermr`, you can temporarily specify a mirror on `create` or `search`:
 
 ```bash
-# 临时使用镜像搜索
+# Temporarily use a mirror for search
 pbvm search -b chrome -i 134.0.6998.35 -m ./path/to/.browsermr
 
-# 临时使用镜像安装，并自定义模板变量
+# Temporarily use a mirror for install with custom template vars
 pbvm create -b firefox -i stable_136.0.0 -m ./custom.mr -r "lang=en-US&ext=tar.bz2"
 ```

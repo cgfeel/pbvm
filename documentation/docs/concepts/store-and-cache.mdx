@@ -2,16 +2,16 @@
 sidebar_position: 2
 ---
 
-# Store 与缓存目录
+# Store & cache directory
 
-pbvm 使用符合系统标准的目录结构存储浏览器二进制文件、用户数据和配置。
+pbvm uses OS-standard directory structures to store browser binaries, user data, and configuration.
 
-## 目录结构
+## Directory structure
 
 ```
-{pbvm 数据根目录}
-├── cache/          ← 浏览器二进制文件（可删除、可重新下载）
-├── data/           ← 用户 profile、运行数据（不能随意删除）
+{pbvm data root}
+├── cache/          ← Browser binaries (can be deleted and re-downloaded)
+├── data/           ← User profiles, runtime data (do not delete casually)
 │   └── profiles/
 │       ├── chrome/
 │       │   └── 134.0.6998.35/
@@ -19,82 +19,56 @@ pbvm 使用符合系统标准的目录结构存储浏览器二进制文件、用
 │       │   └── 1435764/
 │       └── firefox/
 │           └── stable_136.0.0/
-├── config/         ← 用户配置文件
-├── log/            ← 日志
-└── temp/           ← 临时文件（如 `pbvm info -r` 的临时 profile）
+├── config/         ← User configuration files
+├── log/            ← Logs
+└── temp/           ← Temporary files (e.g. `pbvm info -r` temp profile)
 ```
 
-## 各目录说明
+## Directory descriptions
 
-| 目录            | 用途                                                |       可否删除        |
-| --------------- | --------------------------------------------------- | :-------------------: |
-| `cache`         | 浏览器二进制文件（通过 `@puppeteer/browsers` 下载） | ✅ 系统清理工具可清空 |
-| `data/profiles` | 浏览器用户数据：cookies、偏好设置、历史记录等       |          ❌           |
-| `config`        | 用户自定义配置（代理、镜像源等）                    |     ⚠️ 视内容而定     |
-| `log`           | 运行时日志                                          |          ✅           |
-| `temp`          | 临时检测数据（`info -r` 的 headless 启动）          |          ✅           |
+| Directory       | Purpose                                                       |     Can delete?      |
+| --------------- | ------------------------------------------------------------- |:--------------------:|
+| `cache`         | Browser binaries (downloaded via `@puppeteer/browsers`)       | ✅ System cleaners OK |
+| `data/profiles` | Browser user data: cookies, preferences, history, etc.        |          ❌           |
+| `config`        | User custom config (proxy, mirror, etc.)                      |    ⚠️ Context-dependent |
+| `log`           | Runtime logs                                                  |          ✅           |
+| `temp`          | Temporary detection data (`info -r` headless launch)          |          ✅           |
 
-## 实际路径
+## Actual paths
 
-因操作系统而异，由 [`env-paths`](https://github.com/sindresorhus/env-paths) 解析：
+Varies by OS, resolved via [`env-paths`](https://github.com/sindresorhus/env-paths):
 
-| 平台    | 路径                                                            |
-| ------- | --------------------------------------------------------------- |
-| macOS   | `~/Library/Caches/pbvm/`、`~/Library/Application Support/pbvm/` |
-| Linux   | `~/.cache/pbvm/`、`~/.local/share/pbvm/`                        |
-| Windows | `%LOCALAPPDATA%/pbvm/`                                          |
+| Platform | Path                                                                    |
+| -------- | ----------------------------------------------------------------------- |
+| macOS    | `~/Library/Caches/pbvm/`, `~/Library/Application Support/pbvm/`         |
+| Linux    | `~/.cache/pbvm/`, `~/.local/share/pbvm/`                                |
+| Windows  | `%LOCALAPPDATA%/pbvm/`                                                  |
 
-## Store 与 browserlist 的关系
+## Store vs browserlist relationship
 
 ```
 ┌──────────────────────────────────────────────────┐
-│                   全局 Store                       │
+│                   Global Store                     │
 │  chrome/mac_arm-134.0.6998.35/                   │
 │  chromium/mac_arm-1435764/                        │
 │  firefox/mac_arm-stable_136.0.0/                  │
 └──────────────┬───────────────────────────────────┘
-               │ 按需引用
+               │ referenced on demand
                ▼
 ┌──────────────────────────────────────────────────┐
-│  项目 A/browserlist.json                          │
+│  Project A/browserlist.json                       │
 │  [{ chrome@134.0.6998.35, alias: "prod" }]       │
 └──────────────────────────────────────────────────┘
 ┌──────────────────────────────────────────────────┐
-│  项目 B/browserlist.json                          │
+│  Project B/browserlist.json                       │
 │  [{ chrome@134.0.6998.35, alias: "test" }]       │
 │  [{ firefox@stable_136.0.0 }]                     │
 └──────────────────────────────────────────────────┘
 ```
 
-同一个二进制文件可被多个项目引用，每个项目的 profile 数据独立。
+The same binary can be referenced by multiple projects, each with its own independent profile data.
 
-## 数据存储 & 文件结构
-
-```mermaid
-  graph LR
-      subgraph "操作系统目录 (env-paths)"
-          CACHE["📁 cache/<br/>浏览器二进制安装目录<br/>(可删除、可重建)"]
-          DATA["📁 data/profiles/<br/>用户 Profile 数据<br/>(cookies/书签/偏好设置)"]
-          CONFIG["📁 config/<br/>用户配置文件<br/>(代理/镜像源/默认模板)"]
-          LOG["📁 log/<br/>日志"]
-          TEMP["📁 temp/<br/>临时目录 (info 检测用)"]
-      end
-
-      subgraph "项目目录 (cwd)"
-          BROWSERLIST["📄 browserlist.json<br/>当前项目的浏览器映射<br/>[{alias, browser, buildId, platform}, ...]"]
-          LOCKFILE["📄 .pbvm.lock<br/>进程级文件锁<br/>(写入 PID)"]
-      end
-      BROWSER_LOCK --> UTIL_LOCK
-      UTIL_LOCK --> UTIL_PATHS
-
-      TYPES --> ZOD
-      CMD_CREATE & CMD_REMOVE & CMD_ALIAS & CMD_INFO & CMD_OPEN --> TYPES
-      API --> PUPPETEER
-      API --> UTIL_MANIFEST
-      API --> SCRIPT_OPEN
-```
-
-## 文件锁机制
+## File lock mechanism
 
 ```mermaid
   stateDiagram-v2
@@ -102,38 +76,37 @@ pbvm 使用符合系统标准的目录结构存储浏览器二进制文件、用
       [*] --> AcquireLock: acquireLock()
 
       state WaitLock {
-          CheckExist: 检查 .pbvm.lock 是否存在
-          WaitStale: 等待 retryDelay ms
-          CheckTimeout: 超时检查
-          CheckExist --> WaitStale: 锁存在
-          WaitStale --> CheckExist: 重试
-          CheckExist --> [*]: 锁释放 (ENOENT)
-          CheckExist --> CleanStale: 锁存在
+          CheckExist: Check if .pbvm.lock exists
+          WaitStale: Wait retryDelay ms
+          CheckTimeout: Timeout check
+          CheckExist --> WaitStale: lock exists
+          WaitStale --> CheckExist: retry
+          CheckExist --> [*]: lock released (ENOENT)
+          CheckExist --> CleanStale: lock exists
       }
 
       state AcquireLock {
           TryCreate: fs.writeFile(pid, {flag:'wx'})
-          Exists: EEXIST - 锁已被占用
-          CreateSuccess: 创建成功 → 返回 release()
+          Exists: EEXIST - already locked
+          CreateSuccess: created → return release()
           TryCreate --> Exists
           TryCreate --> CreateSuccess
           Exists --> CleanStale
-          Exists --> WaitRetry: 非超时
+          Exists --> WaitRetry: not timed out
           WaitRetry --> TryCreate
-          Exists --> ThrowTimeout: 超时抛错
+          Exists --> ThrowTimeout: timeout → throw
       }
 
       state CleanStale {
-          ReadPid: 读取锁文件 PID
+          ReadPid: Read lock file PID
           CheckAlive: process.kill(pid, 0)
-          RemoveStale: fs.unlink() 清理死锁
+          RemoveStale: fs.unlink() clean dead lock
           ReadPid --> CheckAlive
-          CheckAlive --> RemoveStale: 进程不存在
-          CheckAlive --> WaitStale: 进程存活
-
+          CheckAlive --> RemoveStale: process gone
+          CheckAlive --> WaitStale: process alive
       }
 
-      CreateSuccess --> Release: 操作完成
+      CreateSuccess --> Release: operation done
       Release: release() → fs.unlink(.pbvm.lock)
       Release --> [*]
 ```

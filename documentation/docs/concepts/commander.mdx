@@ -2,11 +2,11 @@
 sidebar_position: 4
 ---
 
-# CLI 命令执行流程
+# CLI command execution flow
 
-pbvm 所有命令遵循统一的三层处理模式：**参数校验 → 交互补全 → 脚本执行**。
+All pbvm commands follow a uniform three-layer processing model: **arg validation → interactive completion → script execution**.
 
-## 请求生命周期
+## Request lifecycle
 
 ```mermaid
   sequenceDiagram
@@ -23,31 +23,31 @@ pbvm 所有命令遵循统一的三层处理模式：**参数校验 → 交互�
       User->>CLI: pbvm create -b chrome -i 123
       CLI->>Cmd: registerCreateCommand()
       Cmd->>Cmd: Zod parse options
-      Cmd->>Prompt: promptCreateOptions() - 补全缺失参数
+      Cmd->>Prompt: promptCreateOptions() - fill missing args
       Prompt-->>Cmd: {browser, buildId, alias, store}
-      Cmd->>Prompt: promptConfirm() - 确认操作
+      Cmd->>Prompt: promptConfirm() - confirm action
       Prompt-->>Cmd: true
 
       Cmd->>Script: installBrowser(args)
-      Script->>Manifest: checkoutInStore() - 检查是否已安装
+      Script->>Manifest: checkoutInStore() - check if already installed
       Manifest->>Lock: waitForLock(cacheDir)
       Manifest->>Browser: getInstalledBrowsers(cacheDir)
-      Browser-->>Manifest: 已安装列表
+      Browser-->>Manifest: installed list
 
-      alt 已安装
+      alt installed
           Manifest-->>Script: found ✓
-      else 未安装
+      else not installed
           Manifest-->>Script: null
           Script->>Browser: install({browser, buildId, platform})
-          Browser->>FS: 下载 + 解压到 cacheDir
-          Note over Script,Browser: SIGINT/SIGTERM 时清理半成品
+          Browser->>FS: download + extract to cacheDir
+          Note over Script,Browser: Clean up partial files on SIGINT/SIGTERM
           Browser-->>Script: {executablePath}
       end
 
       alt store mode
-          Script-->>Cmd: 仅安装到 cache，不写入 browserlist
-      else 项目模式
-          Script->>Manifest: logCurrentList() - 写入 browserlist.json
+          Script-->>Cmd: install to cache only, skip browserlist
+      else project mode
+          Script->>Manifest: logCurrentList() - write browserlist.json
           Manifest->>Lock: acquireLock(cwd)
           Manifest->>FS: readFile + writeFile browserlist.json
           Manifest-->>Script: alias name
@@ -57,65 +57,65 @@ pbvm 所有命令遵循统一的三层处理模式：**参数校验 → 交互�
       Cmd-->>User: ✅ Installed success...
 ```
 
-图中以 `create` 命令为例，其余命令流程一致，仅脚本层实现不同。
+The diagram uses `create` as an example. All other commands follow the same flow; only the script layer implementation differs.
 
-## 命令层（`src/commands/`）
+## Command layer (`src/commands/`)
 
-每个命令文件通过 `registerXxxCommand(program)` 注册到 Commander 实例，负责：
+Each command file registers with the Commander instance via `registerXxxCommand(program)` and is responsible for:
 
-1. 定义命令名、描述、选项参数
-2. 调用 `Zod Schema` 做第一层解析（类型校验 + 部分字段填充默认值）
-3. 调用对应的 `prompt` 函数补全用户未提供的参数（交互模式）
-4. 部分命令（`create`、`remove`、`clear`）在 action 中调用 `promptConfirm` 做二次确认
-5. 将完整参数传递给 `bin/*.script.ts` 执行
+1. Defining command name, description, and option flags
+2. Calling `Zod Schema` for the first layer of parsing (type validation + default value population)
+3. Calling the corresponding `prompt` function to fill in args the user didn't supply (interactive mode)
+4. Some commands (`create`, `remove`, `clear`) call `promptConfirm` in the action for a second confirmation
+5. Passing complete args to `bin/*.script.ts` for execution
 
-命令与 Schema 的对应关系：
+Command-to-Schema mapping:
 
-| 命令 | Schema | 特殊参数 |
-|------|--------|---------|
-| `create` | `createBrowserSchema` | `mirror`、`rule`、`store` |
-| `search` | `createBrowserSchema` | `mirror`、`rule` |
-| `list` / `store` | `browserItemSchema` | `all` |
-| `remove` | `removeBrowserSchema` | `focus`、`store` |
-| `info` | `infoBrowserSchema` | `runtime` |
-| `open` | `openBrowserSchema` | `url` |
-| `alias` | `aliasBrowserSchema` | — |
-| `mirror` | `mirrorSchema` | `init`、`source` |
+| Command             | Schema                 | Special flags                |
+| ------------------- | ---------------------- | ---------------------------- |
+| `create`            | `createBrowserSchema`  | `mirror`, `rule`, `store`    |
+| `search`            | `createBrowserSchema`  | `mirror`, `rule`             |
+| `list` / `store`    | `browserItemSchema`    | `all`                        |
+| `remove`            | `removeBrowserSchema`  | `focus`, `store`             |
+| `info`              | `infoBrowserSchema`    | `runtime`                    |
+| `open`              | `openBrowserSchema`    | `url`                        |
+| `alias`             | `aliasBrowserSchema`   | —                            |
+| `mirror`            | `mirrorSchema`         | `init`, `source`             |
 
-## Prompt 层（`src/prompts/`）
+## Prompt layer (`src/prompts/`)
 
-当用户未提供必选参数时，Prompt 层通过 `@inquirer/prompts` 发起交互式问答。各文件分工：
+When required args are not provided, the Prompt layer launches interactive Q&A via `@inquirer/prompts`. File responsibilities:
 
-| 文件 | 服务于 | 交互内容 |
-|------|--------|---------|
-| `create.prompt.ts` | `create`、`search` | 浏览器选型、buildId 输入、alias 输入 |
-| `mirror.prompt.ts` | `mirror` | 镜像源选择（npmmirror / 关闭） |
-| `alias.prompt.ts` | `alias` | 别名操作类型（设置 / 移除）、目标浏览器选择 |
-| `manifest.prompt.ts` | `remove`、`info`、`open`、`clear` | 从 browserlist 或 Store 中选择目标浏览器 |
-| `common.prompt.ts` | `create`、`remove`、`clear` | 操作确认（confirm） |
+| File                   | Serves                                | Interactive content                                     |
+| ---------------------- | ------------------------------------- | ------------------------------------------------------- |
+| `create.prompt.ts`     | `create`, `search`                    | Browser selection, buildId input, alias input           |
+| `mirror.prompt.ts`     | `mirror`                              | Mirror source selection (npmmirror / disable)           |
+| `alias.prompt.ts`      | `alias`                               | Alias operation type (set / remove), target selection   |
+| `manifest.prompt.ts`   | `remove`, `info`, `open`, `clear`     | Select target browser from browserlist or Store         |
+| `common.prompt.ts`     | `create`, `remove`, `clear`           | Operation confirmation (confirm)                        |
 
-## 脚本层（`src/bin/`）
+## Script layer (`src/bin/`)
 
-脚本层承载核心业务逻辑，不感知 CLI 参数格式和交互细节。每个脚本接收已校验完整的参数对象，执行后返回结果或直接输出日志。
+The script layer carries core business logic and is unaware of CLI arg formats or interactive details. Each script receives a fully validated args object, executes, and returns a result or outputs logs directly.
 
-| 脚本 | 职责 |
-|------|------|
-| `install.script.ts` | 下载 + 解压 + 写入 browserlist |
-| `remove.script.ts` | 卸载 + 清理 browserlist + 可选清理 profile |
-| `alias.script.ts` | 设置 / 移除 browserlist 中的别名 |
-| `open.script.ts` | 定位浏览器 → 必要时触发安装 → spawn 启动 |
-| `info.script.ts` | 读取安装信息 + 可选启动 headless 采集运行时信息 |
-| `list.script.ts` | 格式化输出 Store / 项目浏览器列表 |
-| `search.script.ts` | HTTP HEAD 请求检测远程资源是否存在 |
-| `clear.script.ts` | 清理 Store 中未被任何项目引用的孤立版本 |
-| `mirror.script.ts` | 写入 / 删除 `.browsermr` 配置文件 |
+| Script                | Responsibility                                                      |
+| --------------------- | ------------------------------------------------------------------- |
+| `install.script.ts`   | Download + extract + write browserlist                              |
+| `remove.script.ts`    | Uninstall + clean browserlist + optional profile cleanup            |
+| `alias.script.ts`     | Set / remove alias in browserlist                                   |
+| `open.script.ts`      | Locate browser → trigger install if needed → spawn to launch        |
+| `info.script.ts`      | Read install info + optionally launch headless to collect runtime info |
+| `list.script.ts`      | Format and output Store / project browser lists                     |
+| `search.script.ts`    | HTTP HEAD request to check remote resource availability             |
+| `clear.script.ts`     | Clean Store of orphaned versions not referenced by any project      |
+| `mirror.script.ts`    | Write / delete `.browsermr` config file                             |
 
-## 并发控制
+## Concurrency control
 
-`manifest.ts` 和 `browser.lock.ts` 的写操作均通过 `lock.ts` 获取文件锁：
+Write operations in `manifest.ts` and `browser.lock.ts` both acquire file locks via `lock.ts`:
 
-- **Cache 目录写锁**：下载、卸载时 `acquireLock(cacheDir)`，防止多进程并发操作同一文件
-- **browserlist.json 写锁**：写入项目清单时 `acquireLock(cwd)`，防止并发修改导致数据丢失
-- **读操作**：使用 `waitForLock()` 等待写锁释放后再读取，保证读到完整数据
+- **Cache directory write lock**: `acquireLock(cacheDir)` during download/uninstall — prevents concurrent processes from operating on the same file
+- **browserlist.json write lock**: `acquireLock(cwd)` when writing the project manifest — prevents data loss from concurrent modification
+- **Read operations**: use `waitForLock()` to wait until the write lock is released before reading, ensuring complete data
 
-所有锁默认超时 1 分钟，不会永久阻塞。
+All locks default to a 1-minute timeout and will never block indefinitely.

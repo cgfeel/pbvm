@@ -1,0 +1,47 @@
+---
+sidebar_position: 9
+
+---
+
+# restore
+
+重新安装浏览器。流程为先删除再重新下载安装。
+
+## 用法
+
+```bash
+pbvm restore [-b <browser>] [-i <buildId>] [-a <alias>]
+```
+
+## 选项
+
+| 选项 | 简写 | 说明 |
+|------|------|------|
+| `--browser` | `-b` | 浏览器名称：`chrome`、`chromium`、`firefox` |
+| `--build-id` | `-i` | 浏览器版本号 |
+| `--alias` | `-a` | 浏览器别名 |
+
+## 执行流程
+
+1. 删除已有的 Store 缓存二进制文件 + profile 目录（等同于 `remove -f`）
+2. 重新下载安装浏览器（等同于 `create`）
+3. 更新 `browserlist.json` 中的记录
+
+## 示例
+
+```bash
+# 重新安装 Chrome
+pbvm restore -b chrome -i 134.0.6998.35
+
+# 重新安装并设置别名
+pbvm restore -b firefox -i stable_136.0.0 -a dev-firefox
+
+# 交互模式
+pbvm restore
+```
+
+## 使用场景
+
+- 浏览器版本损坏，需要干净重装
+- 升级到同一版本的新构建（通过 restore 触发重新下载）
+- 切换别名或重置浏览器配置

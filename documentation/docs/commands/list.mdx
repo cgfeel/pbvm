@@ -4,31 +4,31 @@ sidebar_position: 2
 
 # ls / store
 
-列出已安装的浏览器。
+List installed browsers.
 
-## 用法
+## Usage
 
 ```bash
-# 列出项目关联的浏览器
+# List project-associated browsers
 pbvm ls [-a]
 
-# 列出全局 Store 中的浏览器
+# List browsers in the global Store
 pbvm store [-a]
 ```
 
-## 选项
+## Options
 
-| 选项 | 简写 | 说明 |
-|------|------|------|
-| `--all` | `-a` | 显示所有平台的浏览器，而非仅当前平台 |
+| Option  | Short | Description                                              |
+| ------- | ----- | -------------------------------------------------------- |
+| `--all` | `-a`  | Show browsers for all platforms, not just the current one |
 
-## 说明
+## Description
 
 ### `pbvm ls`
 
-列出当前目录 `browserlist.json` 中记录的浏览器。按平台分组显示，当前平台优先展示。
+Lists browsers recorded in the current directory's `browserlist.json`. Grouped by platform, with the current platform shown first.
 
-输出格式：
+Output format:
 
 ```
 mac_arm (current):
@@ -39,29 +39,29 @@ mac_arm (current):
 
 ### `pbvm store`
 
-列出全局 Store 中已安装的所有浏览器（即已下载的二进制文件）。同样按平台分组。
+Lists all browsers installed in the global Store (i.e. downloaded binaries). Also grouped by platform.
 
-## 示例
+## Examples
 
 ```bash
-# 查看当前项目的浏览器
+# View browsers for the current project
 pbvm ls
 
-# 查看所有平台的浏览器
+# View browsers for all platforms
 pbvm ls -a
 
-# 查看全局缓存中的所有浏览器
+# View all browsers in the global cache
 pbvm store
 
-# 查看全局缓存中所有平台的浏览器
+# View all-platform browsers in the global cache
 pbvm store -a
 ```
 
-## 区分 ls 与 store
+## ls vs store
 
-|            | `pbvm ls`                     | `pbvm store`                |
-|------------|-------------------------------|-----------------------------|
-| 数据来源    | `browserlist.json`（项目级）   | 全局缓存目录（系统级）         |
-| 显示内容    | 项目关联的浏览器                | 已下载的所有浏览器二进制        |
-| 包含别名    | 是                            | 否                           |
-| 用途        | 查看项目用到哪些浏览器           | 查看本地缓存了哪些浏览器        |
+|               | `pbvm ls`                       | `pbvm store`                     |
+|---------------|---------------------------------|----------------------------------|
+| Data source   | `browserlist.json` (project)    | Global cache directory (system)  |
+| Shows         | Browsers associated with project | All downloaded browser binaries |
+| Includes alias | Yes                            | No                               |
+| Use case      | See which browsers a project uses | See what's cached locally       |

@@ -59,8 +59,18 @@ const config: Config = {
   // useful metadata like html lang. For example, if your site is Chinese, you
   // may want to replace "en" with "zh-Hans".
   i18n: {
-    defaultLocale: 'zh-Hans',
-    locales: ['zh-Hans'],
+    defaultLocale: 'en',
+    locales: ['en', 'zh-Hans'],
+    localeConfigs: {
+      en: {
+        htmlLang: 'en-US',
+        label: 'English',
+      },
+      'zh-Hans': {
+        htmlLang: 'zh-Hans',
+        label: '中文',
+      },
+    },
   },
 
   presets: [
@@ -128,6 +138,18 @@ const config: Config = {
         content: 'yes',
       },
     },
+    {
+      tagName: 'script',
+      attributes: { type: 'text/javascript' },
+      innerHTML: `window.__BASE_URL__='${process.env.BASE_URL ?? '/pbvm/'}'`,
+    },
+    {
+      tagName: 'script',
+      attributes: {
+        type: 'text/javascript',
+        src: `${process.env.BASE_URL ?? '/pbvm/'}js/locale-redirect.js`,
+      },
+    },
   ],
 
   themeConfig: {
@@ -147,7 +169,7 @@ const config: Config = {
           type: 'docSidebar',
           sidebarId: 'docSidebar',
           position: 'left',
-          label: '文档',
+          label: 'Docs',
         },
         // { to: '/blog', label: 'Blog', position: 'left' },
         {
@@ -155,6 +177,10 @@ const config: Config = {
           label: 'GitHub',
           position: 'right',
           className: 'navbar-github-link',
+        },
+        {
+          type: 'localeDropdown',
+          position: 'right',
         },
       ],
     },
