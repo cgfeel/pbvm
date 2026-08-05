@@ -1,17 +1,17 @@
 import fs from 'node:fs'
 import path from 'node:path'
-import type { Plugin } from '@docusaurus/types'
+import type { LoadContext, Plugin } from '@docusaurus/types'
 
-export default function pwaManifestPlugin(): Plugin {
+export default function pwaManifestPlugin(context: LoadContext): Plugin {
+  const baseUrl = context.baseUrl
+  const display = 'standalone' as const
+
   return {
     name: 'pwa-manifest-plugin',
     async loadContent() {
       const { name = 'pbvm', description = '' } = JSON.parse(
         fs.readFileSync(path.resolve(__dirname, '../../package.json'), 'utf-8')
       ) as unknown as { description?: string; name?: string }
-
-      const baseUrl = process.env.BASE_URL ?? '/pbvm/'
-      const display = 'standalone' as const
 
       const manifest = {
         background_color: '#ffffff',
@@ -42,6 +42,40 @@ export default function pwaManifestPlugin(): Plugin {
       )
 
       return manifest
+    },
+    injectHtmlTags() {
+      return {
+        headTags: [
+          {
+            tagName: 'link',
+            attributes: {
+              rel: 'manifest',
+              href: `${baseUrl}manifest.json`,
+            },
+          },
+          {
+            tagName: 'link',
+            attributes: {
+              rel: 'apple-touch-icon',
+              href: `${baseUrl}img/icon-192.png`,
+            },
+          },
+          {
+            tagName: 'meta',
+            attributes: {
+              name: 'apple-mobile-web-app-capable',
+              content: 'yes',
+            },
+          },
+          {
+            tagName: 'script',
+            attributes: {
+              type: 'text/javascript',
+              src: `${baseUrl}js/locale-redirect.js`,
+            },
+          },
+        ],
+      }
     },
   }
 }
