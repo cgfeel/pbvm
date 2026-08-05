@@ -1,4 +1,3 @@
-import Translate from '@docusaurus/Translate'
 import { objectEntries } from '@site/src/utils/fields'
 import Linux from '@site/static/img/linux.svg'
 import Osx from '@site/static/img/osx.svg'
@@ -9,6 +8,7 @@ import { Card } from '../card'
 import Tag from '../tag'
 import { styles as commandStyles } from './Terminal'
 import Wraper from './Wraper'
+import { t } from '../../utils/i18n'
 
 const iconMap = Object.freeze({
   Windows,
@@ -46,22 +46,15 @@ const System: FC = () => (
       <div className={desc()}>
         <div className={header()}>
           <div>
-            <Translate id="home.system.label">
-              Cross-platform Compatibility
-            </Translate>
+            {t('home.system.label')}
           </div>
           <h3 className={title()}>
-            <Translate id="home.system.title">
-              Run Anywhere, Switch Seamlessly
-            </Translate>
+            {t('home.system.title')}
           </h3>
         </div>
         <div className={footer()}>
           <div>
-            <Translate id="home.system.desc">
-              pbvm runs on Windows, macOS, and Linux, helping developers install, switch,
-              and manage multiple browser versions in any environment.
-            </Translate>
+            {t('home.system.desc')}
           </div>
           <div className={tags()}>
             {objectEntries(iconMap).map(([name, Element]) => (

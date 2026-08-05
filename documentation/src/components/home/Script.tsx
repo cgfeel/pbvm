@@ -1,8 +1,8 @@
-import Translate from '@docusaurus/Translate'
 import Vite from '@site/static/img/vite-light.svg'
 import Webpack from '@site/static/img/webpack.svg'
 import type { FC } from 'react'
 import { tv } from 'tailwind-variants'
+import { t } from '../../utils/i18n'
 import CodeCard from './CodeCard'
 
 const INSTALL_CODE = `# npm
@@ -96,10 +96,10 @@ export const BuildScript: FC = () => [
 
 export const CreateScript: FC = () => (
   <div className={script()}>
-    <CodeCard title={<Translate id="home.script.install">Installation</Translate>}>
+    <CodeCard title={t('home.script.install')}>
       {INSTALL_CODE}
     </CodeCard>
-    <CodeCard title={<Translate id="home.script.common">Common Commands</Translate>}>
+    <CodeCard title={t('home.script.common')}>
       {QUICKSTART_CODE}
     </CodeCard>
   </div>

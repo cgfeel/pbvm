@@ -1,4 +1,3 @@
-import Translate from '@docusaurus/Translate'
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
 import BrowserFeatures from '@site/src/components/home/BrowserFeatures'
 import Header from '@site/src/components/home/Header'
@@ -17,6 +16,7 @@ import { BuildScript, CreateScript } from '../components/home/Script'
 import System from '../components/home/System'
 import Terminal from '../components/home/Terminal'
 import { objectEntries } from '../utils/fields'
+import { t } from '../utils/i18n'
 
 const browserItems = Object.freeze({
   chrome: <ChromeIcon />,
@@ -71,25 +71,15 @@ export default function Home(): ReactNode {
       <DevEnvironment />
 
       <BuildTools
-        subTitle={
-          <Translate id="home.buildtools.sub1">
-            Ensure consistency across development, build, and testing environments
-          </Translate>
-        }
-        title={
-          <Translate id="home.buildtools.title1">
-            Seamlessly Integrates into Your Build Toolchain
-          </Translate>
-        }
+        subTitle={t('home.buildtools.sub1')}
+        title={t('home.buildtools.title1')}
       >
         <BuildScript />
       </BuildTools>
 
       <BuildTools
-        subTitle={
-          <Translate id="home.buildtools.sub2">Install pbvm, download your first browser</Translate>
-        }
-        title={<Translate id="home.buildtools.title2">Get Started in 3 Minutes</Translate>}
+        subTitle={t('home.buildtools.sub2')}
+        title={t('home.buildtools.title2')}
       >
         <CreateScript />
       </BuildTools>

@@ -1,9 +1,9 @@
 import Link from '@docusaurus/Link'
-import Translate from '@docusaurus/Translate'
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
 import { type FC, type ReactNode } from 'react'
 import { tv } from 'tailwind-variants'
 import { cliOps, devOps, lockOps, mirrorOps } from '../../utils/mermaidMD'
+import { t } from '../../utils/i18n'
 import { styles as buttonStyle } from '../button'
 import { Card } from '../card'
 import Mermaid from '../mermaid'
@@ -14,27 +14,27 @@ const getItems = (isZh: boolean): ItemType[] => [
     className: 'scale-375 hover:scale-250',
     md: cliOps,
     key: 'commander',
-    title: <Translate id="home.dev.item.commander">CLI Command Flow</Translate>,
+    title: t('home.dev.item.commander'),
     url: '/concepts/commander',
   },
   {
     className: 'scale-375 hover:scale-250',
     md: devOps,
     key: 'monorepo',
-    title: <Translate id="home.dev.item.architecture">Project Architecture</Translate>,
+    title: t('home.dev.item.architecture'),
     url: '/concepts/monorepo',
   },
   {
     md: mirrorOps,
     key: 'source-and-mirror',
-    title: <Translate id="home.dev.item.resources">Resources & Mirrors</Translate>,
+    title: t('home.dev.item.resources'),
     url: isZh ? '/source#整体流程' : '/source#overall-flow',
   },
   {
     className: 'pt-9 scale-600 hover:scale-450',
     md: lockOps,
     key: 'lock',
-    title: <Translate id="home.dev.item.storage">Storage & File Lock</Translate>,
+    title: t('home.dev.item.storage'),
     url: isZh
       ? '/concepts/store-and-cache#数据存储--文件结构'
       : '/concepts/store-and-cache#store-vs-browserlist-relationship',
@@ -78,31 +78,18 @@ const DevEnvironment: FC<DevEnvironmentProps> = () => {
       <div className={container()}>
         <div className={header()}>
           <h3 className={title()}>
-            <Translate id="home.dev.header.title">
-              Designed for frontend engineering — generate independent browserlist.json
-              configs for different projects
-            </Translate>
+            {t('home.dev.header.title')}
           </h3>
           <h3 className={title({ type: 'secondary' })}>
-            <Translate id="home.dev.header.desc">
-              Achieve project-level browser version management. Integrate with modern build
-              tools to provide a consistent browser environment for development, testing,
-              and CI/CD.
-            </Translate>
+            {t('home.dev.header.desc')}
           </h3>
         </div>
         <div className={header({ type: 'secondary' })}>
           <h3 className={title({ type: 'primary' })}>
-            <Translate id="home.dev.header.titleShort">
-              Designed for Frontend Engineering
-            </Translate>
+            {t('home.dev.header.titleShort')}
           </h3>
           <div>
-            <Translate id="home.dev.header.descShort">
-              Generate independent browserlist.json configs for different projects, achieving
-              project-level browser version management. Integrate with modern build tools to
-              provide a consistent browser environment for development, testing, and CI/CD.
-            </Translate>
+            {t('home.dev.header.descShort')}
           </div>
         </div>
         <div className={demo()}>
@@ -112,7 +99,7 @@ const DevEnvironment: FC<DevEnvironmentProps> = () => {
                 <Link className={link()} to={url}>
                   <Mermaid className={svg({ className })} value={md} />
                   <button className={buttonStyle({ className: btn() })}>
-                    <Translate id="home.dev.item.viewDetails">View Details</Translate>
+                    {t('home.dev.item.viewDetails')}
                   </button>
                 </Link>
               </Card>

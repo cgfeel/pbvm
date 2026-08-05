@@ -1,8 +1,8 @@
 import Link from '@docusaurus/Link'
-import Translate from '@docusaurus/Translate'
 import type { FC } from 'react'
 import { tv } from 'tailwind-variants'
 import Wraper from './Wraper'
+import { t } from '../../utils/i18n'
 
 const logoText = `██████╗ ██████╗ ██╗   ██╗███╗   ███╗
 ██╔══██╗██╔══██╗██║   ██║████╗ ████║
@@ -27,18 +27,16 @@ const BottomStart: FC = () => (
     <div className={container()}>
       <div>
         <h3 className={title()}>
-          <Translate id="home.bottom.title">Ready to Get Started?</Translate>
+          {t('home.bottom.title')}
         </h3>
         <div className={tips()}>
-          <Translate id="home.bottom.desc">
-            Install pbvm and enjoy a smooth browser version management experience.
-          </Translate>
+          {t('home.bottom.desc')}
         </div>
       </div>
       <pre className={logo()}>{logoText}</pre>
       <div>
         <Link to="/intro">
-          <Translate id="home.bottom.cta">Read the Docs →</Translate>
+          {t('home.bottom.cta')}
         </Link>
       </div>
     </div>
