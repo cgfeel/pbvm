@@ -115,11 +115,6 @@ const config: Config = {
         content: 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no',
       },
     },
-    {
-      tagName: 'script',
-      attributes: { type: 'text/javascript' },
-      innerHTML: `window.__BASE_URL__='${process.env.BASE_URL ?? '/pbvm/'}'`,
-    },
   ],
 
   themeConfig: {
