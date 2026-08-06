@@ -71,6 +71,19 @@ html[data-theme='dark'] {
   --docusaurus-highlighted-code-line-bg: rgba(255, 255, 255, 0.06); */
 }
 
+/* 搜索词高亮 */
+mark {
+  background-color: var(--ifm-color-primary-lightest);
+  color: var(--ifm-background-color);
+  padding: 0.1em 0.2em;
+  border-radius: 2px;
+}
+
+html[data-theme='dark'] mark {
+  background-color: var(--ifm-color-primary);
+  color: var(--ifm-background-surface-color);
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -212,5 +225,11 @@ html {
 @media (max-width: 996px) {
   .navbar-github-link {
     display: inline-block;
+  }
+}
+
+@media (max-width: 996px) {
+  .navbar__items .navbar-search-link {
+    right: 7rem;
   }
 }

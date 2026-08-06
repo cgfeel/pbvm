@@ -45,7 +45,25 @@ const config: Config = {
       },
     ],
   ],
-  themes: ['@docusaurus/theme-mermaid'],
+  themes: [
+    '@docusaurus/theme-mermaid',
+    [
+      '@easyops-cn/docusaurus-search-local',
+      {
+        docsRouteBasePath: '/', // 匹配 docs-as-homepage
+        indexBlog: false, // blog 已禁用
+        indexDocs: true,
+        indexPages: false,
+        language: ['en', 'zh'], // 中文分词 + 英文 stemming
+        hashed: true, // PWA 长缓存
+        highlightSearchTermsOnTargetPage: true,
+        searchResultLimits: 8,
+        searchBarPosition: 'right', // 导航栏左侧，Docs 旁
+        searchBarShortcut: true,
+        searchBarShortcutHint: true,
+      },
+    ],
+  ],
 
   onBrokenLinks: 'throw',
   markdown: {
@@ -135,6 +153,11 @@ const config: Config = {
           sidebarId: 'docSidebar',
           position: 'left',
           label: 'Docs',
+        },
+        {
+          type: 'search',
+          position: 'right',
+          className: 'navbar-search-link',
         },
         // { to: '/blog', label: 'Blog', position: 'left' },
         {
