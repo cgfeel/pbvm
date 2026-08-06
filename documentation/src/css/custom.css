@@ -33,6 +33,17 @@
   --font-code: 'SF Mono', 'Fira Code', Menlo, Consolas, monospace;
 }
 
+@layer utilities {
+  .scrollbar-none {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 :root {
   --ifm-navbar-link-hover-color: #000;
   --ifm-font-family-base: 'Inter', system-ui, -apple-system, sans-serif;
@@ -58,7 +69,7 @@ html[data-theme='dark'] {
   --ifm-navbar-background-color: #1b1b1b;
   --ifm-footer-background-color: #1b1b1b;
   --ifm-navbar-link-hover-color: #fff;
-  --ifm-color-primary: #f0f0f0;
+  --ifm-color-primary: #aa8bff;
 
   /* --ifm-color-primary-dark: #ddd;
   --ifm-color-primary-darker: #ccc;
@@ -67,7 +78,6 @@ html[data-theme='dark'] {
   --ifm-color-primary-lighter: #fff;
   --ifm-color-primary-lightest: #fff;
   --ifm-background-color: #0a0e17ff;
-  --ifm-background-surface-color: #111;
   --docusaurus-highlighted-code-line-bg: rgba(255, 255, 255, 0.06); */
 }
 

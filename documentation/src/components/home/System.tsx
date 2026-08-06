@@ -4,11 +4,11 @@ import Osx from '@site/static/img/osx.svg'
 import Windows from '@site/static/img/windows.svg'
 import type { FC } from 'react'
 import { tv } from 'tailwind-variants'
+import { t } from '../../utils/i18n'
 import { Card } from '../card'
 import Tag from '../tag'
 import { styles as commandStyles } from './Terminal'
 import Wraper from './Wraper'
-import { t } from '../../utils/i18n'
 
 const iconMap = Object.freeze({
   Windows,
@@ -19,7 +19,7 @@ const iconMap = Object.freeze({
 const styles = tv({
   slots: {
     code: 'p-4 flex flex-col gap-2',
-    codelist: 'bg-transparent [--ifm-pre-padding:0_1rem]',
+    codelist: 'bg-transparent [--ifm-pre-padding:0_1rem] overflow-x-auto scrollbar-none',
     demo: 'flex-1 min-w-0 max-w-[542px]',
     desc: 'flex-1 gap-6',
     header: 'gap-2',
@@ -45,17 +45,11 @@ const System: FC = () => (
     <div className={selector()}>
       <div className={desc()}>
         <div className={header()}>
-          <div>
-            {t('home.system.label')}
-          </div>
-          <h3 className={title()}>
-            {t('home.system.title')}
-          </h3>
+          <div>{t('home.system.label')}</div>
+          <h3 className={title()}>{t('home.system.title')}</h3>
         </div>
         <div className={footer()}>
-          <div>
-            {t('home.system.desc')}
-          </div>
+          <div>{t('home.system.desc')}</div>
           <div className={tags()}>
             {objectEntries(iconMap).map(([name, Element]) => (
               <Tag key={name} status="solid">
