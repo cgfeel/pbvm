@@ -1,8 +1,8 @@
 import Logo from '@site/static/img/logo.svg'
 import type { FC, PropsWithChildren } from 'react'
 import { tv } from 'tailwind-variants'
-import { LinkButton } from '../button'
 import { t } from '../../utils/i18n'
+import { LinkButton } from '../button'
 
 const secondary = ['text-neutral-500', 'dark:text-neutral-400']
 const styles = tv({
@@ -11,7 +11,7 @@ const styles = tv({
     badge:
       'inline-flex items-center gap-2 py-2 px-4 rounded-full bg-black/5 border border-black/10 text-sm font-medium mb-6 dark:bg-white/6 dark:border-white/10',
     badgeDot: 'size-1.5 rounded-full bg-green-500',
-    cli: 'flex flex-col pt-2 text-2xl items-start',
+    cli: 'flex flex-col pt-2 text-2xl items-start text-left',
     container:
       'relative z-1 flex items-center gap-12 max-lg:flex-col max-lg:gap-10 max-lg:text-center',
     demo: 'flex-[0_0_460px] flex flex-col items-center justify-center max-lg:flex-[1_1_auto] max-lg:w-full max-lg:max-w-120',
@@ -62,19 +62,13 @@ const Header: FC<PropsWithChildren> = ({ children }) => (
           <Logo className={logoIcon()} />
           <div className={cli()}>
             <h1 className={title({ className: 'font-arial text-7xl' })}>PBVM</h1>
-            <div>
-              {t('home.hero.tagline')}
-            </div>
+            <div>{t('home.hero.tagline')}</div>
           </div>
         </div>
         <div className={slogan()}>
-          <h2 className={title({ type: 'secondary' })}>
-            {t('home.hero.slogan')}
-          </h2>
+          <h2 className={title({ type: 'secondary' })}>{t('home.hero.slogan')}</h2>
         </div>
-        <p className={subtitle()}>
-          {t('home.hero.description')}
-        </p>
+        <p className={subtitle()}>{t('home.hero.description')}</p>
         <div className={actions()}>
           <LinkButton to="/intro" type="primary">
             {t('home.hero.cta')}
