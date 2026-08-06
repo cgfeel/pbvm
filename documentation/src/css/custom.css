@@ -243,3 +243,14 @@ html {
     right: 7rem;
   }
 }
+
+@media (max-width: 440px) {
+  .navbar__items .navbar__search > span > span {
+    position: fixed !important;
+    top: 3rem !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: auto !important;
+    max-width: none !important;
+  }
+}
