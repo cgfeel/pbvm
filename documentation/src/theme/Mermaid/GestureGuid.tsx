@@ -1,3 +1,4 @@
+import useBaseUrl from '@docusaurus/useBaseUrl'
 import type { DotLottie } from '@lottiefiles/dotlottie-react'
 import { DotLottieReact, setWasmUrl } from '@lottiefiles/dotlottie-react'
 import { forwardRef, useEffect, useImperativeHandle, useRef } from 'react'
@@ -11,6 +12,7 @@ const styles = tv({
 const GestureGuid = forwardRef<GestureGuidInstance>((_, ref) => {
   const countRef = useRef(0)
   const dotLottieRef = useRef<DotLottie>(null)
+  const lottieUrl = useBaseUrl('/img/gesture.lottie')
 
   useEffect(() => {
     const { current } = dotLottieRef
@@ -48,7 +50,7 @@ const GestureGuid = forwardRef<GestureGuidInstance>((_, ref) => {
     <div className={styles()}>
       <DotLottieReact
         className="size-[max(8rem,20vmin)]"
-        src="/img/gesture.lottie"
+        src={lottieUrl}
         dotLottieRefCallback={(instance) => {
           dotLottieRef.current = instance
         }}
