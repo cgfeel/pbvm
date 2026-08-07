@@ -1,172 +1,80 @@
-import type { WrapperProps } from '@docusaurus/types'
-import Mermaid from '@theme-original/Mermaid'
-import type MermaidType from '@theme/Mermaid'
-import type { CSSProperties } from 'react'
-import { useRef, useState, type ReactNode } from 'react'
-import { tv } from 'tailwind-variants'
+import type { ComponentType, FC } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
+import { borderStyle } from './Button'
+import ContainerProvider from './ContainerProvider'
+import type { GestureGuidInstance } from './GestureGuid'
+import GestureGuid from './GestureGuid'
+import MouseToolbar from './MouseToolbar'
+import StaticMermaid from './StaticMermaid'
+import Toolbar from './Toolbar'
+import TouchToolbar from './TouchToolbar'
 import Wrapper from './Wrapper'
+import type { ZoomViewInstance } from './ZoomView'
+import ZoomView from './ZoomView'
 
-const MAX_SCALE = 5
-const MIN_SCALE = 0.1
-const ZOOM_STEP = 1.2
+const isProd = process.env.NODE_ENV === 'production'
+let MermaidPromise: Promise<{ default: ComponentType<Props> }> | null = null
 
-const clamp = (val: number, min: number, max: number) => Math.min(max, Math.max(val, min))
+const DevMermaid: FC<Props> = (props) => {
+  const [Comp, setComp] = useState<ComponentType<Props> | null>(null)
+  useEffect(() => {
+    let cancelled = false
+    if (!MermaidPromise) {
+      MermaidPromise = import('@theme-original/Mermaid')
+    }
+    MermaidPromise.then((res) => {
+      if (!cancelled) setComp(() => res.default)
+    })
+    return () => {
+      cancelled = true
+    }
+  }, [])
+  return Comp ? <Comp {...props} /> : null
+}
 
-const styles = tv({
-  slots: {
-    btn: 'bg-transparent border-0 cursor-pointer rounded text-sm text-[var(--ifm-color-emphasis-700)] leading-none enabled:hover:bg-[var(--ifm-color-emphasis-200)] disabled:opacity-30 disabled:cursor-default',
-    canvas:
-      'block w-full origin-top-left translate-x-[var(--x)] translate-y-[var(--y)] scale-[var(--scale)]',
-    container: 'relative rounded-lg my-4 cursor-default group select-none',
-    point: 'text-xs text-[var(--ifm-color-emphasis-600)] min-w-[38px] text-center',
-    toolbar:
-      'absolute bottom-2 right-2 flex items-center gap-0.5 bg-[var(--ifm-background-surface-color)] rounded-[6px] opacity-0 transition-opacity duration-200 group-hover:opacity-100',
-    zoomViewport: 'h-full overflow-hidden p-4 box-border',
-  },
-  variants: {
-    cursor: {
-      dragging: {
-        zoomViewport: 'cursor-grabbing',
-      },
-      zoomable: {
-        zoomViewport: 'cursor-grab',
-      },
-    },
-  },
-  compoundSlots: [
-    {
-      slots: ['container', 'toolbar'],
-      class: 'border border-[var(--ifm-color-emphasis-300)]',
-    },
-    {
-      slots: ['btn', 'toolbar'],
-      class: 'py-0.5 px-1.5',
-    },
-  ],
-})
-
-const { btn, canvas, container, point, toolbar, zoomViewport } = styles()
-
-export default function MermaidWrapper(props: Props): ReactNode {
-  const dragRef = useRef({ x: 0, y: 0 })
-  const zoomRef = useRef<HTMLDivElement>(null)
-
-  const [dragging, setDragging] = useState(false)
-  const [fullscreen, setFullscreen] = useState(false)
-
-  const [position, setPosition] = useState({ x: 0, y: 0 })
-  const [scale, setScale] = useState(1)
-
-  const style: CSSVar = { '--x': `${position.x}px`, '--y': `${position.y}px`, '--scale': scale }
-  const pct = Math.round(scale * 100)
-
-  const reset = () => {
-    setScale(1)
-    setPosition({ x: 0, y: 0 })
-  }
-
-  const zoomIn = () => setScale((current) => clamp(current * ZOOM_STEP, MIN_SCALE, MAX_SCALE))
-  const zoomOut = () => setScale((current) => clamp(current / ZOOM_STEP, MIN_SCALE, MAX_SCALE))
+export default function MermaidWrapper(props: Props) {
+  const content = isProd ? <StaticMermaid value={props.value} /> : <DevMermaid {...props} />
+  const gestureRef = useRef<GestureGuidInstance>(null)
+  const zoomRef = useRef<ZoomViewInstance>(null)
 
   return (
     <Wrapper
-      className={container()}
-      fullscreen={fullscreen}
-      onClose={() => setFullscreen(false)}
-      onMouseDown={(e) => {
-        setDragging(true)
-        document.body.classList.add('select-none')
-        dragRef.current = { x: e.clientX - position.x, y: e.clientY - position.y }
+      className={borderStyle}
+      onMouseDown={(event) => zoomRef.current?.onMouseDown(event)}
+      onMouseMove={(event) => zoomRef.current?.onMouseMove(event)}
+      onMouseUp={(event) => zoomRef.current?.onMouseUp(event)}
+      onPanEnd={(event) => zoomRef.current?.onPanEnd(event)}
+      onPanMove={(event) => zoomRef.current?.onPanMove(event)}
+      onPanStart={(event) => {
+        gestureRef.current?.stop()
+        zoomRef.current?.onPanStart(event)
       }}
-      onMouseMove={(event) => {
-        if (!dragging) return
-        const { x, y } = dragRef.current
-        setPosition({ x: event.clientX - x, y: event.clientY - y })
+      onPinchMove={(event) => zoomRef.current?.onPinchMove(event)}
+      onPinchStart={(event) => {
+        gestureRef.current?.stop()
+        zoomRef.current?.onPinchStart(event)
       }}
-      onMouseUp={() => {
-        document.body.classList.remove('select-none')
-        setDragging(false)
-      }}
-      onWheel={(event) => {
-        event.preventDefault()
-        const rect = zoomRef.current?.getBoundingClientRect()
-        if (!rect) return
-
-        const mx = event.clientX - rect.left
-        const my = event.clientY - rect.top
-        const factor = event.deltaY < 0 ? ZOOM_STEP : 1 / ZOOM_STEP
-        setScale((currentScale) => {
-          const ns = clamp(currentScale * factor, MIN_SCALE, MAX_SCALE)
-          const ratio = ns / currentScale
-          setPosition((currentPosition) => ({
-            x: mx - (mx - currentPosition.x) * ratio,
-            y: my - (my - currentPosition.y) * ratio,
-          }))
-          return ns
-        })
-      }}
+      onTap={() => gestureRef.current?.play()}
+      onWheel={(event) => zoomRef.current?.onWheel(event)}
     >
-      <div
-        className={zoomViewport({
-          cursor: (dragging ? 'dragging' : undefined) ?? (scale > 1 ? 'zoomable' : undefined),
-        })}
-        ref={zoomRef}
-      >
-        <div className={canvas()} style={style}>
-          <Mermaid {...props} />
-        </div>
-      </div>
-      <div className={toolbar()}>
-        <button
-          className={btn()}
-          disabled={scale <= MIN_SCALE}
-          title="缩小"
-          type="button"
-          onClick={zoomOut}
-        >
-          -
-        </button>
-        <span className={point()}>{pct}%</span>
-        <button
-          className={btn()}
-          disabled={scale >= MAX_SCALE}
-          title="放大"
-          type="button"
-          onClick={zoomIn}
-        >
-          +
-        </button>
-        <button
-          className={btn()}
-          disabled={scale === 1 && position.x === 0 && position.y === 0}
-          title="重置"
-          type="button"
-          onClick={reset}
-        >
-          ↺
-        </button>
-        <button
-          className={btn()}
-          title={fullscreen ? '退出全屏' : '全屏'}
-          type="button"
-          onClick={() => {
-            setFullscreen(!fullscreen)
-            if (!fullscreen) {
-              document.body.classList.add('overflow-hidden')
-            } else {
-              document.body.classList.remove('overflow-hidden')
-            }
-          }}
-        >
-          {fullscreen ? '⊡' : '▣'}
-        </button>
-      </div>
+      <ContainerProvider>
+        <ZoomView cheat={<GestureGuid ref={gestureRef} />} ref={zoomRef}>
+          {content}
+        </ZoomView>
+        <Toolbar size="sm" hover>
+          <MouseToolbar />
+        </Toolbar>
+        <Toolbar size="base" variants="ghost" touch>
+          <TouchToolbar
+            onTab={() => gestureRef.current?.play()}
+            onTrigger={() => gestureRef.current?.stop()}
+          />
+        </Toolbar>
+      </ContainerProvider>
     </Wrapper>
   )
 }
 
-interface Props extends WrapperProps<typeof MermaidType> {}
-
-type CSSVar = CSSProperties & {
-  [key: `--${string}`]: string | number
+interface Props {
+  value: string
 }
