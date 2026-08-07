@@ -1,33 +1,62 @@
 import { useMemoFn } from '@site/src/utils/hooks'
-import { useEffect, useRef, type FC, type PropsWithChildren } from 'react'
+import type { MjolnirEvent, MjolnirGestureEvent } from 'mjolnir.js'
+import { EventManager, Pan, Pinch, Tap } from 'mjolnir.js'
+import type { Dispatch, FC, PropsWithChildren, SetStateAction } from 'react'
+import { createContext, useEffect, useRef, useState } from 'react'
 import { tv } from 'tailwind-variants'
+import type { ZoomViewInstance } from './ZoomView'
 
 const styles = tv({
   slots: {
-    fullscreenBackdrop: 'fixed inset-0 z-[9998] bg-white dark:bg-black',
-    fullscreenContainer:
-      'fixed inset-4 z-[9999] rounded-lg my-0 flex flex-col overflow-hidden group',
+    container: ['relative', 'rounded-lg', 'cursor-default', 'group', 'select-none'],
+    fullscreenBackdrop: ['fixed', 'inset-0', 'z-[9998]', 'bg-white', 'dark:bg-black'],
+  },
+  variants: {
+    fullscreen: {
+      false: {
+        container: 'relative my-4',
+      },
+      true: {
+        container: ['fixed', 'inset-4', 'z-[9999]', 'my-0', 'flex', 'flex-col', 'overflow-hidden'],
+      },
+    },
   },
 })
 
-const { fullscreenBackdrop, fullscreenContainer } = styles()
+const { container, fullscreenBackdrop } = styles()
+const WrapperContext = createContext<WrapperContextInstance>({
+  fullscreen: '',
+  setFullscreen: () => {
+    //
+  },
+})
 
 const Wrapper: FC<PropsWithChildren<WraperProps>> = ({
   children,
   className,
-  fullscreen,
-  onClose,
   onMouseDown,
   onMouseMove,
   onMouseUp,
+  onPanEnd,
+  onPanMove,
+  onPanStart,
+  onPinchMove,
+  onPinchStart,
+  onTap,
   onWheel,
 }) => {
+  const [fullscreen, setFullscreen] = useState('')
   const containerRef = useRef<HTMLDivElement>(null)
 
-  const close = useMemoFn(onClose)
   const mouseDown = useMemoFn(onMouseDown)
   const mouseMove = useMemoFn(onMouseMove)
   const mouseUp = useMemoFn(onMouseUp)
+  const panEnd = useMemoFn(onPanEnd)
+  const panMove = useMemoFn(onPanMove)
+  const panStart = useMemoFn(onPanStart)
+  const pinchMove = useMemoFn(onPinchMove)
+  const pinchStart = useMemoFn(onPinchStart)
+  const tap = useMemoFn(onTap)
   const wheel = useMemoFn(onWheel)
 
   useEffect(() => {
@@ -53,6 +82,9 @@ const Wrapper: FC<PropsWithChildren<WraperProps>> = ({
     }
 
     function downHandle(event: MouseEvent) {
+      const { target } = event
+      if (target instanceof HTMLElement && target.closest('[data-rule="toolbar"]')) return
+
       mouseDown.current?.(event)
     }
 
@@ -66,21 +98,78 @@ const Wrapper: FC<PropsWithChildren<WraperProps>> = ({
   }, [])
 
   useEffect(() => {
+    const eventManager = new EventManager(containerRef.current, {
+      recognizers: [
+        new Pan(),
+        new Pinch(),
+        new Tap({ event: 'doubletap', pointers: 2 }),
+        [Tap, { event: 'singletap' }, 'doubletap'],
+      ],
+    })
+
+    function panendHandle(event: MjolnirGestureEvent) {
+      panEnd.current?.(event)
+    }
+
+    function panmoveHandle(event: MjolnirGestureEvent) {
+      panMove.current?.(event)
+    }
+
+    function panstartHandle(event: MjolnirGestureEvent) {
+      panStart.current?.(event)
+    }
+
+    function pinchmoveHandle(event: MjolnirGestureEvent) {
+      pinchMove.current?.(event)
+    }
+
+    function pinchstartHandle(event: MjolnirGestureEvent) {
+      pinchStart.current?.(event)
+    }
+
+    function tapHandle(event: MjolnirEvent) {
+      const { srcEvent, target } = event
+      if (target instanceof Element && target.closest('[data-rule="toolbar"]')) return
+      if ('pointerType' in srcEvent && srcEvent.pointerType === 'touch') tap.current?.(event)
+    }
+
+    eventManager.on('panend', panendHandle)
+    eventManager.on('panmove', panmoveHandle)
+    eventManager.on('panstart', panstartHandle)
+    eventManager.on('pinchmove', pinchmoveHandle)
+    eventManager.on('pinchstart', pinchstartHandle)
+    eventManager.on('singletap', tapHandle)
+    eventManager.on('doubletap', tapHandle)
+    return () => {
+      eventManager.off('panend', panendHandle)
+      eventManager.off('panmove', panmoveHandle)
+      eventManager.off('panstart', panstartHandle)
+      eventManager.off('pinchmove', pinchmoveHandle)
+      eventManager.off('pinchstart', pinchstartHandle)
+      eventManager.off('singletap', tapHandle)
+      eventManager.off('doubletap', tapHandle)
+      eventManager.destroy()
+    }
+  }, [])
+
+  useEffect(() => {
     function keyHandle(event: KeyboardEvent) {
-      if (fullscreen && event.key === 'Escape') close.current?.()
+      if (fullscreen !== '' && event.key === 'Escape') setFullscreen('')
     }
 
     document.addEventListener('keydown', keyHandle)
     return () => {
       document.removeEventListener('keydown', keyHandle)
     }
-  }, [fullscreen])
+  }, [fullscreen, setFullscreen])
 
   return (
-    <>
-      {fullscreen && <div className={fullscreenBackdrop()} onClick={onClose} />}
+    <WrapperContext.Provider value={{ fullscreen, setFullscreen }}>
+      {fullscreen !== '' && (
+        <div className={fullscreenBackdrop()} onClick={() => setFullscreen('')} />
+      )}
       <div
-        className={fullscreen ? fullscreenContainer() : className}
+        className={container({ fullscreen: fullscreen !== '', className })}
         ref={containerRef}
         onMouseEnter={() => {
           if (!fullscreen) document.body.classList.add('overflow-hidden')
@@ -91,18 +180,19 @@ const Wrapper: FC<PropsWithChildren<WraperProps>> = ({
       >
         {children}
       </div>
-    </>
+    </WrapperContext.Provider>
   )
 }
 
+export { WrapperContext }
+
 export default Wrapper
 
-interface WraperProps {
+interface WrapperContextInstance {
+  fullscreen: string
+  setFullscreen: Dispatch<SetStateAction<string>>
+}
+interface WraperProps extends Partial<ZoomViewInstance> {
   className?: string
-  fullscreen?: boolean
-  onClose?: () => void
-  onMouseDown?: (event: MouseEvent) => void
-  onMouseMove?: (event: MouseEvent) => void
-  onMouseUp?: (event: MouseEvent) => void
-  onWheel?: (event: WheelEvent) => void
+  onTap?: (event: MjolnirEvent) => void
 }

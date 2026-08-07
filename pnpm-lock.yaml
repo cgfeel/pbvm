@@ -84,6 +84,9 @@ importers:
       '@easyops-cn/docusaurus-search-local':
         specifier: ^0.55.3
         version: 0.55.3(@docusaurus/faster@3.10.2(@docusaurus/types@3.10.2(@swc/core@1.15.46)(postcss@8.5.23)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(postcss@8.5.23))(@docusaurus/theme-common@3.10.2(@docusaurus/plugin-content-docs@3.10.2(@docusaurus/faster@3.10.2(@docusaurus/types@3.10.2(@swc/core@1.15.46)(postcss@8.5.23)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(postcss@8.5.23))(@mdx-js/react@3.1.1(@types/react@19.2.17)(react@19.2.8))(@rspack/core@1.7.12)(@swc/core@1.15.46)(postcss@8.5.23)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(typescript@6.0.3))(@swc/core@1.15.46)(postcss@8.5.23)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(@mdx-js/react@3.1.1(@types/react@19.2.17)(react@19.2.8))(@rspack/core@1.7.12)(@swc/core@1.15.46)(postcss@8.5.23)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(typescript@6.0.3)
+      '@lottiefiles/dotlottie-react':
+        specifier: ^0.19.13
+        version: 0.19.13(react@19.2.8)
       '@mdx-js/react':
         specifier: ^3.0.0
         version: 3.1.1(@types/react@19.2.17)(react@19.2.8)
@@ -93,6 +96,9 @@ importers:
       mermaid:
         specifier: ^11.16.0
         version: 11.16.0
+      mjolnir.js:
+        specifier: ^3.0.1
+        version: 3.0.1
       prism-react-renderer:
         specifier: ^2.3.0
         version: 2.4.1(react@19.2.8)
@@ -115,12 +121,21 @@ importers:
       '@tailwindcss/postcss':
         specifier: ^4.3.3
         version: 4.3.3
+      '@types/node':
+        specifier: ^26.1.1
+        version: 26.1.1
       '@types/react':
         specifier: ^19.0.0
         version: 19.2.17
       cross-env:
         specifier: ^10.1.0
         version: 10.1.0
+      mermaid-isomorphic:
+        specifier: ^3.1.0
+        version: 3.1.0(playwright@1.62.1)
+      playwright:
+        specifier: ^1.62.1
+        version: 1.62.1
       tailwind-merge:
         specifier: ^3.6.0
         version: 3.6.0
@@ -1626,6 +1641,10 @@ packages:
     cpu: [x64]
     os: [win32]
 
+  '@fortawesome/fontawesome-free@6.7.2':
+    resolution: {integrity: sha512-JUOtgFW6k9u4Y+xeIaEiLr3+cjoUPiAuLXoyKOJSia6Duzb7pq+A76P9ZdPDoAoxHdHzq6gE9/jKBGXlZT8FbA==}
+    engines: {node: '>=6'}
+
   '@hapi/hoek@9.3.0':
     resolution: {integrity: sha512-/c6rf4UJlmHlC9b5BaNvzAcFv7HZ2QHaV0D4/HNlBdvFnvQq8RI4kYdhyPCl7Xj+oWvTWQ8ujhqS53LIgAe6KQ==}
 
@@ -1925,6 +1944,16 @@ packages:
 
   '@leichtgewicht/ip-codec@2.0.5':
     resolution: {integrity: sha512-Vo+PSpZG2/fmgmiNzYK9qWRh8h/CHrwD0mo1h1DzL4yzHNSfWYujGTYsWGreD000gcgmZ7K4Ys6Tx9TxtsKdDw==}
+
+  '@lottiefiles/dotlottie-react@0.19.13':
+    resolution: {integrity: sha512-HqazA/AtVF5gWfsDhaHJKhJIyqXQLGvkfDQ00Pib1uepwCXCUwa+I6PJ3M/eNBcFMZGLmqF4oyo9On9JBsmjpg==}
+    engines: {node: '>=18.17.0', npm: '>=9.5.0'}
+    peerDependencies:
+      react: ^17 || ^18 || ^19
+
+  '@lottiefiles/dotlottie-web@0.79.0':
+    resolution: {integrity: sha512-i2OCChZvfsoKCnilkI1t72sR/jDLoLpX2q0nm2KpOXYQZvONMooCXcGy+H9J8ioh66d61/tfHUzP78YxZ73ypg==}
+    engines: {node: '>=18.17.0', npm: '>=9.5.0'}
 
   '@mdx-js/mdx@3.1.1':
     resolution: {integrity: sha512-f6ZO2ifpwAQIpzGWaBQT2TXxPv6z3RBzQKpVftEWN78Vl/YweF1uwussDx8ECAXVtr3Rs89fKyG9YlzUs9DyGQ==}
@@ -4745,6 +4774,11 @@ packages:
   fs-flow@1.0.2:
     resolution: {integrity: sha512-AUYZEh7fNmZFHm8w2S4rs0oaJg0l/a8AXLAAFqu/ulmpbPoIxkovrfw/j9GcAYxIc3Oj7eRIibTX82s5+nCtag==}
 
+  fsevents@2.3.2:
+    resolution: {integrity: sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA==}
+    engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
+    os: [darwin]
+
   fsevents@2.3.3:
     resolution: {integrity: sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==}
     engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
@@ -5786,6 +5820,14 @@ packages:
     resolution: {integrity: sha512-8q7VEgMJW4J8tcfVPy8g09NcQwZdbwFEqhe/WZkoIzjn/3TGDwtOCYtXGxA3O8tPzpczCCDgv+P2P5y00ZJOOg==}
     engines: {node: '>= 8'}
 
+  mermaid-isomorphic@3.1.0:
+    resolution: {integrity: sha512-mzrvfEVjnJIkJlEqxp3eMuR1wS0TeLCH1VK5E/T5yzWaBwI3JqjJuw70yUIThSCDJ5bRs6O3rgfp00oBAbvSeQ==}
+    peerDependencies:
+      playwright: '1'
+    peerDependenciesMeta:
+      playwright:
+        optional: true
+
   mermaid@11.16.0:
     resolution: {integrity: sha512-Zvm3kbstgdpvIJPPItlL7fppIZ3kibvc1oZIGxdvk9t6UFz6flv+Jw7FtRGKwfcI8OckmH04LqG6LlS6X4B1pA==}
 
@@ -6034,6 +6076,9 @@ packages:
   minipass@7.1.3:
     resolution: {integrity: sha512-tEBHqDnIoM/1rXME1zgka9g6Q2lcoCkxHLuc7ODJ5BxbP5d4c2Z5cGgtXAku59200Cx7diuHTOYfSBD8n6mm8A==}
     engines: {node: '>=16 || 14 >=14.17'}
+
+  mjolnir.js@3.0.1:
+    resolution: {integrity: sha512-/RMi8Jm3NKleOkVI8D2ai+1OVwtfRJsSVBVjbTXNm83nfsN4uORYaN3u1/hsg5CqVI+di8enTkvgDNDOywn6cQ==}
 
   modern-tar@0.7.7:
     resolution: {integrity: sha512-t9VmxaqrmANnEOBhpSDI6HD192Ge48k8vmWqQQL7hSFEqHEYwZbbsu49+aKLWZeRvFs3j1pMhXOqqF4kPlvjkQ==}
@@ -6316,6 +6361,16 @@ packages:
   pkijs@3.4.0:
     resolution: {integrity: sha512-emEcLuomt2j03vxD54giVB4SxTjnsqkU692xZOZXHDVoYyypEm+b3jpiTcc+Cf+myooc+/Ly0z01jqeNHVgJGw==}
     engines: {node: '>=16.0.0'}
+
+  playwright-core@1.62.1:
+    resolution: {integrity: sha512-wPYSwEBJY9GHraISXqyqtx0na0LpO3XEX7jNDhntbex7tzUS7kLnZsOlFruFJB4Hi/rhDMjXGqHewDZ68nYZVw==}
+    engines: {node: '>=20'}
+    hasBin: true
+
+  playwright@1.62.1:
+    resolution: {integrity: sha512-0M+L3LAD8/nm554LOla9Ayx0j0tmFZ0FBcoQ7F1VuVHpM/XpiC8RcDzBQB8W5+hA8L22THxELzeF+2WcUzvcLg==}
+    engines: {node: '>=20'}
+    hasBin: true
 
   points-on-curve@0.2.0:
     resolution: {integrity: sha512-0mYKnYYe9ZcqMCWhUjItv/oHjvgEsfKvnUTg8sAtnHr3GVy7rGkXCb6d5cSyqrWqL4k81b9CPg3urd+T7aop3A==}
@@ -10500,6 +10555,8 @@ snapshots:
   '@esbuild/win32-x64@0.28.1':
     optional: true
 
+  '@fortawesome/fontawesome-free@6.7.2': {}
+
   '@hapi/hoek@9.3.0': {}
 
   '@hapi/topo@5.1.0':
@@ -10801,6 +10858,13 @@ snapshots:
       tslib: 2.8.1
 
   '@leichtgewicht/ip-codec@2.0.5': {}
+
+  '@lottiefiles/dotlottie-react@0.19.13(react@19.2.8)':
+    dependencies:
+      '@lottiefiles/dotlottie-web': 0.79.0
+      react: 19.2.8
+
+  '@lottiefiles/dotlottie-web@0.79.0': {}
 
   '@mdx-js/mdx@3.1.1':
     dependencies:
@@ -13651,6 +13715,9 @@ snapshots:
       async-stream-flow: 1.0.2
       through3: 1.1.7
 
+  fsevents@2.3.2:
+    optional: true
+
   fsevents@2.3.3:
     optional: true
 
@@ -14831,6 +14898,14 @@ snapshots:
 
   merge2@1.4.1: {}
 
+  mermaid-isomorphic@3.1.0(playwright@1.62.1):
+    dependencies:
+      '@fortawesome/fontawesome-free': 6.7.2
+      katex: 0.16.47
+      mermaid: 11.16.0
+    optionalDependencies:
+      playwright: 1.62.1
+
   mermaid@11.16.0:
     dependencies:
       '@braintree/sanitize-url': 7.1.2
@@ -15236,6 +15311,8 @@ snapshots:
 
   minipass@7.1.3: {}
 
+  mjolnir.js@3.0.1: {}
+
   modern-tar@0.7.7: {}
 
   mrmime@2.0.1: {}
@@ -15536,6 +15613,14 @@ snapshots:
       pvtsutils: 1.3.6
       pvutils: 1.1.5
       tslib: 2.8.1
+
+  playwright-core@1.62.1: {}
+
+  playwright@1.62.1:
+    dependencies:
+      playwright-core: 1.62.1
+    optionalDependencies:
+      fsevents: 2.3.2
 
   points-on-curve@0.2.0: {}
 

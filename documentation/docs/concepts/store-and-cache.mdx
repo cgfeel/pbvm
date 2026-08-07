@@ -26,23 +26,23 @@ pbvm uses OS-standard directory structures to store browser binaries, user data,
 
 ## Directory descriptions
 
-| Directory       | Purpose                                                       |     Can delete?      |
-| --------------- | ------------------------------------------------------------- |:--------------------:|
-| `cache`         | Browser binaries (downloaded via `@puppeteer/browsers`)       | ✅ System cleaners OK |
-| `data/profiles` | Browser user data: cookies, preferences, history, etc.        |          ❌           |
-| `config`        | User custom config (proxy, mirror, etc.)                      |    ⚠️ Context-dependent |
-| `log`           | Runtime logs                                                  |          ✅           |
-| `temp`          | Temporary detection data (`info -r` headless launch)          |          ✅           |
+| Directory       | Purpose                                                 |      Can delete?      |
+| --------------- | ------------------------------------------------------- | :-------------------: |
+| `cache`         | Browser binaries (downloaded via `@puppeteer/browsers`) | ✅ System cleaners OK |
+| `data/profiles` | Browser user data: cookies, preferences, history, etc.  |          ❌           |
+| `config`        | User custom config (proxy, mirror, etc.)                | ⚠️ Context-dependent  |
+| `log`           | Runtime logs                                            |          ✅           |
+| `temp`          | Temporary detection data (`info -r` headless launch)    |          ✅           |
 
 ## Actual paths
 
 Varies by OS, resolved via [`env-paths`](https://github.com/sindresorhus/env-paths):
 
-| Platform | Path                                                                    |
-| -------- | ----------------------------------------------------------------------- |
-| macOS    | `~/Library/Caches/pbvm/`, `~/Library/Application Support/pbvm/`         |
-| Linux    | `~/.cache/pbvm/`, `~/.local/share/pbvm/`                                |
-| Windows  | `%LOCALAPPDATA%/pbvm/`                                                  |
+| Platform | Path                                                            |
+| -------- | --------------------------------------------------------------- |
+| macOS    | `~/Library/Caches/pbvm/`, `~/Library/Application Support/pbvm/` |
+| Linux    | `~/.cache/pbvm/`, `~/.local/share/pbvm/`                        |
+| Windows  | `%LOCALAPPDATA%/pbvm/`                                          |
 
 ## Store vs browserlist relationship
 
@@ -67,6 +67,32 @@ Varies by OS, resolved via [`env-paths`](https://github.com/sindresorhus/env-pat
 ```
 
 The same binary can be referenced by multiple projects, each with its own independent profile data.
+
+## Data storage & file structure
+
+```mermaid
+  graph LR
+      subgraph "OS directories (env-paths)"
+          CACHE["📁 cache/<br/>Browser binary install dir<br/>(deletable & rebuildable)"]
+          DATA["📁 data/profiles/<br/>User profile data<br/>(cookies/bookmarks/preferences)"]
+          CONFIG["📁 config/<br/>User config files<br/>(proxy/mirror/default template)"]
+          LOG["📁 log/<br/>Logs"]
+          TEMP["📁 temp/<br/>Temp dir (info detection)"]
+      end
+
+      subgraph "Project directory (cwd)"
+          BROWSERLIST["📄 browserlist.json<br/>Project browser map<br/>[{alias, browser, buildId, platform}, ...]"]
+          LOCKFILE["📄 .pbvm.lock<br/>Process-level file lock<br/>(writes PID)"]
+      end
+      BROWSER_LOCK --> UTIL_LOCK
+      UTIL_LOCK --> UTIL_PATHS
+
+      TYPES --> ZOD
+      CMD_CREATE & CMD_REMOVE & CMD_ALIAS & CMD_INFO & CMD_OPEN --> TYPES
+      API --> PUPPETEER
+      API --> UTIL_MANIFEST
+      API --> SCRIPT_OPEN
+```
 
 ## File lock mechanism
 
