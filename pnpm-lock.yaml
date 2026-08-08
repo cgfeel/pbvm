@@ -134,8 +134,8 @@ importers:
         specifier: ^3.1.0
         version: 3.1.0(playwright@1.62.1)
       mermaid-prerender:
-        specifier: ^0.0.7
-        version: 0.0.7(mermaid@11.16.0)(playwright@1.62.1)
+        specifier: ^0.0.8
+        version: 0.0.8(mermaid@11.16.0)(playwright@1.62.1)
       playwright:
         specifier: ^1.62.1
         version: 1.62.1
@@ -5841,8 +5841,8 @@ packages:
       playwright:
         optional: true
 
-  mermaid-prerender@0.0.7:
-    resolution: {integrity: sha512-U/y0JDXvj+TIO/O+MnRnOIofzuUFKtqvL47yOxoyFX8nFqBUw6bjUOSd+X8dCgm2wIQ0zeXzF6zu8Z6YqBV7Kg==}
+  mermaid-prerender@0.0.8:
+    resolution: {integrity: sha512-/4qSdUnitY6rpfHN9Jy9GT5pPTQvuzLHmmeoYLsbpZzreUtPuqyq6gLuYT9c0xT217NskpGIEdQUgZe6jZ7Cuw==}
     engines: {node: '>=22.0.0', pnpm: '>=9.0.0'}
     peerDependencies:
       mermaid: '>=11.0.0'
@@ -14925,7 +14925,7 @@ snapshots:
     optionalDependencies:
       playwright: 1.62.1
 
-  mermaid-prerender@0.0.7(mermaid@11.16.0)(playwright@1.62.1):
+  mermaid-prerender@0.0.8(mermaid@11.16.0)(playwright@1.62.1):
     dependencies:
       mermaid: 11.16.0
       mermaid-isomorphic: 3.1.0(playwright@1.62.1)

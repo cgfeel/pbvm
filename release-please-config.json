@@ -10,7 +10,7 @@
       "package-name": "pbvm",
       "component": "pbvm",
       "changelog-path": "CHANGELOG.md",
-      "exclude-paths": ["documentation", "packages"]
+      "exclude-paths": ["documentation", "packages", "pnpm-lock.yaml"]
     },
     "packages/mermaid-prerender": {
       "package-name": "mermaid-prerender",
