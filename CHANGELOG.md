@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.0.30](https://github.com/cgfeel/pbvm/compare/pbvm@v1.0.29...pbvm@v1.0.30) (2026-08-08)
+
+
+### Bug Fixes
+
+* add mermaid-prerender oicd ([9f2904d](https://github.com/cgfeel/pbvm/commit/9f2904dc96544a121f6cf5daf48cef02c2b0d1cf))
+* add mermaid-prerender oicd ([b53d00c](https://github.com/cgfeel/pbvm/commit/b53d00c368ba574989069d28437ec12b422d172f))
+* sync main ([5b608cb](https://github.com/cgfeel/pbvm/commit/5b608cb17d2eb8a497bf5ccd9dba27c75a78f346))
+
 ## [1.0.29](https://github.com/cgfeel/pbvm/compare/pbvm@v1.0.28...pbvm@v1.0.29) (2026-08-04)
 
 ### Bug Fixes
