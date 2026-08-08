@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.0.5](https://github.com/cgfeel/pbvm/compare/mermaid-prerender@v0.0.4...mermaid-prerender@v0.0.5) (2026-08-08)
+
+
+### Bug Fixes
+
+* add README ([414754d](https://github.com/cgfeel/pbvm/commit/414754da14f3f7c08ea62746e653067a461877a1))
+* add README ([f8cd024](https://github.com/cgfeel/pbvm/commit/f8cd0248eb283a4880a4866c96b336467c43487b))
+
 ## [0.0.4](https://github.com/cgfeel/pbvm/compare/mermaid-prerender@v0.0.3...mermaid-prerender@v0.0.4) (2026-08-08)
 
 
