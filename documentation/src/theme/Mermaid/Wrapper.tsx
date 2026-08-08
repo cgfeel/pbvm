@@ -83,7 +83,11 @@ const Wrapper: FC<PropsWithChildren<WraperProps>> = ({
 
     function downHandle(event: MouseEvent) {
       const { target } = event
-      if (target instanceof HTMLElement && target.closest('[data-rule="toolbar"]')) return
+      if (
+        event.button !== 0 ||
+        (target instanceof HTMLElement && target.closest('[data-rule="toolbar"]'))
+      )
+        return
 
       mouseDown.current?.(event)
     }

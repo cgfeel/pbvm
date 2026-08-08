@@ -2,8 +2,8 @@ import Link from '@docusaurus/Link'
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
 import { type FC, type ReactNode } from 'react'
 import { tv } from 'tailwind-variants'
-import { cliOps, devOps, lockOps, mirrorOps } from '../../utils/mermaidMD'
 import { t } from '../../utils/i18n'
+import { cliOps, devOps, lockOps, mirrorOps } from '../../utils/mermaidZH'
 import { styles as buttonStyle } from '../button'
 import { Card } from '../card'
 import Mermaid from '../mermaid'
@@ -77,20 +77,12 @@ const DevEnvironment: FC<DevEnvironmentProps> = () => {
     <Wraper>
       <div className={container()}>
         <div className={header()}>
-          <h3 className={title()}>
-            {t('home.dev.header.title')}
-          </h3>
-          <h3 className={title({ type: 'secondary' })}>
-            {t('home.dev.header.desc')}
-          </h3>
+          <h3 className={title()}>{t('home.dev.header.title')}</h3>
+          <h3 className={title({ type: 'secondary' })}>{t('home.dev.header.desc')}</h3>
         </div>
         <div className={header({ type: 'secondary' })}>
-          <h3 className={title({ type: 'primary' })}>
-            {t('home.dev.header.titleShort')}
-          </h3>
-          <div>
-            {t('home.dev.header.descShort')}
-          </div>
+          <h3 className={title({ type: 'primary' })}>{t('home.dev.header.titleShort')}</h3>
+          <div>{t('home.dev.header.descShort')}</div>
         </div>
         <div className={demo()}>
           {items.map(({ className, md, key, title, url }) => (

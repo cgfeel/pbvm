@@ -8,6 +8,7 @@
     "start:en": "cross-env BASE_URL=/ docusaurus start --locale en",
     "start:zh": "cross-env BASE_URL=/ docusaurus start --locale zh-Hans",
     "build": "npm run pre-render-mermaid && docusaurus build",
+    "build:test": "docusaurus build",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
     "clear": "docusaurus clear",
