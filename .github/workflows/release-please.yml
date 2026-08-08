@@ -10,11 +10,6 @@ jobs:
       contents: write
       pull-requests: write
 
-    outputs:
-      release_created: ${{ steps.release.outputs.release_created }}
-      tag_name: ${{ steps.release.outputs.tag_name }}
-      version: ${{ steps.release.outputs.version }}
-
     steps:
       - name: Run Release Please
         id: release
@@ -24,8 +19,69 @@ jobs:
           config-file: release-please-config.json
           manifest-file: .release-please-manifest.json
 
-      - name: Debug outputs
+  publish:
+    needs: release-please
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: main
+
+      - name: Check for release tag
+        id: check
         run: |
-          echo "release_created=${{ steps.release.outputs.release_created }}"
-          echo "tag_name=${{ steps.release.outputs.tag_name }}"
-          echo "version=${{ steps.release.outputs.version }}"
+          git fetch --tags
+          TAG=$(git tag --points-at HEAD --sort=-creatordate | head -1)
+          if [ -z "$TAG" ]; then
+            echo "No release tag at HEAD"
+            echo "has_release=false" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+          echo "has_release=true" >> $GITHUB_OUTPUT
+          echo "tag=$TAG" >> $GITHUB_OUTPUT
+          echo "Tag: $TAG"
+
+      - name: Setup pnpm
+        if: steps.check.outputs.has_release == 'true'
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        if: steps.check.outputs.has_release == 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          registry-url: https://registry.npmjs.org
+
+      # Trusted Publishing requires newer npm
+      - name: Update npm
+        if: steps.check.outputs.has_release == 'true'
+        run: npm install -g npm@latest
+
+      - name: Install dependencies
+        if: steps.check.outputs.has_release == 'true'
+        run: pnpm install --frozen-lockfile
+
+      - name: Determine package path
+        if: steps.check.outputs.has_release == 'true'
+        id: pkg
+        run: |
+          TAG="${{ steps.check.outputs.tag }}"
+          COMPONENT="${TAG%%@v*}"
+          PACKAGE=$([ "$COMPONENT" = "pbvm" ] && echo "" || echo ":$COMPONENT")
+          echo "package=$PACKAGE" >> $GITHUB_OUTPUT
+          echo "Release → $COMPONENT"
+
+      - name: Build package
+        if: steps.check.outputs.has_release == 'true'
+        run: pnpm run build${{ steps.pkg.outputs.package }}
+
+      - name: Publish npm package
+        if: steps.check.outputs.has_release == 'true'
+        run: pnpm run release${{ steps.pkg.outputs.package }} --no-git-checks --provenance
