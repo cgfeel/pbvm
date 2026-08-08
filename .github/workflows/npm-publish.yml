@@ -1,0 +1,50 @@
+name: npm Publish
+on:
+  push:
+    tags:
+      - '*@v*'
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+
+    steps:
+      - name: Checkout release tag
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          registry-url: https://registry.npmjs.org
+
+      # Trusted Publishing requires newer npm
+      - name: Update npm
+        run: npm install -g npm@latest
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Determine package path
+        id: pkg
+        run: |
+          TAG="${{ github.ref_name }}"
+          COMPONENT="${TAG%%@v*}"
+          PACKAGE=$([ "$COMPONENT" = "pbvm" ] && echo "" || echo ":$COMPONENT")
+          echo "package=$PACKAGE" >> $GITHUB_OUTPUT
+          echo "Release → $COMPONENT"
+
+      - name: Build package
+        run: pnpm run build${{ steps.pkg.outputs.package }}
+
+      - name: Publish npm package
+        run: pnpm run release${{ steps.pkg.outputs.package }} --no-git-checks --provenance
