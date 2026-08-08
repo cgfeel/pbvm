@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.0.9](https://github.com/cgfeel/pbvm/compare/mermaid-prerender@v0.0.8...mermaid-prerender@v0.0.9) (2026-08-08)
+
+
+### Bug Fixes
+
+* up mermaid-isomorphic to native import ([1dced5c](https://github.com/cgfeel/pbvm/commit/1dced5ce68e9879385ebe9848f18c8bc911f6a5e))
+* up mermaid-isomorphic to native import ([02a324d](https://github.com/cgfeel/pbvm/commit/02a324d9cf13dc9a2872028a987e26fa5be33688))
+
 ## [0.0.8](https://github.com/cgfeel/pbvm/compare/mermaid-prerender@v0.0.7...mermaid-prerender@v0.0.8) (2026-08-08)
 
 
