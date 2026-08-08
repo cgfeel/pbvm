@@ -20,7 +20,7 @@ jobs:
           cache: 'pnpm'
       - run: pnpm install
       - run: sudo apt-get install -y chromium-browser
-      - run: pnpm docs:build
+      - run: pnpm build:docs
       - uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
