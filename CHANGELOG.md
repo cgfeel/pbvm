@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.35](https://github.com/cgfeel/pbvm/compare/pbvm@v1.0.34...pbvm@v1.0.35) (2026-08-08)
+
+
+### Bug Fixes
+
+* update mermaid dynamic import ([978d2b5](https://github.com/cgfeel/pbvm/commit/978d2b50259b0f8af1891964c00fe47246da43fe))
+* update mermaid dynamic import ([078e6ed](https://github.com/cgfeel/pbvm/commit/078e6ed25cd386cd24e4cd87809df467ecc2d6c7))
+
 ## [1.0.34](https://github.com/cgfeel/pbvm/compare/pbvm@v1.0.33...pbvm@v1.0.34) (2026-08-08)
 
 
