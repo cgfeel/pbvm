@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.0.8](https://github.com/cgfeel/pbvm/compare/mermaid-prerender@v0.0.7...mermaid-prerender@v0.0.8) (2026-08-08)
+
+
+### Bug Fixes
+
+* update mermaid dynamic import ([978d2b5](https://github.com/cgfeel/pbvm/commit/978d2b50259b0f8af1891964c00fe47246da43fe))
+* update mermaid dynamic import ([078e6ed](https://github.com/cgfeel/pbvm/commit/078e6ed25cd386cd24e4cd87809df467ecc2d6c7))
+
 ## [0.0.7](https://github.com/cgfeel/pbvm/compare/mermaid-prerender@v0.0.6...mermaid-prerender@v0.0.7) (2026-08-08)
 
 
