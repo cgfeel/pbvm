@@ -1,11 +1,15 @@
 import { existsSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
-import type { MermaidRenderer } from 'mermaid-isomorphic'
+import type { CreateMermaidRendererOptions, MermaidRenderer } from 'mermaid-isomorphic'
+
+const nativeImport = new Function('specifier', 'return import(specifier)') as (
+  specifier: string
+) => Promise<{ createMermaidRenderer: (options?: CreateMermaidRendererOptions) => MermaidRenderer }>
 
 let renderer: MermaidRenderer | null = null
 export async function getRenderer() {
   if (!renderer) {
-    const { createMermaidRenderer } = await import('mermaid-isomorphic')
+    const { createMermaidRenderer } = await nativeImport('mermaid-isomorphic')
     const launchOptions =
       (process.env.CI
         ? { executablePath: '/usr/bin/chromium-browser', args: ['--no-sandbox'] }
