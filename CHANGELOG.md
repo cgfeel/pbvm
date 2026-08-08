@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.31](https://github.com/cgfeel/pbvm/compare/pbvm@v1.0.30...pbvm@v1.0.31) (2026-08-08)
+
+
+### Bug Fixes
+
+* update publish options ([5cd5624](https://github.com/cgfeel/pbvm/commit/5cd56242cead20d84316cea1b12fcade4ea4c291))
+* update publish options ([d11e625](https://github.com/cgfeel/pbvm/commit/d11e625333aefb741341767b921d5b095f00122d))
+
 ## [1.0.30](https://github.com/cgfeel/pbvm/compare/pbvm@v1.0.29...pbvm@v1.0.30) (2026-08-08)
 
 
