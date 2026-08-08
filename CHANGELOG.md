@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.36](https://github.com/cgfeel/pbvm/compare/pbvm@v1.0.35...pbvm@v1.0.36) (2026-08-08)
+
+
+### Bug Fixes
+
+* up mermaid-isomorphic to native import ([1dced5c](https://github.com/cgfeel/pbvm/commit/1dced5ce68e9879385ebe9848f18c8bc911f6a5e))
+* up mermaid-isomorphic to native import ([02a324d](https://github.com/cgfeel/pbvm/commit/02a324d9cf13dc9a2872028a987e26fa5be33688))
+
 ## [1.0.35](https://github.com/cgfeel/pbvm/compare/pbvm@v1.0.34...pbvm@v1.0.35) (2026-08-08)
 
 
