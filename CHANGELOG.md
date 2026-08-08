@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.33](https://github.com/cgfeel/pbvm/compare/pbvm@v1.0.32...pbvm@v1.0.33) (2026-08-08)
+
+
+### Bug Fixes
+
+* up plugin name to MermaidPreRenderPlugin ([aeca22a](https://github.com/cgfeel/pbvm/commit/aeca22a9720d6eb0185f6fe5fefd39e9cdaea48d))
+* up plugin name to MermaidPreRenderPlugin ([e94b9a4](https://github.com/cgfeel/pbvm/commit/e94b9a40dd69a862498ebc6f229afb1e24c47357))
+
 ## [1.0.32](https://github.com/cgfeel/pbvm/compare/pbvm@v1.0.31...pbvm@v1.0.32) (2026-08-08)
 
 
