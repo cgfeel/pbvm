@@ -97,7 +97,7 @@ class MermaidPreRenderPlugin {
           `[${pluginName}] rendering ${allBlocks.length} blocks × ${themes.length} themes → ${outputDir}`
         )
 
-        const render = getRenderer()
+        const render = await getRenderer()
         ensureDir(outputDir)
 
         let count = 0

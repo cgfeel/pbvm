@@ -1,6 +1,6 @@
 import { getRenderer, hashString, loadDotEnv } from './utils.js'
 
-export default function mermaidLoader(
+export default async function mermaidLoader(
   this: MiniLoaderContext<MermaidLoaderOptions>,
   source: string
 ) {
@@ -18,7 +18,7 @@ export default function mermaidLoader(
     return
   }
 
-  const renderer = getRenderer()
+  const renderer = await getRenderer()
   Promise.all([
     renderer([source], { mermaidConfig: { theme: 'default' } }),
     renderer([source], { mermaidConfig: { theme: 'dark' } }),

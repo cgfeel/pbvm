@@ -1,11 +1,11 @@
 import { existsSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
 import type { MermaidRenderer } from 'mermaid-isomorphic'
-import { createMermaidRenderer } from 'mermaid-isomorphic'
 
 let renderer: MermaidRenderer | null = null
-export function getRenderer() {
+export async function getRenderer() {
   if (!renderer) {
+    const { createMermaidRenderer } = await import('mermaid-isomorphic')
     const launchOptions =
       (process.env.CI
         ? { executablePath: '/usr/bin/chromium-browser', args: ['--no-sandbox'] }
