@@ -1,3 +1,4 @@
 {
-  ".": "1.0.24"
+  ".": "1.0.24",
+  "packages/mermaid-prerender": "0.0.1"
 }
