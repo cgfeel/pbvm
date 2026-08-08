@@ -149,6 +149,16 @@ importers:
         specifier: ~6.0.2
         version: 6.0.3
 
+  packages/mermaid-prerender:
+    dependencies:
+      mermaid-isomorphic:
+        specifier: ^3.1.0
+        version: 3.1.0(playwright@1.62.1)
+    devDependencies:
+      mermaid:
+        specifier: ^11.16.0
+        version: 11.16.0
+
 packages:
 
   '@11ty/gray-matter@1.0.0':

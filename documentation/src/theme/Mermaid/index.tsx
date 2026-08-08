@@ -33,7 +33,7 @@ const DevMermaid: FC<Props> = (props) => {
 }
 
 export default function MermaidWrapper(props: Props) {
-  const content = isProd ? <StaticMermaid value={props.value} /> : <DevMermaid {...props} />
+  const content = isProd ? <StaticMermaid src={props.value} /> : <DevMermaid {...props} />
   const gestureRef = useRef<GestureGuidInstance>(null)
   const zoomRef = useRef<ZoomViewInstance>(null)
 

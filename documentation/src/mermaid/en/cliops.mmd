@@ -1,0 +1,46 @@
+sequenceDiagram
+    actor User
+    participant CLI as Commander (index.ts)
+    participant Cmd as Command Handler
+    participant Prompt as Inquirer Prompts
+    participant Script as bin/*.script.ts
+    participant Manifest as manifest.ts
+    participant Lock as lock.ts
+    participant Browser as @puppeteer/browsers
+    participant FS as File System
+
+    User->>CLI: pbvm create -b chrome -i 123
+    CLI->>Cmd: registerCreateCommand()
+    Cmd->>Cmd: Zod parse options
+    Cmd->>Prompt: promptCreateOptions() - fill missing args
+    Prompt-->>Cmd: {browser, buildId, alias, store}
+    Cmd->>Prompt: promptConfirm() - confirm action
+    Prompt-->>Cmd: true
+
+    Cmd->>Script: installBrowser(args)
+    Script->>Manifest: checkoutInStore() - check if already installed
+    Manifest->>Lock: waitForLock(cacheDir)
+    Manifest->>Browser: getInstalledBrowsers(cacheDir)
+    Browser-->>Manifest: installed list
+
+    alt installed
+        Manifest-->>Script: found ✓
+    else not installed
+        Manifest-->>Script: null
+        Script->>Browser: install({browser, buildId, platform})
+        Browser->>FS: download + extract to cacheDir
+        Note over Script,Browser: Clean up partial files on SIGINT/SIGTERM
+        Browser-->>Script: {executablePath}
+    end
+
+    alt store mode
+        Script-->>Cmd: install to cache only, skip browserlist
+    else project mode
+        Script->>Manifest: logCurrentList() - write browserlist.json
+        Manifest->>Lock: acquireLock(cwd)
+        Manifest->>FS: readFile + writeFile browserlist.json
+        Manifest-->>Script: alias name
+    end
+
+    Script-->>Cmd: success
+    Cmd-->>User: ✅ Installed success...

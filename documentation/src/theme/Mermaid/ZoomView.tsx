@@ -1,5 +1,5 @@
 import type { MjolnirGestureEvent } from 'mjolnir.js'
-import type { CSSProperties, ReactNode } from 'react'
+import type { ReactNode } from 'react'
 import {
   forwardRef,
   useContext,
@@ -166,8 +166,4 @@ export interface ZoomViewInstance {
 
 interface ZoomViewProps {
   cheat?: ReactNode
-}
-
-type CSSVar = CSSProperties & {
-  [key: `--${string}`]: string | number
 }

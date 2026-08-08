@@ -70,17 +70,11 @@ export default function Home(): ReactNode {
 
       <DevEnvironment />
 
-      <BuildTools
-        subTitle={t('home.buildtools.sub1')}
-        title={t('home.buildtools.title1')}
-      >
+      <BuildTools subTitle={t('home.buildtools.sub1')} title={t('home.buildtools.title1')}>
         <BuildScript />
       </BuildTools>
 
-      <BuildTools
-        subTitle={t('home.buildtools.sub2')}
-        title={t('home.buildtools.title2')}
-      >
+      <BuildTools subTitle={t('home.buildtools.sub2')} title={t('home.buildtools.title2')}>
         <CreateScript />
       </BuildTools>
 
