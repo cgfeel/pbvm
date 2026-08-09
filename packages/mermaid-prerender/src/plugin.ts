@@ -1,14 +1,16 @@
-/* eslint-disable no-console */
 import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { join, relative, resolve } from 'node:path'
-import type { MermaidConfig } from 'mermaid'
 import type { MermaidRenderer } from 'mermaid-isomorphic'
-import { closeWorker, getRenderer, hashString, loadDotEnv } from './utils.js'
-
-const DEFAULT_THEMES: MermaidTheme[] = [
-  { name: 'light', theme: 'default' },
-  { name: 'dark', theme: 'dark' },
-]
+import { createLogger } from './logger.js'
+import type { CompilerMode, MermaidTheme, TargetType } from './types.js'
+import {
+  allowProcess,
+  closeWorker,
+  DEFAULT_THEMES,
+  getRenderer,
+  hashString,
+  loadDotEnv,
+} from './utils.js'
 
 function ensureDir(dir: string) {
   if (!existsSync(dir)) mkdirSync(dir, { recursive: true })
@@ -58,14 +60,12 @@ class MermaidPreRenderPlugin {
 
   apply(compiler: CompilerType) {
     const pluginName = 'MermaidPreRenderPlugin'
+    const logger = createLogger(pluginName)
     const root = process.cwd()
 
     compiler.hooks.afterEmit.tapAsync(pluginName, async (_, callback) => {
+      if (!allowProcess(compiler.options)) return
       try {
-        const { mode, target } = compiler.options
-        if (mode === 'development') return
-        if (target === 'node' || (Array.isArray(target) && target.includes('node'))) return
-
         const {
           catalogues: allCatalogues,
           defaultLocale,
@@ -110,12 +110,8 @@ class MermaidPreRenderPlugin {
         if (allBlocks.length === 0) return
 
         // 渲染
-        const verbose = process.argv.includes('--verbose')
         const total = allBlocks.length * themes.length
-
-        console.log(
-          `[${pluginName}] rendering ${allBlocks.length} blocks × ${themes.length} themes → ${outputDir}`
-        )
+        logger.log(`rendering ${allBlocks.length} blocks × ${themes.length} themes → ${outputDir}`)
 
         const render = await getRenderer()
         ensureDir(outputDir)
@@ -131,19 +127,19 @@ class MermaidPreRenderPlugin {
               const svgFile = join(langDir, `${block.hash}.svg`)
 
               writeFileSync(svgFile, svg, 'utf-8')
-              if (verbose) console.log(`  ${block.lang}/${item.name}/${block.hash}`)
+              logger.raw.verbose(`  ${block.lang}/${item.name}/${block.hash}`)
               count++
             } catch (err) {
               const msg = err instanceof Error ? err.message : String(err)
-              console.error(`  ✗ ${block.lang}/${item.name}/${block.hash}  ${block.file}`)
-              console.error(`    ${msg}`)
+              logger.raw.error(`  ✗ ${block.lang}/${item.name}/${block.hash}  ${block.file}`)
+              logger.raw.error(`    ${msg}`)
             }
           }
         }
-        console.log(`[${pluginName}] Done: ${count}/${total}`)
+        logger.log(`Done: ${count}/${total}`)
       } catch (err) {
         const msg = err instanceof Error ? err.message : String(err)
-        console.error(`[${pluginName}] error:`, msg)
+        logger.error(`error:`, msg)
       } finally {
         closeWorker()
         callback()
@@ -166,6 +162,11 @@ interface Catalogue {
   name: string
 }
 
+// 根据编译的目录划分语言包，例如编译的入口是 /build/zh-Hans，那么语言就是 zh-Hans
+// 当编译的目录是构建目录下的一级目录，例如 /build，那么就用默认语言
+// 没有提供默认语言就所有语言都编译，例如在非 Docusaurus 的环境下
+// 所以目录一定为 /{build}/{lang?}/mermaid/{lang}/{theme}/
+// 第一个 {lang} 可选，第二个用于前一个不存在时区分各自语言
 interface MermaidPreRenderOptions {
   catalogues: Catalogue[]
   defaultLocale?: string
@@ -173,11 +174,6 @@ interface MermaidPreRenderOptions {
   themes?: MermaidTheme[]
 }
 
-interface MermaidTheme extends Required<Pick<MermaidConfig, 'theme'>> {
-  name: string
-}
-
-type CompilerMode = 'development' | 'production' | 'none'
 type CompilerType = {
   hooks: {
     afterEmit: { tapAsync: (name: string, fn: (_: unknown, callback: () => void) => void) => void }
@@ -185,7 +181,7 @@ type CompilerType = {
   options: {
     mode?: CompilerMode
     output?: { path?: string }
-    target?: false | string | string[]
+    target?: TargetType
   }
 }
 

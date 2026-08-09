@@ -12,6 +12,7 @@
   "overrides": [
     {
       "files": [
+        "packages/mermaid-prerender/src/logger.ts",
         "packages/pbvm-cli/src/bin/**/*.ts",
         "packages/pbvm-cli/src/commands/**/*.ts",
         "packages/pbvm-cli/src/utils/logger.ts",

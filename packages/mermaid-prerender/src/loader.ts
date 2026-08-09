@@ -1,46 +1,63 @@
-import { getRenderer, hashString, loadDotEnv } from './utils.js'
+import { createLogger } from './logger.js'
+import type { CompilerMode, MermaidTheme, TargetType } from './types.js'
+import {
+  allowProcess,
+  closeWorker,
+  DEFAULT_THEMES,
+  getRenderer,
+  hashString,
+  loadDotEnv,
+} from './utils.js'
 
 export default async function mermaidLoader(
   this: MiniLoaderContext<MermaidLoaderOptions>,
   source: string
 ) {
+  // 环境允许
   const callback = this.async()
-  const root = process.cwd()
-  loadDotEnv(root)
-
-  const hash = hashString(source.trim())
-  const options = this.getOptions()
-  const output = (options.output ?? 'mermaid/index/').replace(/\/?$/, '/')
-
-  const isProd = this.mode === 'production' || process.env.NODE_ENV === 'production'
-  if (!isProd) {
+  if (!allowProcess(this)) {
     callback(null, `export default ${JSON.stringify(source)}`)
     return
   }
 
+  // 获取主题
+  const options = this.getOptions()
+  const { defaultTheme = 'default' } = options
+
+  const themes = (options.themes ?? DEFAULT_THEMES).filter((item) => item.name && item.theme)
+  if (themes.length === 0) {
+    callback(null, `export default ${JSON.stringify(source)}`)
+    return
+  }
+
+  // 加在变量和 logger
+  const root = process.cwd()
+  const logger = createLogger('mermaid-loader')
+  loadDotEnv(root)
+
+  const hash = hashString(source.trim())
+  const output = (options.output ?? 'mermaid/index/').replace(/\/?$/, '/')
+
   const renderer = await getRenderer()
-  Promise.all([
-    renderer([source], { mermaidConfig: { theme: 'default' } }),
-    renderer([source], { mermaidConfig: { theme: 'dark' } }),
-  ])
-    .then(([light, dark]) => {
-      const darkResult = dark[0]
-      const lightResult = light[0]
+  Promise.all(themes.map((item) => renderer([source], { mermaidConfig: { theme: item.theme } })))
+    .then((results) => {
+      results.forEach(([item], idx) => {
+        if (item.status === 'fulfilled') {
+          const { name, theme } = themes[idx]
+          const suffix = theme === defaultTheme ? '' : `-${name}`
+          this.emitFile(`${output}${hash}${suffix}.svg`, item.value.svg)
+        }
+      })
 
-      if (darkResult.status === 'fulfilled') {
-        this.emitFile(`${output}${hash}-dark.svg`, darkResult.value.svg)
-      }
-
-      if (lightResult.status === 'fulfilled') {
-        this.emitFile(`${output}${hash}.svg`, lightResult.value.svg)
-      }
-
+      // 始终返回无后缀的 path，由业务来决定调用
       callback(null, `export default ${JSON.stringify(`/${output}${hash}.svg`)}`)
     })
     .catch((err) => {
-      /* eslint-disable no-console */
-      console.error('[mermaid-loader] render error:', err instanceof Error ? err.message : err)
+      logger.error('render error:', err instanceof Error ? err.message : err)
       callback(null, `export default ${JSON.stringify(source)}`)
+    })
+    .finally(() => {
+      closeWorker()
     })
 }
 
@@ -86,12 +103,12 @@ interface MiniLoaderContext<Options = Record<string, unknown>> {
     assetInfo?: Record<string, unknown>
   ) => void
 
-  /**
-   * 编译模式，只读
-   */
-  readonly mode: 'development' | 'production' | 'none'
+  mode: Readonly<CompilerMode>
+  target?: TargetType
 }
 
 interface MermaidLoaderOptions {
+  defaultTheme?: MermaidTheme['theme']
   output?: string
+  themes?: MermaidTheme[]
 }

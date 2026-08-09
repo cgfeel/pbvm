@@ -2,14 +2,7 @@ import { existsSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { Worker } from 'node:worker_threads'
 import type { RenderOptions, RenderResult } from 'mermaid-isomorphic'
-import type { WorkerMessage } from './types.js'
-
-type MessageType =
-  | {
-      id: string
-      error: string
-    }
-  | RenderResult
+import type { CompilerMode, MermaidTheme, TargetType, WorkerMessage } from './types.js'
 
 let worker: Worker | null = null
 let nextId = 0
@@ -30,17 +23,31 @@ function getWorker(): Worker {
   return worker
 }
 
-export function closeWorker() {
-  worker?.terminate()
-  worker = null
-}
-
 function send(msg: Omit<WorkerMessage, 'id'>) {
   return new Promise<MessageType>((resolve) => {
     const id = String(++nextId)
     pending.set(id, resolve)
     getWorker().postMessage({ id, ...msg })
   })
+}
+
+export const DEFAULT_THEMES: MermaidTheme[] = [
+  { name: 'light', theme: 'default' },
+  { name: 'dark', theme: 'dark' },
+]
+
+// 目前通过编译为 svg 文件，不做服务端渲染，后期有需要再看，但 dev 环境是肯定不处理的，需要实时修改反馈
+export function allowProcess(options: { mode?: CompilerMode; target?: TargetType }) {
+  const { mode, target } = options
+  const isProd = mode === 'production' || process.env.NODE_ENV === 'production'
+
+  const isServer = target === 'node' || (Array.isArray(target) && target.includes('node'))
+  return isProd && !isServer
+}
+
+export function closeWorker() {
+  worker?.terminate()
+  worker = null
 }
 
 export async function getRenderer() {
@@ -93,3 +100,10 @@ export function loadDotEnv(root: string) {
   parse(join(root, '.env'))
   parse(join(root, '.env.local'))
 }
+
+type MessageType =
+  | {
+      id: string
+      error: string
+    }
+  | RenderResult
