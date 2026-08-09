@@ -50,7 +50,7 @@ const MermaidContent: FC<Omit<MermaidComProps, 'fallback'>> = ({
     return () => {
       cancelled = true
     }
-  }, [id, value])
+  }, [id, theme, value])
 
   return <span className={className} ref={containerRef} />
 }
