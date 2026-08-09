@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.38](https://github.com/cgfeel/pbvm/compare/pbvm@v1.0.37...pbvm@v1.0.38) (2026-08-09)
+
+
+### Bug Fixes
+
+* **mermaid-prerender:** add worker unref & disable build when node ([120d3c3](https://github.com/cgfeel/pbvm/commit/120d3c3ef235ff36ae71cc2924309a88eab6d4e1))
+* **mermaid-prerender:** add worker unref & disable build when node ([e7e5541](https://github.com/cgfeel/pbvm/commit/e7e554188d65d6d87c26e21c0fa55313aecfea16))
+
 ## [1.0.37](https://github.com/cgfeel/pbvm/compare/pbvm@v1.0.36...pbvm@v1.0.37) (2026-08-09)
 
 
