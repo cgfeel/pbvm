@@ -1,9 +1,9 @@
 /* eslint-disable no-console */
 import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs'
-import { join, resolve } from 'node:path'
+import { basename, join, relative, resolve } from 'node:path'
 import type { MermaidConfig } from 'mermaid'
 import type { MermaidRenderer } from 'mermaid-isomorphic'
-import { getRenderer, hashString, loadDotEnv } from './utils.js'
+import { closeWorker, getRenderer, hashString, loadDotEnv } from './utils.js'
 
 const DEFAULT_THEMES: MermaidTheme[] = [
   { name: 'light', theme: 'default' },
@@ -67,13 +67,29 @@ class MermaidPreRenderPlugin {
         if (target === 'node' || (Array.isArray(target) && target.includes('node'))) return
 
         const {
-          catalogues,
+          catalogues: allCatalogues,
+          defaultLocale,
           output: putdir = 'mermaid',
           themes: themeItems = DEFAULT_THEMES,
         } = this.#options
 
+        const outPath = compiler.options.output?.path ?? ''
+        if (outPath === '') return
+
+        // 根据语言匹配编译，如果没有配置默认语言，就全部编译
+        const rel = relative(root, outPath)
+        const segments = rel.split('/')
+        const currentLocale = segments.length <= 1 ? defaultLocale : segments.slice(-1)[0]
+
+        const catalogues = currentLocale
+          ? allCatalogues.filter(({ name }) => name === currentLocale)
+          : allCatalogues
+
+        if (catalogues.length === 0) return
+
+        // 获取 theme
         const output = putdir.replace(/^\/+/, '')
-        const outputDir = join(compiler.options.output?.path ?? 'dist', output)
+        const outputDir = join(outPath, output)
         const themes = themeItems.filter((item) => item.name && item.theme)
 
         // output & env
@@ -129,6 +145,7 @@ class MermaidPreRenderPlugin {
         const msg = err instanceof Error ? err.message : String(err)
         console.error(`[${pluginName}] error:`, msg)
       } finally {
+        closeWorker()
         callback()
       }
     })
@@ -151,6 +168,7 @@ interface Catalogue {
 
 interface MermaidPreRenderOptions {
   catalogues: Catalogue[]
+  defaultLocale?: string
   output?: string
   themes?: MermaidTheme[]
 }
