@@ -1,23 +1,72 @@
 import { existsSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
-import type { CreateMermaidRendererOptions, MermaidRenderer } from 'mermaid-isomorphic'
+import { Worker } from 'node:worker_threads'
+import type { RenderOptions, RenderResult } from 'mermaid-isomorphic'
+import type { WorkerMessage } from './types.js'
 
-const nativeImport = new Function('specifier', 'return import(specifier)') as (
-  specifier: string
-) => Promise<{ createMermaidRenderer: (options?: CreateMermaidRendererOptions) => MermaidRenderer }>
+// const nativeImport = new Function('specifier', 'return import(specifier)') as (
+//   specifier: string
+// ) => Promise<{ createMermaidRenderer: (options?: CreateMermaidRendererOptions) => MermaidRenderer }>
 
-let renderer: MermaidRenderer | null = null
-export async function getRenderer() {
-  if (!renderer) {
-    const { createMermaidRenderer } = await nativeImport('mermaid-isomorphic')
-    const launchOptions =
-      (process.env.CI
-        ? { executablePath: '/usr/bin/chromium-browser', args: ['--no-sandbox'] }
-        : undefined) ??
-      (process.env.CHROMIUM_PATH ? { executablePath: process.env.CHROMIUM_PATH } : undefined)
-    renderer = createMermaidRenderer(launchOptions ? { launchOptions } : undefined)
+type MessageType =
+  | {
+      id: string
+      error: string
+    }
+  | RenderResult
+
+let worker: Worker | null = null
+let nextId = 0
+
+const pending = new Map<string, (res: MessageType) => void>()
+function getWorker(): Worker {
+  if (!worker) {
+    worker = new Worker(new URL('./worker.js', import.meta.url))
+    worker.on('message', (msg: MessageType) => {
+      const resolve = pending.get(msg.id)
+      if (resolve) {
+        pending.delete(msg.id)
+        resolve(msg)
+      }
+    })
   }
-  return renderer
+  return worker
+}
+
+function send(msg: Omit<WorkerMessage, 'id'>) {
+  return new Promise<MessageType>((resolve) => {
+    const id = String(++nextId)
+    pending.set(id, resolve)
+    getWorker().postMessage({ id, ...msg })
+  })
+}
+
+// let renderer: MermaidRenderer | null = null
+export async function getRenderer() {
+  // if (!renderer) {
+  // const { createMermaidRenderer } = await nativeImport('mermaid-isomorphic')
+  // const launchOptions =
+  //   (process.env.CI
+  //     ? { executablePath: '/usr/bin/chromium-browser', args: ['--no-sandbox'] }
+  //     : undefined) ??
+  //   (process.env.CHROMIUM_PATH ? { executablePath: process.env.CHROMIUM_PATH } : undefined)
+
+  // await send({ type: 'init', payload: launchOptions ? { launchOptions } : undefined })
+
+  return (diagrams: string[], opts?: RenderOptions) => {
+    const theme = opts?.mermaidConfig?.theme ?? 'default'
+    return Promise.allSettled(
+      diagrams.map((source) => {
+        return send({ payload: { source, theme } }).then((res) => {
+          if ('error' in res) throw new Error(res.error)
+          return res
+        })
+      })
+    )
+  }
+  // renderer = createMermaidRenderer(launchOptions ? { launchOptions } : undefined)
+  // }
+  // return renderer
 }
 
 /**
