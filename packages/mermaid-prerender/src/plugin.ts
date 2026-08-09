@@ -62,13 +62,17 @@ class MermaidPreRenderPlugin {
 
     compiler.hooks.afterEmit.tapAsync(pluginName, async (_, callback) => {
       try {
+        const { mode, target } = compiler.options
+        if (mode === 'development') return
+        if (target === 'node' || (Array.isArray(target) && target.includes('node'))) return
+
         const {
           catalogues,
           output: putdir = 'mermaid',
           themes: themeItems = DEFAULT_THEMES,
         } = this.#options
-        const output = putdir.replace(/^\/+/, '')
 
+        const output = putdir.replace(/^\/+/, '')
         const outputDir = join(compiler.options.output?.path ?? 'dist', output)
         const themes = themeItems.filter((item) => item.name && item.theme)
 
@@ -155,11 +159,16 @@ interface MermaidTheme extends Required<Pick<MermaidConfig, 'theme'>> {
   name: string
 }
 
+type CompilerMode = 'development' | 'production' | 'none'
 type CompilerType = {
   hooks: {
     afterEmit: { tapAsync: (name: string, fn: (_: unknown, callback: () => void) => void) => void }
   }
-  options: { output?: { path?: string } }
+  options: {
+    mode?: CompilerMode
+    output?: { path?: string }
+    target?: string | string[]
+  }
 }
 
 // ---------------------------------------------------------------------------

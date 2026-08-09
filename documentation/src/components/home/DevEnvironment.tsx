@@ -6,7 +6,7 @@ import { t } from '../../utils/i18n'
 import { cliOps, devOps, lockOps, mirrorOps } from '../../utils/mermaidZH'
 import { styles as buttonStyle } from '../button'
 import { Card } from '../card'
-import Mermaid from '../mermaid'
+import Mermaid from '../mermaid/MeraidCom'
 import Wraper from './Wraper'
 
 const getItems = (isZh: boolean): ItemType[] => [
