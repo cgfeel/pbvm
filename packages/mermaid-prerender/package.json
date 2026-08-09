@@ -1,7 +1,34 @@
 {
   "name": "mermaid-prerender",
-  "version": "0.0.1",
+  "version": "0.0.12",
   "description": "Mermaid pre-render SVG for build, pre-generate chart assets to optimize post-build page access speed",
+  "keywords": [
+    "build-time",
+    "chart",
+    "mermaid",
+    "performance",
+    "prerender",
+    "rspack-loader",
+    "svg",
+    "webpack-loader"
+  ],
+  "homepage": "https://cgfeel.github.io/pbvm/",
+  "bugs": {
+    "url": "https://github.com/cgfeel/pbvm/issues",
+    "email": "cgfeel@gmail.com"
+  },
+  "license": "MIT",
+  "author": "levi<cgfeel@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cgfeel/pbvm.git"
+  },
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md",
+    "CHANGELOG.md"
+  ],
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -19,45 +46,18 @@
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [
-    "mermaid",
-    "prerender",
-    "svg",
-    "chart",
-    "webpack-loader",
-    "rspack-loader",
-    "build-time",
-    "performance"
-  ],
-  "files": [
-    "dist",
-    "LICENSE",
-    "README.md",
-    "CHANGELOG.md"
-  ],
-  "author": "levi<cgfeel@gmail.com>",
-  "homepage": "https://cgfeel.github.io/pbvm/",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/cgfeel/pbvm.git"
-  },
-  "bugs": {
-    "url": "https://github.com/cgfeel/pbvm/issues",
-    "email": "cgfeel@gmail.com"
-  },
-  "license": "MIT",
-  "packageManager": "pnpm@10.25.0",
-  "engines": {
-    "node": ">=22.0.0",
-    "pnpm": ">=9.0.0"
-  },
-  "peerDependencies": {
-    "mermaid": ">=11.0.0"
+  "dependencies": {
+    "mermaid-isomorphic": "^3.1.0"
   },
   "devDependencies": {
     "mermaid": "^11.16.0"
   },
-  "dependencies": {
-    "mermaid-isomorphic": "^3.1.0"
-  }
+  "peerDependencies": {
+    "mermaid": ">=11.0.0"
+  },
+  "engines": {
+    "node": ">=22.0.0",
+    "pnpm": ">=9.0.0"
+  },
+  "packageManager": "pnpm@10.25.0"
 }

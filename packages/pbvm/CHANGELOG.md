@@ -1,5 +1,76 @@
 # Changelog
 
+## [1.0.39](https://github.com/cgfeel/pbvm/compare/pbvm@v1.0.38...pbvm@v1.0.39) (2026-08-09)
+
+### Bug Fixes
+
+- **mermaid-prerender:** add lang split ([63d8cef](https://github.com/cgfeel/pbvm/commit/63d8cef47a7ef54edd3e7431afa99374559b78d5))
+- **mermaid-prerender:** add lang split ([d2185be](https://github.com/cgfeel/pbvm/commit/d2185bedd3d052be26f05abc67d7dbf2d8791c79))
+
+## [1.0.38](https://github.com/cgfeel/pbvm/compare/pbvm@v1.0.37...pbvm@v1.0.38) (2026-08-09)
+
+### Bug Fixes
+
+- **mermaid-prerender:** add worker unref & disable build when node ([120d3c3](https://github.com/cgfeel/pbvm/commit/120d3c3ef235ff36ae71cc2924309a88eab6d4e1))
+- **mermaid-prerender:** add worker unref & disable build when node ([e7e5541](https://github.com/cgfeel/pbvm/commit/e7e554188d65d6d87c26e21c0fa55313aecfea16))
+
+## [1.0.37](https://github.com/cgfeel/pbvm/compare/pbvm@v1.0.36...pbvm@v1.0.37) (2026-08-09)
+
+### Bug Fixes
+
+- **mermaid-prerender:** add worker test ([02cd21f](https://github.com/cgfeel/pbvm/commit/02cd21f27c3aee4369fad89d3a935957bd0ffecb))
+- **mermaid-prerender:** add worker test ([42403be](https://github.com/cgfeel/pbvm/commit/42403be8de2484eaeee888e688d863b9aa6cd054))
+
+## [1.0.36](https://github.com/cgfeel/pbvm/compare/pbvm@v1.0.35...pbvm@v1.0.36) (2026-08-08)
+
+### Bug Fixes
+
+- up mermaid-isomorphic to native import ([1dced5c](https://github.com/cgfeel/pbvm/commit/1dced5ce68e9879385ebe9848f18c8bc911f6a5e))
+- up mermaid-isomorphic to native import ([02a324d](https://github.com/cgfeel/pbvm/commit/02a324d9cf13dc9a2872028a987e26fa5be33688))
+
+## [1.0.35](https://github.com/cgfeel/pbvm/compare/pbvm@v1.0.34...pbvm@v1.0.35) (2026-08-08)
+
+### Bug Fixes
+
+- update mermaid dynamic import ([978d2b5](https://github.com/cgfeel/pbvm/commit/978d2b50259b0f8af1891964c00fe47246da43fe))
+- update mermaid dynamic import ([078e6ed](https://github.com/cgfeel/pbvm/commit/078e6ed25cd386cd24e4cd87809df467ecc2d6c7))
+
+## [1.0.34](https://github.com/cgfeel/pbvm/compare/pbvm@v1.0.33...pbvm@v1.0.34) (2026-08-08)
+
+### Bug Fixes
+
+- update release ci job ([d7b1658](https://github.com/cgfeel/pbvm/commit/d7b16585579bda7b738ab4fcf231bbbe43cf7e2d))
+- update release ci job ([2ca2b1b](https://github.com/cgfeel/pbvm/commit/2ca2b1b0e4844fda9ed9eac50f5458ff295008b5))
+
+## [1.0.33](https://github.com/cgfeel/pbvm/compare/pbvm@v1.0.32...pbvm@v1.0.33) (2026-08-08)
+
+### Bug Fixes
+
+- up plugin name to MermaidPreRenderPlugin ([aeca22a](https://github.com/cgfeel/pbvm/commit/aeca22a9720d6eb0185f6fe5fefd39e9cdaea48d))
+- up plugin name to MermaidPreRenderPlugin ([e94b9a4](https://github.com/cgfeel/pbvm/commit/e94b9a40dd69a862498ebc6f229afb1e24c47357))
+
+## [1.0.32](https://github.com/cgfeel/pbvm/compare/pbvm@v1.0.31...pbvm@v1.0.32) (2026-08-08)
+
+### Bug Fixes
+
+- update publish to release ([1b32d8a](https://github.com/cgfeel/pbvm/commit/1b32d8ae669aea352fd70cd65b526f95b4073111))
+- update publish to release ([b0a1074](https://github.com/cgfeel/pbvm/commit/b0a1074298b12602ec3e6253465f51e8d70ac4c8))
+
+## [1.0.31](https://github.com/cgfeel/pbvm/compare/pbvm@v1.0.30...pbvm@v1.0.31) (2026-08-08)
+
+### Bug Fixes
+
+- update publish options ([5cd5624](https://github.com/cgfeel/pbvm/commit/5cd56242cead20d84316cea1b12fcade4ea4c291))
+- update publish options ([d11e625](https://github.com/cgfeel/pbvm/commit/d11e625333aefb741341767b921d5b095f00122d))
+
+## [1.0.30](https://github.com/cgfeel/pbvm/compare/pbvm@v1.0.29...pbvm@v1.0.30) (2026-08-08)
+
+### Bug Fixes
+
+- add mermaid-prerender oicd ([9f2904d](https://github.com/cgfeel/pbvm/commit/9f2904dc96544a121f6cf5daf48cef02c2b0d1cf))
+- add mermaid-prerender oicd ([b53d00c](https://github.com/cgfeel/pbvm/commit/b53d00c368ba574989069d28437ec12b422d172f))
+- sync main ([5b608cb](https://github.com/cgfeel/pbvm/commit/5b608cb17d2eb8a497bf5ccd9dba27c75a78f346))
+
 ## [1.0.29](https://github.com/cgfeel/pbvm/compare/pbvm@v1.0.28...pbvm@v1.0.29) (2026-08-04)
 
 ### Bug Fixes
