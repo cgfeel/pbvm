@@ -30,6 +30,11 @@ function getWorker(): Worker {
   return worker
 }
 
+export function closeWorker() {
+  worker?.terminate()
+  worker = null
+}
+
 function send(msg: Omit<WorkerMessage, 'id'>) {
   return new Promise<MessageType>((resolve) => {
     const id = String(++nextId)
