@@ -11,13 +11,12 @@
   },
   "overrides": [
     {
-      "files": ["src/bin/**/*.ts"],
-      "rules": {
-        "no-console": "off"
-      }
-    },
-    {
-      "files": ["src/commands/**/*.ts", "src/utils/logger.ts"],
+      "files": [
+        "packages/pbvm-cli/src/bin/**/*.ts",
+        "packages/pbvm-cli/src/commands/**/*.ts",
+        "packages/pbvm-cli/src/utils/logger.ts",
+        "documentation/plugins/mermaid-loader/loader.mjs"
+      ],
       "rules": {
         "no-console": "off"
       }

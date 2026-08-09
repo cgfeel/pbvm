@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import { Command } from 'commander'
 import { registerAliasCommand } from './commands/alias.js'
 import { registerClearCommand } from './commands/clear.js'

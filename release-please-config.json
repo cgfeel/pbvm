@@ -11,9 +11,9 @@
       "component": "mermaid-prerender",
       "changelog-path": "CHANGELOG.md"
     },
-    "packages/pbvm": {
-      "package-name": "pbvm",
-      "component": "pbvm",
+    "packages/pbvm-cli": {
+      "package-name": "pbvm-cli",
+      "component": "pbvm-cli",
       "changelog-path": "CHANGELOG.md"
     }
   }

@@ -23,9 +23,9 @@ importers:
       '@types/node':
         specifier: ^26.1.1
         version: 26.1.1
-      husk:
-        specifier: ^0.5.3
-        version: 0.5.3
+      husky:
+        specifier: ^9.1.7
+        version: 9.1.7
       lint-staged:
         specifier: ^17.2.0
         version: 17.2.0
@@ -35,12 +35,6 @@ importers:
       oxlint:
         specifier: ^1.75.0
         version: 1.75.0
-      tsx:
-        specifier: ^4.23.1
-        version: 4.23.1
-      typescript:
-        specifier: ^7.0.2
-        version: 7.0.2
 
   documentation:
     dependencies:
@@ -140,7 +134,7 @@ importers:
         specifier: ^11.16.0
         version: 11.16.0
 
-  packages/pbvm:
+  packages/pbvm-cli:
     dependencies:
       '@inquirer/prompts':
         specifier: ^8.5.2
@@ -164,33 +158,12 @@ importers:
         specifier: ^4.4.3
         version: 4.4.3
     devDependencies:
-      '@commitlint/cli':
-        specifier: ^21.2.1
-        version: 21.2.1(@types/node@26.1.1)(conventional-commits-parser@7.1.0)(typescript@7.0.2)
-      '@commitlint/config-conventional':
-        specifier: ^21.2.0
-        version: 21.2.0
-      '@commitlint/types':
-        specifier: ^21.2.0
-        version: 21.2.0
       '@types/commander':
         specifier: ^2.12.5
         version: 2.12.5
       '@types/node':
         specifier: ^26.1.1
         version: 26.1.1
-      husk:
-        specifier: ^0.5.3
-        version: 0.5.3
-      lint-staged:
-        specifier: ^17.2.0
-        version: 17.2.0
-      oxfmt:
-        specifier: ^0.60.0
-        version: 0.60.0
-      oxlint:
-        specifier: ^1.75.0
-        version: 1.75.0
       tsx:
         specifier: ^4.23.1
         version: 4.23.1
@@ -3600,9 +3573,6 @@ packages:
     resolution: {integrity: sha512-hsU18Ae8CDTR6Kgu9DYf0EbCr/a5iGL0rytQDobUcdpYOKokk8LEjVphnXkDkgpi0wYVsqrXuP0bZxJaTqdgoA==}
     engines: {node: '>= 0.4'}
 
-  async-stream-flow@1.0.2:
-    resolution: {integrity: sha512-Iy1ynz7dKRhlvypxRm3zLbPDJsYaeKOQRfxRhZEM3ZZCNq3N0jR/T6KRUJxWVf9AHi5ynj/Wp4L7gATeLGSW9g==}
-
   async@3.2.6:
     resolution: {integrity: sha512-htCUDlxyyCLMgaM3xXg0C0LW2xqfuQ6p05pCEIsXuyQ+a1koYKTuBMzRNwmybfLgvJDMd0r1LTn4+E0Ti6C2AA==}
 
@@ -4820,9 +4790,6 @@ packages:
     resolution: {integrity: sha512-hcg3ZmepS30/7BSFqRvoo3DOMQu7IjqxO5nCDt+zM9XWjb33Wg7ziNT+Qvqbuc3+gWpzO02JubVyk2G4Zvo1OQ==}
     engines: {node: '>=10'}
 
-  fs-flow@1.0.2:
-    resolution: {integrity: sha512-AUYZEh7fNmZFHm8w2S4rs0oaJg0l/a8AXLAAFqu/ulmpbPoIxkovrfw/j9GcAYxIc3Oj7eRIibTX82s5+nCtag==}
-
   fsevents@2.3.2:
     resolution: {integrity: sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA==}
     engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
@@ -5092,26 +5059,10 @@ packages:
     resolution: {integrity: sha512-B4FFZ6q/T2jhhksgkbEW3HBvWIfDW85snkQgawt07S7J5QXTk6BkNV+0yAeZrM5QpMAdYlocGoljn0sJ/WQkFw==}
     engines: {node: '>=10.17.0'}
 
-  husk-async@1.0.3:
-    resolution: {integrity: sha512-VW6/vJKdnhbybdeh4e0ITZ1azI50xmTUrfBSuZhOcTxTOyinJLt1/RsegJXmK+c92MzcOr9WsOJpSt6EZW11xg==}
-
-  husk-core@1.0.4:
-    resolution: {integrity: sha512-duZv9ZJFlUt44vwEGLW1HvnzL9kS6AQklydtOYRJ4BT9O9aZ1Aixtt0sBv7b2dTicchYMpSkdJJNVpC8BKT0cA==}
-
-  husk-exec@1.0.4:
-    resolution: {integrity: sha512-eHZH+pYbDGFZXxvvvUhi0Jj8QA4963XpjuYk11ytK/oF2LcLGp9dzng7OUytHa9Y+EucdfGl+7js9Klurwntyw==}
-
-  husk-fs@1.0.3:
-    resolution: {integrity: sha512-OizyOaE/FlV/11SOWUOvgBmIvZD3/bGghKQafzNtq4I6VePWZ2kH3q1zuck1cLfhOcYztdVdZaOaRC+rFHOcBg==}
-
-  husk-print@1.0.3:
-    resolution: {integrity: sha512-paJ8IGpFoS9vKdWHS4tqtiwoF6dX48Il4z1/yP+9ulEwm6RTpC42mkKAj6MtD+CIYAxCLAwYvkTwMqh1Vg/KWg==}
-
-  husk-through@1.0.2:
-    resolution: {integrity: sha512-hm0xz/MkfZDxHm0PFm07sb+FuHTHCtPHeXNcBtf0Kl/vKx2hQoliYU1NC5JVjO+fe79z4uCBfI9/l3rFctIFwg==}
-
-  husk@0.5.3:
-    resolution: {integrity: sha512-4rLByTytY2LtiuyiRQ20C4AmSZ0+/imh1557r92TFcgAgeTgcsVwHlGLi2nO4QNiEKhvhlPj9HuCjKWfwNtwYA==}
+  husky@9.1.7:
+    resolution: {integrity: sha512-5gs5ytaNjBrh5Ow3zrvdUUY+0VxIuWVL4i9irt6friV+BqdCfmV11CQTWMiBYWHbXhco+J1kHfTOUkePhCDvMA==}
+    engines: {node: '>=18'}
+    hasBin: true
 
   hyperdyperid@1.2.0:
     resolution: {integrity: sha512-Y93lCzHYgGWdrJ66yIktxiaGULYc6oGiABxhcO5AufBeOyoIdZF7bIfLaOrbM0iGIOXQQgxxRrFEnb+Y6w1n4A==}
@@ -6839,9 +6790,6 @@ packages:
     resolution: {integrity: sha512-28iF6xPQrP8Oa6uxE6a1biz+lWeTOAPKggvjB8HAs6nVMKZwf5bG++632Dx614hIWgUPkgivRfG+a8uAXGTIbA==}
     engines: {node: '>=4'}
 
-  print-flow@1.0.2:
-    resolution: {integrity: sha512-yg5dgWP8pvtV0vWEQNXP47Nwnmt+3gOJg0EgH6mXfrUUlz/fVX7Xkif5gGMiSDMq3QGwswE3RoTlgzSMpRLs1g==}
-
   prism-react-renderer@2.4.1:
     resolution: {integrity: sha512-ey8Ls/+Di31eqzUxC46h8MksNuGx/n0AAC8uKpwFau4RPDYLuE3EXTp8N8G2vX2N7UC/+IXeNUnlWBGGcAG+Ig==}
     peerDependencies:
@@ -6850,9 +6798,6 @@ packages:
   prismjs@1.30.0:
     resolution: {integrity: sha512-DEvV2ZF2r2/63V+tK8hQvrR2ZGn10srHbXviTlcv7Kpzw8jWiNTqbVgjO3IY8RxrrOUF8VPMQQFysYYYv0YZxw==}
     engines: {node: '>=6'}
-
-  process-flow@1.0.2:
-    resolution: {integrity: sha512-MJGNN728wtacWIPgp+bsUKwtNX9aKOw2HZVD+jrnZkTMCf4jrhvZnZnEaz6NUHKEy7rEFmz6sVDmz7O2k06xvQ==}
 
   process-nextick-args@2.0.1:
     resolution: {integrity: sha512-3ouUOpQhtgrbOa17J7+uxOTpITYWaGP7/AhoR3+A+/1e9skrzelGi/dXzEYyvbxubEF6Wn2ypscTKiKJFFn1ag==}
@@ -7575,12 +7520,6 @@ packages:
     peerDependencies:
       tslib: ^2
 
-  through-flow@1.0.2:
-    resolution: {integrity: sha512-j6IAxjqlbQAdQ45aQ2qw/TLdOsh3mzsaOtnMnw2ceW6N+zowlQZX3EXLhnqoa6Sz+NUdZdxzAEQhLTXSXHVoNw==}
-
-  through3@1.1.7:
-    resolution: {integrity: sha512-9bUZXDGridMzC3uqRKw+ilb4n4S0Fo6AQNi9wM9zBYHJpQVsfI4JaroFSACXmDKViL+upDI3+V/io3UwlCTmtA==}
-
   thunky@1.1.0:
     resolution: {integrity: sha512-eHY7nBftgThBqOyHGVN+l8gF0BucP09fMo0oO/Lb0w1OF80dJv+lDVpXG60WMQvkcxAkNybKsrEIE3ZtKGmPrA==}
 
@@ -8063,9 +8002,6 @@ packages:
   yoctocolors@2.1.2:
     resolution: {integrity: sha512-CzhO+pFNo8ajLM2d2IW/R93ipy99LWjtwblvC1RsoSUMZgyLbYFr221TnSNT7GjGdYui6P459mw9JH/g/zW2ug==}
     engines: {node: '>=18'}
-
-  zephyr@1.2.8:
-    resolution: {integrity: sha512-Evw01lEec5dp3gUlyKrCSRlZpcO2FpRq+SgpA1Ha9YgGKY2kFkGh6S3nVgzCagN9HtD//vmET/fQzojiK+NYog==}
 
   zod@4.4.3:
     resolution: {integrity: sha512-ytENFjIJFl2UwYglde2jchW2Hwm4GJFLDiSXWdTrJQBIN9Fcyp7n4DhxJEiWNAJMV1/BqWfW/kkg71UDcHJyTQ==}
@@ -12362,10 +12298,6 @@ snapshots:
 
   async-function@1.0.0: {}
 
-  async-stream-flow@1.0.2:
-    dependencies:
-      through3: 1.1.7
-
   async@3.2.6: {}
 
   at-least-node@1.0.0: {}
@@ -13765,11 +13697,6 @@ snapshots:
       jsonfile: 6.2.1
       universalify: 2.0.1
 
-  fs-flow@1.0.2:
-    dependencies:
-      async-stream-flow: 1.0.2
-      through3: 1.1.7
-
   fsevents@2.3.2:
     optional: true
 
@@ -14156,38 +14083,7 @@ snapshots:
 
   human-signals@2.1.0: {}
 
-  husk-async@1.0.3:
-    dependencies:
-      async-stream-flow: 1.0.2
-
-  husk-core@1.0.4:
-    dependencies:
-      husk-print: 1.0.3
-      husk-through: 1.0.2
-
-  husk-exec@1.0.4:
-    dependencies:
-      process-flow: 1.0.2
-
-  husk-fs@1.0.3:
-    dependencies:
-      fs-flow: 1.0.2
-
-  husk-print@1.0.3:
-    dependencies:
-      print-flow: 1.0.2
-
-  husk-through@1.0.2:
-    dependencies:
-      through-flow: 1.0.2
-
-  husk@0.5.3:
-    dependencies:
-      husk-async: 1.0.3
-      husk-core: 1.0.4
-      husk-exec: 1.0.4
-      husk-fs: 1.0.3
-      zephyr: 1.2.8
+  husky@9.1.7: {}
 
   hyperdyperid@1.2.0: {}
 
@@ -16143,10 +16039,6 @@ snapshots:
 
   pretty-time@1.1.0: {}
 
-  print-flow@1.0.2:
-    dependencies:
-      through3: 1.1.7
-
   prism-react-renderer@2.4.1(react@19.2.8):
     dependencies:
       '@types/prismjs': 1.26.6
@@ -16154,10 +16046,6 @@ snapshots:
       react: 19.2.8
 
   prismjs@1.30.0: {}
-
-  process-flow@1.0.2:
-    dependencies:
-      through3: 1.1.7
 
   process-nextick-args@2.0.1: {}
 
@@ -17029,12 +16917,6 @@ snapshots:
     dependencies:
       tslib: 2.8.1
 
-  through-flow@1.0.2:
-    dependencies:
-      through3: 1.1.7
-
-  through3@1.1.7: {}
-
   thunky@1.1.0: {}
 
   tiny-invariant@1.3.3: {}
@@ -17702,8 +17584,6 @@ snapshots:
   yocto-queue@1.2.2: {}
 
   yoctocolors@2.1.2: {}
-
-  zephyr@1.2.8: {}
 
   zod@4.4.3: {}
 

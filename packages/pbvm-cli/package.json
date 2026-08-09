@@ -16,18 +16,10 @@
   },
   "scripts": {
     "dev": "tsx src/index.ts",
-    "dev:docs": "pnpm --filter documentation start",
-    "dev:docs:zh": "pnpm --filter documentation start:zh",
-    "build": "tsc && cp -r public dist/",
-    "build:docs": "pnpm --filter documentation build",
-    "build:mermaid-prerender": "pnpm --filter mermaid-prerender run build",
-    "format": "oxfmt --write .",
-    "format:check": "oxfmt --check .",
-    "lint": "oxlint && tsc --noEmit",
-    "lint:fix": "oxlint --fix",
-    "prepare": "npx husky install",
+    "build": "tsc",
+    "lint": "tsc --noEmit",
+    "prepublishOnly": "pnpm build",
     "release": "pnpm publish",
-    "release:mermaid-prerender": "pnpm --filter mermaid-prerender publish",
     "start": "node dist/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -40,6 +32,7 @@
   ],
   "files": [
     "dist",
+    "public",
     "LICENSE",
     "README.md",
     "CHANGELOG.md"
@@ -60,25 +53,9 @@
     "node": ">=22.0.0",
     "pnpm": ">=9.0.0"
   },
-  "lint-staged": {
-    "*.{ts,js,mjs,cjs}": [
-      "oxlint --fix",
-      "oxfmt --write"
-    ],
-    "*.{json,md}": [
-      "oxfmt --write"
-    ]
-  },
   "devDependencies": {
-    "@commitlint/cli": "^21.2.1",
-    "@commitlint/config-conventional": "^21.2.0",
-    "@commitlint/types": "^21.2.0",
     "@types/commander": "^2.12.5",
     "@types/node": "^26.1.1",
-    "husk": "^0.5.3",
-    "lint-staged": "^17.2.0",
-    "oxfmt": "^0.60.0",
-    "oxlint": "^1.75.0",
     "tsx": "^4.23.1",
     "typescript": "^7.0.2"
   },

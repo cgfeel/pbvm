@@ -10,7 +10,7 @@ export default function pwaManifestPlugin(context: LoadContext): Plugin {
     name: 'pwa-manifest-plugin',
     async loadContent() {
       const { name = 'pbvm', description = '' } = JSON.parse(
-        fs.readFileSync(path.resolve(__dirname, '../../packages/pbvm/package.json'), 'utf-8')
+        fs.readFileSync(path.resolve(__dirname, '../../packages/pbvm-cli/package.json'), 'utf-8')
       ) as unknown as { description?: string; name?: string }
 
       const manifest = {

@@ -1,12 +1,11 @@
 import fs from 'node:fs'
 import path from 'node:path'
-import { fileURLToPath } from 'node:url'
 import type z from 'zod'
 import { mirrorFile } from '../mirror/mirror.provider.js'
 import type { mirrorSchema } from '../types/index.js'
 import { isKey } from '../utils/fields.js'
 import { logger } from '../utils/logger.js'
-import { PBVM_PATHS } from '../utils/paths.js'
+import { getRootPath, PBVM_PATHS } from '../utils/paths.js'
 
 const sourceMap = Object.freeze({
   npmmirror: 'npmmirror.json',
@@ -18,9 +17,7 @@ const disableMirror = async ({ init }: MirrorOptions) => {
 }
 
 const enableMirror = async ({ init, source }: MirrorOptions) => {
-  const __dirname = path.dirname(fileURLToPath(import.meta.url))
-  const src = path.resolve(__dirname, '../public/mirror', source)
-
+  const src = path.resolve(getRootPath(), 'public/mirror', source)
   const dest = init ? process.cwd() : PBVM_PATHS.config
   const target = path.join(dest, mirrorFile)
 
