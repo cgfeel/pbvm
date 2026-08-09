@@ -17,9 +17,9 @@ const getMermaid = () => {
 
 const MermaidContent: FC<Omit<MermaidComProps, 'fallback'>> = ({
   className,
-  theme,
   value,
   onError,
+  theme = 'dark',
 }) => {
   const containerRef = useRef<HTMLSpanElement>(null)
   const id = useId()
