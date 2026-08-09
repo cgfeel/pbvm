@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.14](https://github.com/cgfeel/pbvm/compare/mermaid-prerender@v0.0.13...mermaid-prerender@v0.0.14) (2026-08-09)
+
+
+### Bug Fixes
+
+* update loader add themes options ([c6fef91](https://github.com/cgfeel/pbvm/commit/c6fef916747102855e0db084c3898a3ddb4e0d93))
+
 ## [0.0.13](https://github.com/cgfeel/pbvm/compare/mermaid-prerender@v0.0.12...mermaid-prerender@v0.0.13) (2026-08-09)
 
 
