@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.0.15](https://github.com/cgfeel/pbvm/compare/mermaid-prerender@v0.0.14...mermaid-prerender@v0.0.15) (2026-08-09)
+
+
+### Bug Fixes
+
+* update memarid hashString ([4d8c731](https://github.com/cgfeel/pbvm/commit/4d8c73158a613753d381088a8292b2543b0deca5))
+* update memarid hashString ([8d45415](https://github.com/cgfeel/pbvm/commit/8d45415ba0261bbb2e9ce7e32de1a41c21196329))
+
 ## [0.0.14](https://github.com/cgfeel/pbvm/compare/mermaid-prerender@v0.0.13...mermaid-prerender@v0.0.14) (2026-08-09)
 
 
