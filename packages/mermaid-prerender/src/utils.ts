@@ -4,10 +4,6 @@ import { Worker } from 'node:worker_threads'
 import type { RenderOptions, RenderResult } from 'mermaid-isomorphic'
 import type { WorkerMessage } from './types.js'
 
-// const nativeImport = new Function('specifier', 'return import(specifier)') as (
-//   specifier: string
-// ) => Promise<{ createMermaidRenderer: (options?: CreateMermaidRendererOptions) => MermaidRenderer }>
-
 type MessageType =
   | {
       id: string
@@ -22,6 +18,7 @@ const pending = new Map<string, (res: MessageType) => void>()
 function getWorker(): Worker {
   if (!worker) {
     worker = new Worker(new URL('./worker.js', import.meta.url))
+    worker.unref()
     worker.on('message', (msg: MessageType) => {
       const resolve = pending.get(msg.id)
       if (resolve) {
@@ -41,18 +38,7 @@ function send(msg: Omit<WorkerMessage, 'id'>) {
   })
 }
 
-// let renderer: MermaidRenderer | null = null
 export async function getRenderer() {
-  // if (!renderer) {
-  // const { createMermaidRenderer } = await nativeImport('mermaid-isomorphic')
-  // const launchOptions =
-  //   (process.env.CI
-  //     ? { executablePath: '/usr/bin/chromium-browser', args: ['--no-sandbox'] }
-  //     : undefined) ??
-  //   (process.env.CHROMIUM_PATH ? { executablePath: process.env.CHROMIUM_PATH } : undefined)
-
-  // await send({ type: 'init', payload: launchOptions ? { launchOptions } : undefined })
-
   return (diagrams: string[], opts?: RenderOptions) => {
     const theme = opts?.mermaidConfig?.theme ?? 'default'
     return Promise.allSettled(
@@ -64,9 +50,6 @@ export async function getRenderer() {
       })
     )
   }
-  // renderer = createMermaidRenderer(launchOptions ? { launchOptions } : undefined)
-  // }
-  // return renderer
 }
 
 /**
