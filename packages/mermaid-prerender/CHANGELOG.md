@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.0.11](https://github.com/cgfeel/pbvm/compare/mermaid-prerender@v0.0.10...mermaid-prerender@v0.0.11) (2026-08-09)
+
+
+### Bug Fixes
+
+* **mermaid-prerender:** add worker unref & disable build when node ([120d3c3](https://github.com/cgfeel/pbvm/commit/120d3c3ef235ff36ae71cc2924309a88eab6d4e1))
+* **mermaid-prerender:** add worker unref & disable build when node ([e7e5541](https://github.com/cgfeel/pbvm/commit/e7e554188d65d6d87c26e21c0fa55313aecfea16))
+
 ## [0.0.10](https://github.com/cgfeel/pbvm/compare/mermaid-prerender@v0.0.9...mermaid-prerender@v0.0.10) (2026-08-09)
 
 
