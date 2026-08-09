@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react'
 
 export function useColorMode(): 'light' | 'dark' {
-  const getValue = (): 'light' | 'dark' => {
+  const getValue = () => {
     if (typeof document === 'undefined') return 'light'
-    return (document.documentElement.getAttribute('data-theme') as 'light' | 'dark') || 'light'
+    const colorMode = document.documentElement.getAttribute('data-theme') ?? 'light'
+    return colorMode === 'light' ? colorMode : 'dark'
   }
 
   const [mode, setMode] = useState<'light' | 'dark'>(getValue)

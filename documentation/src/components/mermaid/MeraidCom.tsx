@@ -15,7 +15,12 @@ const getMermaid = () => {
   return mermaidPromise
 }
 
-const MermaidContent: FC<Omit<MermaidComProps, 'fallback'>> = ({ className, value, onError }) => {
+const MermaidContent: FC<Omit<MermaidComProps, 'fallback'>> = ({
+  className,
+  theme,
+  value,
+  onError,
+}) => {
   const containerRef = useRef<HTMLSpanElement>(null)
   const id = useId()
 
@@ -27,7 +32,7 @@ const MermaidContent: FC<Omit<MermaidComProps, 'fallback'>> = ({ className, valu
       .then(({ default: mermaid }) => {
         mermaid.initialize({
           startOnLoad: false,
-          theme: 'dark',
+          theme,
         })
         return mermaid.render(`${id}-svg`, value)
       })

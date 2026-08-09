@@ -10,6 +10,7 @@ parentPort?.on('message', async ({ id, payload }: WorkerMessage) => {
         ? { executablePath: '/usr/bin/chromium-browser', args: ['--no-sandbox'] }
         : undefined) ??
       (process.env.CHROMIUM_PATH ? { executablePath: process.env.CHROMIUM_PATH } : undefined)
+
     renderer = createMermaidRenderer(launchOptions ? { launchOptions } : undefined)
   }
 
@@ -29,42 +30,4 @@ parentPort?.on('message', async ({ id, payload }: WorkerMessage) => {
       id,
     })
   }
-
-  //   switch (type) {
-  //     case 'init': {
-  //       if (!renderer) {
-  //         renderer = createMermaidRenderer(payload)
-  //       }
-  //       parentPort?.postMessage({ id, type })
-  //       break
-  //     }
-  //     case 'render': {
-  //       if (!renderer) {
-  //         parentPort?.postMessage({ error: 'Renderer not initialized', id, type })
-  //         return
-  //       }
-  //       try {
-  //         const [result] = await renderer([payload.source], {
-  //           mermaidConfig: { theme: payload.theme },
-  //         })
-  //         if (result.status === 'fulfilled') {
-  //           parentPort?.postMessage({ ...result.value, id, type })
-  //         } else {
-  //           parentPort?.postMessage({
-  //             error: result.reason instanceof Error ? result.reason.message : String(result.reason),
-  //             id,
-  //             type,
-  //           })
-  //         }
-  //         break
-  //       } catch (err) {
-  //         parentPort?.postMessage({
-  //           error: err instanceof Error ? err.message : String(err),
-  //           id,
-  //           type,
-  //         })
-  //       }
-  //       break
-  //     }
-  //   }
 })

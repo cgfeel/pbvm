@@ -43,7 +43,7 @@
     "@types/react": "^19.0.0",
     "cross-env": "^10.1.0",
     "mermaid-isomorphic": "^3.1.0",
-    "mermaid-prerender": "^0.0.12",
+    "mermaid-prerender": "^0.0.13",
     "playwright": "^1.62.1",
     "tailwind-merge": "^3.6.0",
     "tailwind-variants": "^3.3.0",
