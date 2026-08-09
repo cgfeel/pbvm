@@ -1,0 +1,31 @@
+graph TB
+    subgraph "Core dependency chain"
+        A["@puppeteer/browsers"] --> B["browser.lock.ts"]
+        B --> C["install.script.ts"]
+        B --> D["remove.script.ts"]
+        B --> E["manifest.ts (store list)"]
+
+        A --> F["types/index.ts<br/>(Browser, BrowserPlatform enums)"]
+        F --> G["All commands/*.ts"]
+        F --> H["All prompts/*.ts"]
+        F --> I["All bin/*.script.ts"]
+
+        J["manifest.ts"] --> K["browserlist.json operations"]
+        J --> L["lock.ts<br/>(file lock)"]
+        C --> J
+        D --> J
+
+        M["base.browser.ts<br/>DevConnection"] --> N["chromium.browser.ts"]
+        M --> O["firefox.browser.ts"]
+        M --> P["browser.schema.ts<br/>(Zod schemas)"]
+
+        N --> Q["buildEnvScript.ts"]
+        O --> Q
+        N --> P
+        O --> P
+
+        R["open.script.ts"] --> C
+        R --> M
+        S["info.script.ts"] --> N
+        S --> O
+    end

@@ -1,7 +1,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import type { LoadContext, Plugin } from '@docusaurus/types'
-import { MermaidPreRenderPlugin } from 'mermaid-prerender'
+import MermaidPreRenderPlugin from 'mermaid-prerender/plugin'
 
 export default function mermaidLoaderPlugin(context: LoadContext): Plugin {
   const output = 'mermaid'

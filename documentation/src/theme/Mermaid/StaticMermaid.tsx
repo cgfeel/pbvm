@@ -3,17 +3,9 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
 import type { SVGRenderProps } from '@site/src/components/mermaid/SVGRender'
 import SVGRender from '@site/src/components/mermaid/SVGRender'
 import { useColorMode } from '@site/src/hooks/theme'
+import { hashString } from 'mermaid-prerender'
 import { type FC } from 'react'
 import { cn } from 'tailwind-variants'
-
-function hashString(str: string) {
-  let hash = 5381
-  for (let i = 0; i < str.length; i++) {
-    hash = ((hash << 5) + hash) ^ str.charCodeAt(i)
-    hash = hash >>> 0
-  }
-  return hash.toString(16).padStart(8, '0')
-}
 
 const StaticMermaid: FC<SVGRenderProps> = ({ className, src, onError }) => {
   const hash = hashString(src.trim())

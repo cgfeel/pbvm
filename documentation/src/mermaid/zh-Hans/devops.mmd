@@ -1,0 +1,31 @@
+graph TB
+    subgraph "核心依赖链"
+        A["@puppeteer/browsers"] --> B["browser.lock.ts"]
+        B --> C["install.script.ts"]
+        B --> D["remove.script.ts"]
+        B --> E["manifest.ts (store list)"]
+
+        A --> F["types/index.ts<br/>(Browser, BrowserPlatform 枚举)"]
+        F --> G["所有 commands/*.ts"]
+        F --> H["所有 prompts/*.ts"]
+        F --> I["所有 bin/*.script.ts"]
+
+        J["manifest.ts"] --> K["browserlist.json 操作"]
+        J --> L["lock.ts<br/>(文件锁)"]
+        C --> J
+        D --> J
+
+        M["base.browser.ts<br/>DevConnection"] --> N["chromium.browser.ts"]
+        M --> O["firefox.browser.ts"]
+        M --> P["browser.schema.ts<br/>(Zod schemas)"]
+
+        N --> Q["buildEnvScript.ts"]
+        O --> Q
+        N --> P
+        O --> P
+
+        R["open.script.ts"] --> C
+        R --> M
+        S["info.script.ts"] --> N
+        S --> O
+    end

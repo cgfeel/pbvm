@@ -1,39 +1,48 @@
 import Link from '@docusaurus/Link'
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
+import { useColorMode } from '@site/src/hooks/theme'
 import { type FC, type ReactNode } from 'react'
 import { tv } from 'tailwind-variants'
+import cliopsEn from '../../mermaid/en/cliops.mmd'
+import devopsEn from '../../mermaid/en/devops.mmd'
+import lockopsEn from '../../mermaid/en/lockops.mmd'
+import mirroropsEn from '../../mermaid/en/mirrorops.mmd'
+import cliopsZh from '../../mermaid/zh-Hans/cliops.mmd'
+import devopsZh from '../../mermaid/zh-Hans/devops.mmd'
+import lockopsZh from '../../mermaid/zh-Hans/lockops.mmd'
+import mirroropsZh from '../../mermaid/zh-Hans/mirrorops.mmd'
 import { t } from '../../utils/i18n'
-import { cliOps, devOps, lockOps, mirrorOps } from '../../utils/mermaidZH'
 import { styles as buttonStyle } from '../button'
 import { Card } from '../card'
 import Mermaid from '../mermaid/MeraidCom'
 import Wraper from './Wraper'
 
+// md 最终会在生产变成不到 1kb 的 url
 const getItems = (isZh: boolean): ItemType[] => [
   {
     className: 'scale-375 hover:scale-250',
-    md: cliOps,
     key: 'commander',
+    md: isZh ? cliopsZh : cliopsEn,
     title: t('home.dev.item.commander'),
     url: '/concepts/commander',
   },
   {
     className: 'scale-375 hover:scale-250',
-    md: devOps,
     key: 'monorepo',
+    md: isZh ? devopsZh : devopsEn,
     title: t('home.dev.item.architecture'),
     url: '/concepts/monorepo',
   },
   {
-    md: mirrorOps,
     key: 'source-and-mirror',
+    md: isZh ? mirroropsZh : mirroropsEn,
     title: t('home.dev.item.resources'),
     url: isZh ? '/source#整体流程' : '/source#overall-flow',
   },
   {
     className: 'pt-9 scale-600 hover:scale-450',
-    md: lockOps,
     key: 'lock',
+    md: isZh ? lockopsZh : lockopsEn,
     title: t('home.dev.item.storage'),
     url: isZh
       ? '/concepts/store-and-cache#数据存储--文件结构'
@@ -71,6 +80,7 @@ const { btn, card, container, demo, header, item, link, svg, title } = styles()
 
 const DevEnvironment: FC<DevEnvironmentProps> = () => {
   const { i18n } = useDocusaurusContext()
+  const colorMode = useColorMode()
   const items = getItems(i18n.currentLocale === 'zh-Hans')
 
   return (
@@ -87,9 +97,13 @@ const DevEnvironment: FC<DevEnvironmentProps> = () => {
         <div className={demo()}>
           {items.map(({ className, md, key, title, url }) => (
             <div className={item()} key={key}>
-              <Card className={card()}>
+              <Card className={card({ className: 'bg-white' })}>
                 <Link className={link()} to={url}>
-                  <Mermaid className={svg({ className })} value={md} />
+                  <Mermaid
+                    className={svg({ className })}
+                    theme={colorMode === 'dark' ? colorMode : 'default'}
+                    value={md}
+                  />
                   <button className={buttonStyle({ className: btn() })}>
                     {t('home.dev.item.viewDetails')}
                   </button>
