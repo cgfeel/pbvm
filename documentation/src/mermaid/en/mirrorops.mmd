@@ -1,0 +1,26 @@
+flowchart TD
+    A["<code>pbvm create</code> / <code>pbvm search</code>"] --> B{"<code>-m</code> specified?"}
+    B -->|Yes| C["Load specified mirror file"]
+    B -->|No| D{"Current directory has<br/><code>.browsermr</code>?"}
+    D -->|Yes| E["Load project-level .browsermr"]
+    D -->|No| F{"Global config directory has<br/><code>.browsermr</code>?"}
+    F -->|Yes| G["Load global .browsermr"]
+    F -->|No| H["Use default download URL<br/>(@puppeteer/browsers)"]
+
+    C --> I["Parse JSON, extract browser config"]
+    E --> I
+    G --> I
+
+    I --> J["Get mirror URL template"]
+    I --> K["Get platform mapping fields<br/>(platform / suffix / ext …)"]
+
+    K --> L["Look up mapping values for current platform"]
+    L --> M["Replace mapping variables<br/>(&lt;platform&gt; &lt;suffix&gt; &lt;ext&gt; …)"]
+    J --> N["Replace fixed variables<br/>(&lt;browser&gt; &lt;buildId&gt; …)"]
+    N --> M
+
+    M --> O{"<code>--rule</code> specified?"}
+    O -->|Yes| P["Override matching variables with --rule values"]
+    O -->|No| Q["Assemble final download URL"]
+    P --> Q
+    Q --> R["Initiate HTTP download"]

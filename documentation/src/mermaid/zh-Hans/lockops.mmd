@@ -1,0 +1,38 @@
+stateDiagram-v2
+    [*] --> WaitLock: waitForLock()
+    [*] --> AcquireLock: acquireLock()
+
+    state WaitLock {
+        CheckExist: 检查 .pbvm.lock 是否存在
+        WaitStale: 等待 retryDelay ms
+        CheckTimeout: 超时检查
+        CheckExist --> WaitStale: 锁存在
+        WaitStale --> CheckExist: 重试
+        CheckExist --> [*]: 锁释放 (ENOENT)
+        CheckExist --> CleanStale: 锁存在
+    }
+
+    state AcquireLock {
+        TryCreate: fs.writeFile(pid, {flag:'wx'})
+        Exists: EEXIST - 锁已被占用
+        CreateSuccess: 创建成功 → 返回 release()
+        TryCreate --> Exists
+        TryCreate --> CreateSuccess
+        Exists --> CleanStale
+        Exists --> WaitRetry: 非超时
+        WaitRetry --> TryCreate
+        Exists --> ThrowTimeout: 超时抛错
+    }
+
+    state CleanStale {
+        ReadPid: 读取锁文件 PID
+        CheckAlive: process.kill(pid, 0)
+        RemoveStale: fs.unlink() 清理死锁
+        ReadPid --> CheckAlive
+        CheckAlive --> RemoveStale: 进程不存在
+        CheckAlive --> WaitStale: 进程存活
+    }
+
+    CreateSuccess --> Release: 操作完成
+    Release: release() → fs.unlink(.pbvm.lock)
+    Release --> [*]

@@ -1,0 +1,38 @@
+stateDiagram-v2
+    [*] --> WaitLock: waitForLock()
+    [*] --> AcquireLock: acquireLock()
+
+    state WaitLock {
+        CheckExist: Check if .pbvm.lock exists
+        WaitStale: Wait retryDelay ms
+        CheckTimeout: Timeout check
+        CheckExist --> WaitStale: lock exists
+        WaitStale --> CheckExist: retry
+        CheckExist --> [*]: lock released (ENOENT)
+        CheckExist --> CleanStale: lock exists
+    }
+
+    state AcquireLock {
+        TryCreate: fs.writeFile(pid, {flag:'wx'})
+        Exists: EEXIST - already locked
+        CreateSuccess: created → return release()
+        TryCreate --> Exists
+        TryCreate --> CreateSuccess
+        Exists --> CleanStale
+        Exists --> WaitRetry: not timed out
+        WaitRetry --> TryCreate
+        Exists --> ThrowTimeout: timeout → throw
+    }
+
+    state CleanStale {
+        ReadPid: Read lock file PID
+        CheckAlive: process.kill(pid, 0)
+        RemoveStale: fs.unlink() clean dead lock
+        ReadPid --> CheckAlive
+        CheckAlive --> RemoveStale: process gone
+        CheckAlive --> WaitStale: process alive
+    }
+
+    CreateSuccess --> Release: operation done
+    Release: release() → fs.unlink(.pbvm.lock)
+    Release --> [*]
