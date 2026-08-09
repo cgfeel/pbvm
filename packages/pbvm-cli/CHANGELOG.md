@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.40](https://github.com/cgfeel/pbvm/compare/pbvm-cli@v1.0.39...pbvm-cli@v1.0.40) (2026-08-09)
+
+
+### Bug Fixes
+
+* update monorepo packages ([d018543](https://github.com/cgfeel/pbvm/commit/d0185434c863f80ca8c9afc8c3d6b7b3b97b5ba1))
+
 ## [1.0.39](https://github.com/cgfeel/pbvm/compare/pbvm@v1.0.38...pbvm@v1.0.39) (2026-08-09)
 
 ### Bug Fixes
