@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.39](https://github.com/cgfeel/pbvm/compare/pbvm@v1.0.38...pbvm@v1.0.39) (2026-08-09)
+
+
+### Bug Fixes
+
+* **mermaid-prerender:** add lang split ([63d8cef](https://github.com/cgfeel/pbvm/commit/63d8cef47a7ef54edd3e7431afa99374559b78d5))
+* **mermaid-prerender:** add lang split ([d2185be](https://github.com/cgfeel/pbvm/commit/d2185bedd3d052be26f05abc67d7dbf2d8791c79))
+
 ## [1.0.38](https://github.com/cgfeel/pbvm/compare/pbvm@v1.0.37...pbvm@v1.0.38) (2026-08-09)
 
 
