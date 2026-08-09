@@ -1,0 +1,94 @@
+{
+  "name": "pbvm-cli",
+  "version": "1.0.29",
+  "description": "基于 @puppeteer/browsers 浏览器版本管理器",
+  "type": "module",
+  "bin": {
+    "pbvm": "./dist/index.js"
+  },
+  "main": "./dist/api.js",
+  "types": "./dist/api.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/api.d.ts",
+      "default": "./dist/api.js"
+    }
+  },
+  "scripts": {
+    "dev": "tsx src/index.ts",
+    "dev:docs": "pnpm --filter documentation start",
+    "dev:docs:zh": "pnpm --filter documentation start:zh",
+    "build": "tsc && cp -r public dist/",
+    "build:docs": "pnpm --filter documentation build",
+    "build:mermaid-prerender": "pnpm --filter mermaid-prerender run build",
+    "format": "oxfmt --write .",
+    "format:check": "oxfmt --check .",
+    "lint": "oxlint && tsc --noEmit",
+    "lint:fix": "oxlint --fix",
+    "prepare": "npx husky install",
+    "release": "pnpm publish",
+    "release:mermaid-prerender": "pnpm --filter mermaid-prerender publish",
+    "start": "node dist/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "puppeteer",
+    "browsers",
+    "chrome",
+    "chromium",
+    "firefox"
+  ],
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md",
+    "CHANGELOG.md"
+  ],
+  "author": "levi<cgfeel@gmail.com>",
+  "homepage": "https://cgfeel.github.io/pbvm/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cgfeel/pbvm.git"
+  },
+  "bugs": {
+    "url": "https://github.com/cgfeel/pbvm/issues",
+    "email": "cgfeel@gmail.com"
+  },
+  "license": "MIT",
+  "packageManager": "pnpm@10.25.0",
+  "engines": {
+    "node": ">=22.0.0",
+    "pnpm": ">=9.0.0"
+  },
+  "lint-staged": {
+    "*.{ts,js,mjs,cjs}": [
+      "oxlint --fix",
+      "oxfmt --write"
+    ],
+    "*.{json,md}": [
+      "oxfmt --write"
+    ]
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^21.2.1",
+    "@commitlint/config-conventional": "^21.2.0",
+    "@commitlint/types": "^21.2.0",
+    "@types/commander": "^2.12.5",
+    "@types/node": "^26.1.1",
+    "husk": "^0.5.3",
+    "lint-staged": "^17.2.0",
+    "oxfmt": "^0.60.0",
+    "oxlint": "^1.75.0",
+    "tsx": "^4.23.1",
+    "typescript": "^7.0.2"
+  },
+  "dependencies": {
+    "@inquirer/prompts": "^8.5.2",
+    "@puppeteer/browsers": "^3.0.6",
+    "chalk": "^5.6.2",
+    "commander": "^15.0.0",
+    "env-paths": "^4.0.0",
+    "ora": "^9.4.1",
+    "zod": "^4.4.3"
+  }
+}

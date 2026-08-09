@@ -7,28 +7,6 @@ settings:
 importers:
 
   .:
-    dependencies:
-      '@inquirer/prompts':
-        specifier: ^8.5.2
-        version: 8.5.2(@types/node@26.1.1)
-      '@puppeteer/browsers':
-        specifier: ^3.0.6
-        version: 3.0.6
-      chalk:
-        specifier: ^5.6.2
-        version: 5.6.2
-      commander:
-        specifier: ^15.0.0
-        version: 15.0.0
-      env-paths:
-        specifier: ^4.0.0
-        version: 4.0.0
-      ora:
-        specifier: ^9.4.1
-        version: 9.4.1
-      zod:
-        specifier: ^4.4.3
-        version: 4.4.3
     devDependencies:
       '@commitlint/cli':
         specifier: ^21.2.1
@@ -134,8 +112,8 @@ importers:
         specifier: ^3.1.0
         version: 3.1.0(playwright@1.62.1)
       mermaid-prerender:
-        specifier: ^0.0.11
-        version: 0.0.11(mermaid@11.16.0)(playwright@1.62.1)
+        specifier: ^0.0.12
+        version: 0.0.12(mermaid@11.16.0)(playwright@1.62.1)
       playwright:
         specifier: ^1.62.1
         version: 1.62.1
@@ -161,6 +139,64 @@ importers:
       mermaid:
         specifier: ^11.16.0
         version: 11.16.0
+
+  packages/pbvm:
+    dependencies:
+      '@inquirer/prompts':
+        specifier: ^8.5.2
+        version: 8.5.2(@types/node@26.1.1)
+      '@puppeteer/browsers':
+        specifier: ^3.0.6
+        version: 3.0.6
+      chalk:
+        specifier: ^5.6.2
+        version: 5.6.2
+      commander:
+        specifier: ^15.0.0
+        version: 15.0.0
+      env-paths:
+        specifier: ^4.0.0
+        version: 4.0.0
+      ora:
+        specifier: ^9.4.1
+        version: 9.4.1
+      zod:
+        specifier: ^4.4.3
+        version: 4.4.3
+    devDependencies:
+      '@commitlint/cli':
+        specifier: ^21.2.1
+        version: 21.2.1(@types/node@26.1.1)(conventional-commits-parser@7.1.0)(typescript@7.0.2)
+      '@commitlint/config-conventional':
+        specifier: ^21.2.0
+        version: 21.2.0
+      '@commitlint/types':
+        specifier: ^21.2.0
+        version: 21.2.0
+      '@types/commander':
+        specifier: ^2.12.5
+        version: 2.12.5
+      '@types/node':
+        specifier: ^26.1.1
+        version: 26.1.1
+      husk:
+        specifier: ^0.5.3
+        version: 0.5.3
+      lint-staged:
+        specifier: ^17.2.0
+        version: 17.2.0
+      oxfmt:
+        specifier: ^0.60.0
+        version: 0.60.0
+      oxlint:
+        specifier: ^1.75.0
+        version: 1.75.0
+      tsx:
+        specifier: ^4.23.1
+        version: 4.23.1
+      typescript:
+        specifier: ^7.0.2
+        version: 7.0.2
 
 packages:
 
@@ -5841,8 +5877,8 @@ packages:
       playwright:
         optional: true
 
-  mermaid-prerender@0.0.11:
-    resolution: {integrity: sha512-udX1c+ZUHWBt5XoGTkbef1A2jpmym3grGCjw9JcjaA1MeOyWmhRIPJN04mJ9H9oHTmaTfBvB4IeFcW37NTkO2g==}
+  mermaid-prerender@0.0.12:
+    resolution: {integrity: sha512-G8BJl0HJhpWP0oPSwOg9+2SwMbAkLJ2U7KeVrdEu4wq5f33wO7OLq1GGVMaqfrA+bJdpj+nI7RqFZZ0rUhWgLg==}
     engines: {node: '>=22.0.0', pnpm: '>=9.0.0'}
     peerDependencies:
       mermaid: '>=11.0.0'
@@ -14925,7 +14961,7 @@ snapshots:
     optionalDependencies:
       playwright: 1.62.1
 
-  mermaid-prerender@0.0.11(mermaid@11.16.0)(playwright@1.62.1):
+  mermaid-prerender@0.0.12(mermaid@11.16.0)(playwright@1.62.1):
     dependencies:
       mermaid: 11.16.0
       mermaid-isomorphic: 3.1.0(playwright@1.62.1)

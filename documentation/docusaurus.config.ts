@@ -1,22 +1,22 @@
-import fs from 'node:fs'
-import path from 'node:path'
-import type * as Preset from '@docusaurus/preset-classic'
-import type { Config } from '@docusaurus/types'
-import { themes as prismThemes } from 'prism-react-renderer'
+import fs from "node:fs";
+import path from "node:path";
+import type * as Preset from "@docusaurus/preset-classic";
+import type { Config } from "@docusaurus/types";
+import { themes as prismThemes } from "prism-react-renderer";
 
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...) - 1
 
 const rootPkg = JSON.parse(
-  fs.readFileSync(path.resolve(__dirname, '../package.json'), 'utf-8')
+  fs.readFileSync(path.resolve(__dirname, "../packages/pbvm/package.json"), "utf-8"),
 ) as unknown as {
-  name?: string
-  description?: string
-}
+  name?: string;
+  description?: string;
+};
 
 const config: Config = {
-  title: rootPkg?.name ?? 'pbvm',
-  tagline: rootPkg?.description ?? 'pbvm documentation',
-  favicon: 'img/favicon.svg',
+  title: rootPkg?.name ?? "pbvm",
+  tagline: rootPkg?.description ?? "pbvm documentation",
+  favicon: "img/favicon.svg",
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
   future: {
@@ -24,53 +24,53 @@ const config: Config = {
   },
 
   // Set the production url of your site here
-  url: 'https://cgfeel.github.io',
+  url: "https://cgfeel.github.io",
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: process.env.BASE_URL ?? '/pbvm/',
+  baseUrl: process.env.BASE_URL ?? "/pbvm/",
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'cgfeel', // Usually your GitHub org/user name.
-  projectName: 'pbvm', // Usually your repo name.
+  organizationName: "cgfeel", // Usually your GitHub org/user name.
+  projectName: "pbvm", // Usually your repo name.
 
   plugins: [
-    './plugins/tailwind-plugin.ts',
-    './plugins/pwa-manifest-plugin.ts',
-    './plugins/mermaid-loader/index.ts',
+    "./plugins/tailwind-plugin.ts",
+    "./plugins/pwa-manifest-plugin.ts",
+    "./plugins/mermaid-loader/index.ts",
     [
-      '@docusaurus/plugin-pwa',
+      "@docusaurus/plugin-pwa",
       {
-        debug: process.env.NODE_ENV !== 'production',
-        offlineModeActivationStrategies: ['appInstalled', 'standalone', 'queryString'],
+        debug: process.env.NODE_ENV !== "production",
+        offlineModeActivationStrategies: ["appInstalled", "standalone", "queryString"],
       },
     ],
   ],
   themes: [
-    '@docusaurus/theme-mermaid',
+    "@docusaurus/theme-mermaid",
     [
-      '@easyops-cn/docusaurus-search-local',
+      "@easyops-cn/docusaurus-search-local",
       {
-        docsRouteBasePath: '/', // 匹配 docs-as-homepage
+        docsRouteBasePath: "/", // 匹配 docs-as-homepage
         indexBlog: false, // blog 已禁用
         indexDocs: true,
         indexPages: false,
-        language: ['en', 'zh'], // 中文分词 + 英文 stemming
+        language: ["en", "zh"], // 中文分词 + 英文 stemming
         hashed: true, // PWA 长缓存
         highlightSearchTermsOnTargetPage: true,
         searchResultLimits: 8,
-        searchBarPosition: 'right', // 导航栏左侧，Docs 旁
+        searchBarPosition: "right", // 导航栏左侧，Docs 旁
         searchBarShortcut: true,
         searchBarShortcutHint: true,
       },
     ],
   ],
 
-  onBrokenLinks: 'throw',
+  onBrokenLinks: "throw",
   markdown: {
     mermaid: true,
     hooks: {
-      onBrokenMarkdownLinks: 'warn',
+      onBrokenMarkdownLinks: "warn",
     },
   },
 
@@ -78,30 +78,30 @@ const config: Config = {
   // useful metadata like html lang. For example, if your site is Chinese, you
   // may want to replace "en" with "zh-Hans".
   i18n: {
-    defaultLocale: 'en',
-    locales: ['en', 'zh-Hans'],
+    defaultLocale: "en",
+    locales: ["en", "zh-Hans"],
     localeConfigs: {
       en: {
-        htmlLang: 'en-US',
-        label: 'English',
+        htmlLang: "en-US",
+        label: "English",
       },
-      'zh-Hans': {
-        htmlLang: 'zh-Hans',
-        label: '中文',
+      "zh-Hans": {
+        htmlLang: "zh-Hans",
+        label: "中文",
       },
     },
   },
 
   presets: [
     [
-      'classic',
+      "classic",
       {
         docs: {
-          routeBasePath: '/',
-          sidebarPath: './sidebars.ts',
+          routeBasePath: "/",
+          sidebarPath: "./sidebars.ts",
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-          editUrl: 'https://github.com/cgfeel/pbvm/edit/main/documentation/',
+          editUrl: "https://github.com/cgfeel/pbvm/edit/main/documentation/",
         },
         blog: false,
         // blog: {
@@ -120,7 +120,7 @@ const config: Config = {
         //   onUntruncatedBlogPosts: 'warn',
         // },
         theme: {
-          customCss: './src/css/custom.css',
+          customCss: "./src/css/custom.css",
         },
       } satisfies Preset.Options,
     ],
@@ -128,48 +128,48 @@ const config: Config = {
 
   headTags: [
     {
-      tagName: 'meta',
+      tagName: "meta",
       attributes: {
-        name: 'viewport',
-        content: 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no',
+        name: "viewport",
+        content: "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no",
       },
     },
   ],
 
   themeConfig: {
     // Replace with your project's social card
-    image: 'img/docusaurus-social-card.jpg',
+    image: "img/docusaurus-social-card.jpg",
     colorMode: {
       respectPrefersColorScheme: true,
     },
     navbar: {
-      title: rootPkg?.name ?? 'pbvm',
+      title: rootPkg?.name ?? "pbvm",
       logo: {
-        alt: rootPkg?.description ?? 'pbvm documentation',
-        src: 'img/logo.svg',
+        alt: rootPkg?.description ?? "pbvm documentation",
+        src: "img/logo.svg",
       },
       items: [
         {
-          type: 'docSidebar',
-          sidebarId: 'docSidebar',
-          position: 'left',
-          label: 'Docs',
+          type: "docSidebar",
+          sidebarId: "docSidebar",
+          position: "left",
+          label: "Docs",
         },
         {
-          type: 'search',
-          position: 'right',
-          className: 'navbar-search-link',
+          type: "search",
+          position: "right",
+          className: "navbar-search-link",
         },
         // { to: '/blog', label: 'Blog', position: 'left' },
         {
-          href: 'https://github.com/cgfeel/pbvm',
-          label: 'GitHub',
-          position: 'right',
-          className: 'navbar-github-link',
+          href: "https://github.com/cgfeel/pbvm",
+          label: "GitHub",
+          position: "right",
+          className: "navbar-github-link",
         },
         {
-          type: 'localeDropdown',
-          position: 'right',
+          type: "localeDropdown",
+          position: "right",
         },
       ],
     },
@@ -223,6 +223,6 @@ const config: Config = {
       darkTheme: prismThemes.dracula,
     },
   } satisfies Preset.ThemeConfig,
-}
+};
 
-export default config
+export default config;

@@ -1,5 +1,5 @@
 {
-  "extends": "../../tsconfig.json",
+  "extends": "../pbvm/tsconfig.json",
   "compilerOptions": {
     "rootDir": "./src",
     "outDir": "./dist"
