@@ -71,44 +71,44 @@ pbvm 所有命令遵循统一的三层处理模式：**参数校验 → 交互�
 
 命令与 Schema 的对应关系：
 
-| 命令 | Schema | 特殊参数 |
-|------|--------|---------|
-| `create` | `createBrowserSchema` | `mirror`、`rule`、`store` |
-| `search` | `createBrowserSchema` | `mirror`、`rule` |
-| `list` / `store` | `browserItemSchema` | `all` |
-| `remove` | `removeBrowserSchema` | `focus`、`store` |
-| `info` | `infoBrowserSchema` | `runtime` |
-| `open` | `openBrowserSchema` | `url` |
-| `alias` | `aliasBrowserSchema` | — |
-| `mirror` | `mirrorSchema` | `init`、`source` |
+| 命令             | Schema                | 特殊参数                  |
+| ---------------- | --------------------- | ------------------------- |
+| `create`         | `createBrowserSchema` | `mirror`、`rule`、`store` |
+| `search`         | `createBrowserSchema` | `mirror`、`rule`          |
+| `list` / `store` | `browserItemSchema`   | `all`                     |
+| `remove`         | `removeBrowserSchema` | `focus`、`store`          |
+| `info`           | `infoBrowserSchema`   | `runtime`                 |
+| `open`           | `openBrowserSchema`   | `url`                     |
+| `alias`          | `aliasBrowserSchema`  | —                         |
+| `mirror`         | `mirrorSchema`        | `init`、`source`          |
 
 ## Prompt 层（`src/prompts/`）
 
 当用户未提供必选参数时，Prompt 层通过 `@inquirer/prompts` 发起交互式问答。各文件分工：
 
-| 文件 | 服务于 | 交互内容 |
-|------|--------|---------|
-| `create.prompt.ts` | `create`、`search` | 浏览器选型、buildId 输入、alias 输入 |
-| `mirror.prompt.ts` | `mirror` | 镜像源选择（npmmirror / 关闭） |
-| `alias.prompt.ts` | `alias` | 别名操作类型（设置 / 移除）、目标浏览器选择 |
-| `manifest.prompt.ts` | `remove`、`info`、`open`、`clear` | 从 browserlist 或 Store 中选择目标浏览器 |
-| `common.prompt.ts` | `create`、`remove`、`clear` | 操作确认（confirm） |
+| 文件                 | 服务于                            | 交互内容                                    |
+| -------------------- | --------------------------------- | ------------------------------------------- |
+| `create.prompt.ts`   | `create`、`search`                | 浏览器选型、buildId 输入、alias 输入        |
+| `mirror.prompt.ts`   | `mirror`                          | 镜像源选择（npmmirror / 关闭）              |
+| `alias.prompt.ts`    | `alias`                           | 别名操作类型（设置 / 移除）、目标浏览器选择 |
+| `manifest.prompt.ts` | `remove`、`info`、`open`、`clear` | 从 browserlist 或 Store 中选择目标浏览器    |
+| `common.prompt.ts`   | `create`、`remove`、`clear`       | 操作确认（confirm）                         |
 
 ## 脚本层（`src/bin/`）
 
 脚本层承载核心业务逻辑，不感知 CLI 参数格式和交互细节。每个脚本接收已校验完整的参数对象，执行后返回结果或直接输出日志。
 
-| 脚本 | 职责 |
-|------|------|
-| `install.script.ts` | 下载 + 解压 + 写入 browserlist |
-| `remove.script.ts` | 卸载 + 清理 browserlist + 可选清理 profile |
-| `alias.script.ts` | 设置 / 移除 browserlist 中的别名 |
-| `open.script.ts` | 定位浏览器 → 必要时触发安装 → spawn 启动 |
-| `info.script.ts` | 读取安装信息 + 可选启动 headless 采集运行时信息 |
-| `list.script.ts` | 格式化输出 Store / 项目浏览器列表 |
-| `search.script.ts` | HTTP HEAD 请求检测远程资源是否存在 |
-| `clear.script.ts` | 清理 Store 中未被任何项目引用的孤立版本 |
-| `mirror.script.ts` | 写入 / 删除 `.browsermr` 配置文件 |
+| 脚本                | 职责                                            |
+| ------------------- | ----------------------------------------------- |
+| `install.script.ts` | 下载 + 解压 + 写入 browserlist                  |
+| `remove.script.ts`  | 卸载 + 清理 browserlist + 可选清理 profile      |
+| `alias.script.ts`   | 设置 / 移除 browserlist 中的别名                |
+| `open.script.ts`    | 定位浏览器 → 必要时触发安装 → spawn 启动        |
+| `info.script.ts`    | 读取安装信息 + 可选启动 headless 采集运行时信息 |
+| `list.script.ts`    | 格式化输出 Store / 项目浏览器列表               |
+| `search.script.ts`  | HTTP HEAD 请求检测远程资源是否存在              |
+| `clear.script.ts`   | 清理 Store 中未被任何项目引用的孤立版本         |
+| `mirror.script.ts`  | 写入 / 删除 `.browsermr` 配置文件               |
 
 ## 并发控制
 

@@ -1,7 +1,7 @@
 import type { FC, PropsWithChildren } from 'react'
 import { tv } from 'tailwind-variants'
-import Wraper from './Wraper'
 import { t } from '../../utils/i18n'
+import Wraper from './Wraper'
 
 const styles = tv({
   slots: {
@@ -19,12 +19,8 @@ const BrowserFeatures: FC<PropsWithChildren> = ({ children }) => (
   <Wraper>
     <div className={selector()}>
       <div>
-        <div className={desc()}>
-          {t('home.features.desc')}
-        </div>
-        <h2 className={title()}>
-          {t('home.features.title')}
-        </h2>
+        <div className={desc()}>{t('home.features.desc')}</div>
+        <h2 className={title()}>{t('home.features.title')}</h2>
       </div>
       <div className={grid()}>{children}</div>
     </div>

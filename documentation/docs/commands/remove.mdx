@@ -14,21 +14,21 @@ pbvm remove [-p <platform>] [-b <browser>] [-i <buildId>] [-f] [-s]
 
 ## Options
 
-| Option       | Short | Description                                                     |
-| ------------ | ----- | --------------------------------------------------------------- |
-| `--platform` | `-p`  | Target platform                                                 |
-| `--browser`  | `-b`  | Browser name                                                    |
-| `--build-id` | `-i`  | Browser version                                                 |
-| `--focus`    | `-f`  | Also delete Store binary and profile directory                  |
-| `--store`    | `-s`  | Delete only the Store binary                                    |
+| Option       | Short | Description                                    |
+| ------------ | ----- | ---------------------------------------------- |
+| `--platform` | `-p`  | Target platform                                |
+| `--browser`  | `-b`  | Browser name                                   |
+| `--build-id` | `-i`  | Browser version                                |
+| `--focus`    | `-f`  | Also delete Store binary and profile directory |
+| `--store`    | `-s`  | Delete only the Store binary                   |
 
 ## Removal scope
 
-| Mode        | Flags          | Removes browserlist record | Removes Store binary | Removes profile dir |
-|-------------|----------------|:---:|:---:|:---:|
-| Default     | no `-f` / `-s` | ✅ | ❌ | ❌ |
-| Focus mode  | `-f`           | ✅ | ✅ | ✅ |
-| Store mode  | `-s`           | ❌ | ✅ | ❌ |
+| Mode       | Flags          | Removes browserlist record | Removes Store binary | Removes profile dir |
+| ---------- | -------------- | :------------------------: | :------------------: | :-----------------: |
+| Default    | no `-f` / `-s` |             ✅             |          ❌          |         ❌          |
+| Focus mode | `-f`           |             ✅             |          ✅          |         ✅          |
+| Store mode | `-s`           |             ❌             |          ✅          |         ❌          |
 
 ## Examples
 

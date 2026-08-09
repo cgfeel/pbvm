@@ -14,36 +14,36 @@ pbvm search [-b <browser>] [-i <buildId>] [-m <mirror>] [-r <rule>]
 
 ## Options
 
-| Option       | Short | Description                                                                 |
-| ------------ | ----- | --------------------------------------------------------------------------- |
-| `--browser`  | `-b`  | Browser name: `chrome`, `chromium`, `firefox`                               |
-| `--build-id` | `-i`  | Browser version                                                             |
-| `--mirror`   | `-m`  | Path to a mirror rule file; defaults to `.browsermr` in CWD then global     |
+| Option       | Short | Description                                                                                |
+| ------------ | ----- | ------------------------------------------------------------------------------------------ |
+| `--browser`  | `-b`  | Browser name: `chrome`, `chromium`, `firefox`                                              |
+| `--build-id` | `-i`  | Browser version                                                                            |
+| `--mirror`   | `-m`  | Path to a mirror rule file; defaults to `.browsermr` in CWD then global                    |
 | `--rule`     | `-r`  | Custom mirror template params in URL search format: `a=1&b=2`, replaces template variables |
 
 ## Output
 
 ### Browser info (local state)
 
-| Field      | Description                        |
-| ---------- | ---------------------------------- |
-| `platform` | Current platform                   |
-| `browser`  | Browser name                       |
-| `buildId`  | Version                            |
-| `installed`| Whether installed in the local Store |
+| Field       | Description                          |
+| ----------- | ------------------------------------ |
+| `platform`  | Current platform                     |
+| `browser`   | Browser name                         |
+| `buildId`   | Version                              |
+| `installed` | Whether installed in the local Store |
 
 ### Search info (remote state)
 
-| Field          | Description                       |
-| -------------- | --------------------------------- |
-| `exists`       | Whether the remote resource exists |
-| `url`          | Download URL                      |
-| `status`       | HTTP response status code         |
-| `redirected`   | Whether a redirect occurred       |
-| `size`         | File size (bytes)                 |
-| `contentType`  | Content type                      |
-| `lastModified` | Remote file last-modified time    |
-| `etag`         | Resource ETag                     |
+| Field          | Description                          |
+| -------------- | ------------------------------------ |
+| `exists`       | Whether the remote resource exists   |
+| `url`          | Download URL                         |
+| `status`       | HTTP response status code            |
+| `redirected`   | Whether a redirect occurred          |
+| `size`         | File size (bytes)                    |
+| `contentType`  | Content type                         |
+| `lastModified` | Remote file last-modified time       |
+| `etag`         | Resource ETag                        |
 | `acceptRanges` | Whether range requests are supported |
 
 ## Examples

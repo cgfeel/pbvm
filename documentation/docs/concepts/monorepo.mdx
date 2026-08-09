@@ -112,16 +112,16 @@ pbvm uses a pnpm workspace monorepo structure, containing the CLI core package a
 
 ## Key modules
 
-| Module                | Path           | Responsibility                                                                                                                                    |
-| --------------------- | -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `browser.lock.ts`     | `src/browser/` | Locked wrapper around `@puppeteer/browsers` `install` / `uninstall` / `getInstalledBrowsers`, preventing concurrent cache directory access       |
-| `base.browser.ts`     | `src/browser/` | WebSocket connection abstraction (`DevConnection`), process spawning, endpoint capture — shared by Chromium and Firefox                          |
+| Module                | Path           | Responsibility                                                                                                                                                             |
+| --------------------- | -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `browser.lock.ts`     | `src/browser/` | Locked wrapper around `@puppeteer/browsers` `install` / `uninstall` / `getInstalledBrowsers`, preventing concurrent cache directory access                                 |
+| `base.browser.ts`     | `src/browser/` | WebSocket connection abstraction (`DevConnection`), process spawning, endpoint capture — shared by Chromium and Firefox                                                    |
 | `chromium.browser.ts` | `src/browser/` | CDP protocol implementation; collects runtime info via `Browser.getVersion` / `Target.attachToTarget` / `Runtime.evaluate`; supports `headless=new` fallback to `headless` |
-| `firefox.browser.ts`  | `src/browser/` | WebDriver BiDi protocol implementation; collects runtime info via `session.new` / `script.evaluate`; `RemoteValue` deserialization               |
-| `buildEnvScript.ts`   | `src/browser/` | Fingerprint collection script injected into browser pages; collects `userAgent`, `webgl`, `screen`, `timezone`, etc.                             |
-| `manifest.ts`         | `src/utils/`   | `browserlist.json` read/write + Store list query; supports lookup by alias or `browser@buildId`                                                  |
-| `lock.ts`             | `src/utils/`   | Process-level file lock; `acquireLock` for exclusive write lock, `waitForLock` for waiting on read lock release                                  |
-| `paths.ts`            | `src/utils/`   | Directory management based on `env-paths`; provides five standard paths: `cache` / `data` / `config` / `log` / `temp`                            |
+| `firefox.browser.ts`  | `src/browser/` | WebDriver BiDi protocol implementation; collects runtime info via `session.new` / `script.evaluate`; `RemoteValue` deserialization                                         |
+| `buildEnvScript.ts`   | `src/browser/` | Fingerprint collection script injected into browser pages; collects `userAgent`, `webgl`, `screen`, `timezone`, etc.                                                       |
+| `manifest.ts`         | `src/utils/`   | `browserlist.json` read/write + Store list query; supports lookup by alias or `browser@buildId`                                                                            |
+| `lock.ts`             | `src/utils/`   | Process-level file lock; `acquireLock` for exclusive write lock, `waitForLock` for waiting on read lock release                                                            |
+| `paths.ts`            | `src/utils/`   | Directory management based on `env-paths`; provides five standard paths: `cache` / `data` / `config` / `log` / `temp`                                                      |
 
 ## Core dependency chain
 
@@ -161,14 +161,14 @@ pbvm uses a pnpm workspace monorepo structure, containing the CLI core package a
 
 ## Summary
 
-| Layer        | Responsibility                             | Key files            |
-| ------------ | ------------------------------------------ | -------------------- |
-| Entry        | Commander CLI startup, command registration | src/index.ts         |
-| Command      | Arg parsing, interactive completion, confirmation | src/commands/\*.ts   |
-| Prompt       | @inquirer/prompts interactive Q&A          | src/prompts/\*.ts    |
-| Script       | Core business logic                        | src/bin/\*.script.ts |
-| Browser      | CDP/BiDi WebSocket communication, process management, locking | src/browser/\*.ts    |
-| Utility      | manifest management, file lock, paths, logging | src/utils/\*.ts      |
-| Type         | Zod runtime validation + TypeScript types  | src/types/index.ts   |
-| API          | Public export: launchBrowser()             | src/api.ts           |
-| Docs         | Docusaurus 3 + Tailwind 4 + React 19       | documentation/       |
+| Layer   | Responsibility                                                | Key files            |
+| ------- | ------------------------------------------------------------- | -------------------- |
+| Entry   | Commander CLI startup, command registration                   | src/index.ts         |
+| Command | Arg parsing, interactive completion, confirmation             | src/commands/\*.ts   |
+| Prompt  | @inquirer/prompts interactive Q&A                             | src/prompts/\*.ts    |
+| Script  | Core business logic                                           | src/bin/\*.script.ts |
+| Browser | CDP/BiDi WebSocket communication, process management, locking | src/browser/\*.ts    |
+| Utility | manifest management, file lock, paths, logging                | src/utils/\*.ts      |
+| Type    | Zod runtime validation + TypeScript types                     | src/types/index.ts   |
+| API     | Public export: launchBrowser()                                | src/api.ts           |
+| Docs    | Docusaurus 3 + Tailwind 4 + React 19                          | documentation/       |

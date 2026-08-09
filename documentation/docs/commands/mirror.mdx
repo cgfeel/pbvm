@@ -14,9 +14,9 @@ pbvm mirror [-s <source>] [-i]
 
 ## Options
 
-| Option     | Short | Description                                                                 |
-| ---------- | ----- | --------------------------------------------------------------------------- |
-| `--source` | `-s`  | Mirror source name, e.g. `npmmirror`; interactive selection if not specified |
+| Option     | Short | Description                                                                                     |
+| ---------- | ----- | ----------------------------------------------------------------------------------------------- |
+| `--source` | `-s`  | Mirror source name, e.g. `npmmirror`; interactive selection if not specified                    |
 | `--init`   | `-i`  | Create a mirror config file in the current directory (project-level); defaults to global config |
 
 ## How it works
@@ -25,15 +25,15 @@ pbvm mirror [-s <source>] [-i]
 
 Mirror templates use the following variables for URL substitution:
 
-| Variable      | Description                                                |
-| ------------- | ---------------------------------------------------------- |
-| `<browser>`   | Browser name (`chrome` / `chromium` / `firefox`)           |
-| `<buildId>`   | Version number without the channel prefix                  |
-| `<channelId>` | Full channel + version (Firefox only)                      |
-| `<platform>`  | Platform identifier                                        |
-| `<lang>`      | Language (Firefox only, default `zh-CN`)                   |
-| `<ext>`       | File extension                                             |
-| `<suffix>`    | Browser-specific suffix                                    |
+| Variable      | Description                                      |
+| ------------- | ------------------------------------------------ |
+| `<browser>`   | Browser name (`chrome` / `chromium` / `firefox`) |
+| `<buildId>`   | Version number without the channel prefix        |
+| `<channelId>` | Full channel + version (Firefox only)            |
+| `<platform>`  | Platform identifier                              |
+| `<lang>`      | Language (Firefox only, default `zh-CN`)         |
+| `<ext>`       | File extension                                   |
+| `<suffix>`    | Browser-specific suffix                          |
 
 Use `--rule` (on `create` / `search` commands) to pass custom params that override identically-named variables in the template.
 
@@ -55,6 +55,7 @@ pbvm mirror
 ```
 
 Interactive options:
+
 1. **Use npmmirror** — enable the npmmirror mirror source
 2. **Remove the mirror** — disable mirroring (delete `.browsermr`)
 

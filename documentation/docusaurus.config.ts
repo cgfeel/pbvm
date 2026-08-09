@@ -7,7 +7,7 @@ import { themes as prismThemes } from 'prism-react-renderer'
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...) - 1
 
 const rootPkg = JSON.parse(
-  fs.readFileSync(path.resolve(__dirname, '../package.json'), 'utf-8')
+  fs.readFileSync(path.resolve(__dirname, '../packages/pbvm-cli/package.json'), 'utf-8')
 ) as unknown as {
   name?: string
   description?: string

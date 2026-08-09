@@ -14,22 +14,22 @@ pbvm create [-b <browser>] [-i <buildId>] [-a <alias>] [-m <mirror>] [-r <rule>]
 
 ## Options
 
-| Option       | Short | Description                                                                 |
-| ------------ | ----- | --------------------------------------------------------------------------- |
-| `--browser`  | `-b`  | Browser name: `chrome`, `chromium`, `firefox`                               |
-| `--build-id` | `-i`  | Browser version; format varies by browser                                   |
-| `--alias`    | `-a`  | Alias for the browser, to simplify subsequent commands                      |
-| `--mirror`   | `-m`  | Path to a mirror rule file; defaults to `.browsermr` in CWD then global     |
+| Option       | Short | Description                                                                                |
+| ------------ | ----- | ------------------------------------------------------------------------------------------ |
+| `--browser`  | `-b`  | Browser name: `chrome`, `chromium`, `firefox`                                              |
+| `--build-id` | `-i`  | Browser version; format varies by browser                                                  |
+| `--alias`    | `-a`  | Alias for the browser, to simplify subsequent commands                                     |
+| `--mirror`   | `-m`  | Path to a mirror rule file; defaults to `.browsermr` in CWD then global                    |
 | `--rule`     | `-r`  | Custom mirror template params in URL search format: `a=1&b=2`, replaces template variables |
-| `--store`    | `-s`  | Download to the global Store only; do not write to `browserlist.json`       |
+| `--store`    | `-s`  | Download to the global Store only; do not write to `browserlist.json`                      |
 
 ## buildId format
 
-| Browser  | buildId format              | Example          |
-| -------- | --------------------------- | ---------------- |
-| chrome   | `x.x.x.x` (4-part version)  | `134.0.6998.35`  |
-| chromium | Numeric revision number     | `1435764`        |
-| firefox  | `channel_version`           | `stable_136.0.0` |
+| Browser  | buildId format             | Example          |
+| -------- | -------------------------- | ---------------- |
+| chrome   | `x.x.x.x` (4-part version) | `134.0.6998.35`  |
+| chromium | Numeric revision number    | `1435764`        |
+| firefox  | `channel_version`          | `stable_136.0.0` |
 
 ## Examples
 

@@ -58,11 +58,19 @@ export default function mermaidLoader(source) {
     renderer([source], { mermaidConfig: { theme: 'dark' } }),
   ])
     .then(([light, dark]) => {
-      this.emitFile(`mermaid/index/${hash}.svg`, light[0].value.svg)
-      this.emitFile(`mermaid/index/${hash}-dark.svg`, dark[0].value.svg)
-      callback(null, `export default ${JSON.stringify(`/mermaid/index/${hash}.svg`)}`)
+      if (dark[0].status === 'fulfilled') {
+        this.emitFile(`mermaid/index/${hash}-dark.svg`, dark[0].value.svg)
+      }
+      if (light[0].status === 'fulfilled') {
+        this.emitFile(`mermaid/index/${hash}.svg`, light[0].value.svg)
+        callback(null, `export default ${JSON.stringify(`/mermaid/index/${hash}.svg`)}`)
+        return
+      }
+      return Promise.reject(
+        light[0].reason instanceof Error ? light[0].reason : new Error('parse svg failed')
+      )
     })
-    .catch(() => {
+    .catch((err) => {
       console.error('[mermaid-loader] render error:', err.message)
       callback(null, `export default ${JSON.stringify(source)}`)
     })

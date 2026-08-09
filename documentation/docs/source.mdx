@@ -12,8 +12,8 @@ The `buildId` required by `create` and `search` varies by browser. Below are the
 
 ### Chrome
 
-| Resource                                                                                                                                  | Description                                                                          |
-| ----------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
+| Resource                                                                                                                                  | Description                                                                                  |
+| ----------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
 | [Chrome for Testing - Known Good Versions](https://googlechromelabs.github.io/chrome-for-testing/known-good-versions-with-downloads.json) | Official JSON of available Chrome versions from Google, including per-platform download URLs |
 | [Puppeteer Supported Browsers](https://pptr.dev/supported-browsers)                                                                       | Puppeteer's officially maintained browser support list, mapping Chrome versions to `buildId` |
 
@@ -29,9 +29,9 @@ pbvm search -b chrome -i 134.0.6998.35
 
 ### Chromium
 
-| Resource                                                                                                  | Description                                                                          |
-| --------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
-| [Chromium Dash](https://chromiumdash.appspot.com/home)                                                    | Chromium release dashboard; query revision numbers and build progress by platform    |
+| Resource                                                                                                  | Description                                                                           |
+| --------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
+| [Chromium Dash](https://chromiumdash.appspot.com/home)                                                    | Chromium release dashboard; query revision numbers and build progress by platform     |
 | [Chromium Snapshot Index](https://commondatastorage.googleapis.com/chromium-browser-snapshots/index.html) | Chromium snapshot storage bucket root; browse files directly by platform and revision |
 
 `buildId` format: numeric revision number, e.g. `1435764`.
@@ -122,15 +122,15 @@ You can also reference the built-in template directly: [npmmirror.json](https://
 
 Placeholders enclosed in `<>` in the mirror URL are replaced with actual values at download time:
 
-| Variable      | Source       | Description                                                                       |
-| ------------- | ------------ | --------------------------------------------------------------------------------- |
-| `<browser>`   | Fixed        | Browser name: `chrome`, `chromium`, `firefox`                                     |
-| `<platform>`  | Fixed        | Current platform identifier, provided by `@puppeteer/browsers`                    |
-| `<buildId>`   | Fixed        | Version number with the channel prefix stripped (Firefox `stable_136.0.0` → `136.0.0`) |
-| `<channelId>` | Fixed        | Full channel + version, Firefox only                                              |
-| `<lang>`      | Fixed        | Language, Firefox only, default `zh-CN`                                           |
-| `<ext>`       | Mapping field | File extension, resolved by platform from the `ext` mapping                       |
-| `<suffix>`    | Mapping field | Browser-specific filename suffix, resolved by platform from the `suffix` mapping  |
+| Variable      | Source        | Description                                                                            |
+| ------------- | ------------- | -------------------------------------------------------------------------------------- |
+| `<browser>`   | Fixed         | Browser name: `chrome`, `chromium`, `firefox`                                          |
+| `<platform>`  | Fixed         | Current platform identifier, provided by `@puppeteer/browsers`                         |
+| `<buildId>`   | Fixed         | Version number with the channel prefix stripped (Firefox `stable_136.0.0` → `136.0.0`) |
+| `<channelId>` | Fixed         | Full channel + version, Firefox only                                                   |
+| `<lang>`      | Fixed         | Language, Firefox only, default `zh-CN`                                                |
+| `<ext>`       | Mapping field | File extension, resolved by platform from the `ext` mapping                            |
+| `<suffix>`    | Mapping field | Browser-specific filename suffix, resolved by platform from the `suffix` mapping       |
 
 **Mapping fields** are the top-level keys alongside `mirror` in the JSON. The key name acts as a template variable name, and its value is a `{ platform: value }` map. For example:
 

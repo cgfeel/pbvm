@@ -1,4 +1,4 @@
 {
-  ".": "1.0.39",
+  "packages/pbvm-cli": "1.0.39",
   "packages/mermaid-prerender": "0.0.12"
 }

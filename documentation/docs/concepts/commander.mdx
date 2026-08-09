@@ -71,44 +71,44 @@ Each command file registers with the Commander instance via `registerXxxCommand(
 
 Command-to-Schema mapping:
 
-| Command             | Schema                 | Special flags                |
-| ------------------- | ---------------------- | ---------------------------- |
-| `create`            | `createBrowserSchema`  | `mirror`, `rule`, `store`    |
-| `search`            | `createBrowserSchema`  | `mirror`, `rule`             |
-| `list` / `store`    | `browserItemSchema`    | `all`                        |
-| `remove`            | `removeBrowserSchema`  | `focus`, `store`             |
-| `info`              | `infoBrowserSchema`    | `runtime`                    |
-| `open`              | `openBrowserSchema`    | `url`                        |
-| `alias`             | `aliasBrowserSchema`   | —                            |
-| `mirror`            | `mirrorSchema`         | `init`, `source`             |
+| Command          | Schema                | Special flags             |
+| ---------------- | --------------------- | ------------------------- |
+| `create`         | `createBrowserSchema` | `mirror`, `rule`, `store` |
+| `search`         | `createBrowserSchema` | `mirror`, `rule`          |
+| `list` / `store` | `browserItemSchema`   | `all`                     |
+| `remove`         | `removeBrowserSchema` | `focus`, `store`          |
+| `info`           | `infoBrowserSchema`   | `runtime`                 |
+| `open`           | `openBrowserSchema`   | `url`                     |
+| `alias`          | `aliasBrowserSchema`  | —                         |
+| `mirror`         | `mirrorSchema`        | `init`, `source`          |
 
 ## Prompt layer (`src/prompts/`)
 
 When required args are not provided, the Prompt layer launches interactive Q&A via `@inquirer/prompts`. File responsibilities:
 
-| File                   | Serves                                | Interactive content                                     |
-| ---------------------- | ------------------------------------- | ------------------------------------------------------- |
-| `create.prompt.ts`     | `create`, `search`                    | Browser selection, buildId input, alias input           |
-| `mirror.prompt.ts`     | `mirror`                              | Mirror source selection (npmmirror / disable)           |
-| `alias.prompt.ts`      | `alias`                               | Alias operation type (set / remove), target selection   |
-| `manifest.prompt.ts`   | `remove`, `info`, `open`, `clear`     | Select target browser from browserlist or Store         |
-| `common.prompt.ts`     | `create`, `remove`, `clear`           | Operation confirmation (confirm)                        |
+| File                 | Serves                            | Interactive content                                   |
+| -------------------- | --------------------------------- | ----------------------------------------------------- |
+| `create.prompt.ts`   | `create`, `search`                | Browser selection, buildId input, alias input         |
+| `mirror.prompt.ts`   | `mirror`                          | Mirror source selection (npmmirror / disable)         |
+| `alias.prompt.ts`    | `alias`                           | Alias operation type (set / remove), target selection |
+| `manifest.prompt.ts` | `remove`, `info`, `open`, `clear` | Select target browser from browserlist or Store       |
+| `common.prompt.ts`   | `create`, `remove`, `clear`       | Operation confirmation (confirm)                      |
 
 ## Script layer (`src/bin/`)
 
 The script layer carries core business logic and is unaware of CLI arg formats or interactive details. Each script receives a fully validated args object, executes, and returns a result or outputs logs directly.
 
-| Script                | Responsibility                                                      |
-| --------------------- | ------------------------------------------------------------------- |
-| `install.script.ts`   | Download + extract + write browserlist                              |
-| `remove.script.ts`    | Uninstall + clean browserlist + optional profile cleanup            |
-| `alias.script.ts`     | Set / remove alias in browserlist                                   |
-| `open.script.ts`      | Locate browser → trigger install if needed → spawn to launch        |
-| `info.script.ts`      | Read install info + optionally launch headless to collect runtime info |
-| `list.script.ts`      | Format and output Store / project browser lists                     |
-| `search.script.ts`    | HTTP HEAD request to check remote resource availability             |
-| `clear.script.ts`     | Clean Store of orphaned versions not referenced by any project      |
-| `mirror.script.ts`    | Write / delete `.browsermr` config file                             |
+| Script              | Responsibility                                                         |
+| ------------------- | ---------------------------------------------------------------------- |
+| `install.script.ts` | Download + extract + write browserlist                                 |
+| `remove.script.ts`  | Uninstall + clean browserlist + optional profile cleanup               |
+| `alias.script.ts`   | Set / remove alias in browserlist                                      |
+| `open.script.ts`    | Locate browser → trigger install if needed → spawn to launch           |
+| `info.script.ts`    | Read install info + optionally launch headless to collect runtime info |
+| `list.script.ts`    | Format and output Store / project browser lists                        |
+| `search.script.ts`  | HTTP HEAD request to check remote resource availability                |
+| `clear.script.ts`   | Clean Store of orphaned versions not referenced by any project         |
+| `mirror.script.ts`  | Write / delete `.browsermr` config file                                |
 
 ## Concurrency control
 

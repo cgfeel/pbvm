@@ -83,8 +83,5 @@ jobs:
           echo "package=$PACKAGE" >> $GITHUB_OUTPUT
           echo "Release → $COMPONENT"
 
-      - name: Build package
-        run: pnpm run build${{ steps.pkg.outputs.package }}
-
       - name: Publish npm package
-        run: pnpm run release${{ steps.pkg.outputs.package }} --no-git-checks --provenance
+        run: pnpm run release${{ steps.pkg.outputs.package }} -- --no-git-checks --provenance

@@ -14,10 +14,10 @@ pbvm mirror [-s <source>] [-i]
 
 ## 选项
 
-| 选项 | 简写 | 说明 |
-|------|------|------|
-| `--source` | `-s` | 镜像源名称，如 `npmmirror`；不指定则执行交互选择 |
-| `--init` | `-i` | 在当前目录创建镜像配置文件（项目级），默认写入全局配置 |
+| 选项       | 简写 | 说明                                                   |
+| ---------- | ---- | ------------------------------------------------------ |
+| `--source` | `-s` | 镜像源名称，如 `npmmirror`；不指定则执行交互选择       |
+| `--init`   | `-i` | 在当前目录创建镜像配置文件（项目级），默认写入全局配置 |
 
 ## 工作原理
 
@@ -25,15 +25,15 @@ pbvm mirror [-s <source>] [-i]
 
 镜像模板使用以下变量进行 URL 替换：
 
-| 变量 | 说明 |
-|------|------|
-| `<browser>` | 浏览器名称（`chrome` / `chromium` / `firefox`） |
-| `<buildId>` | 不含 channel 前缀的版本号 |
-| `<channelId>` | 完整 channel + 版本号（Firefox 专用） |
-| `<platform>` | 平台标识 |
-| `<lang>` | 语言（Firefox 专用，默认 `zh-CN`） |
-| `<ext>` | 文件扩展名 |
-| `<suffix>` | 浏览器专属后缀 |
+| 变量          | 说明                                            |
+| ------------- | ----------------------------------------------- |
+| `<browser>`   | 浏览器名称（`chrome` / `chromium` / `firefox`） |
+| `<buildId>`   | 不含 channel 前缀的版本号                       |
+| `<channelId>` | 完整 channel + 版本号（Firefox 专用）           |
+| `<platform>`  | 平台标识                                        |
+| `<lang>`      | 语言（Firefox 专用，默认 `zh-CN`）              |
+| `<ext>`       | 文件扩展名                                      |
+| `<suffix>`    | 浏览器专属后缀                                  |
 
 可通过 `--rule`（`create` / `search` 命令）传入自定义参数覆盖模板中的同名变量。
 
@@ -55,6 +55,7 @@ pbvm mirror
 ```
 
 交互选项：
+
 1. **Use npmmirror** — 启用 npmmirror 镜像源
 2. **Remove the mirror** — 禁用镜像（删除 `.browsermr`）
 

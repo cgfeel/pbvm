@@ -6,20 +6,14 @@
   "tag-separator": "@",
   "separate-pull-requests": true,
   "packages": {
-    ".": {
-      "package-name": "pbvm",
-      "component": "pbvm",
-      "changelog-path": "CHANGELOG.md",
-      "exclude-paths": [
-        "documentation",
-        "packages",
-        "pnpm-lock.yaml",
-        ".release-please-manifest.json"
-      ]
-    },
     "packages/mermaid-prerender": {
       "package-name": "mermaid-prerender",
       "component": "mermaid-prerender",
+      "changelog-path": "CHANGELOG.md"
+    },
+    "packages/pbvm-cli": {
+      "package-name": "pbvm-cli",
+      "component": "pbvm-cli",
       "changelog-path": "CHANGELOG.md"
     }
   }

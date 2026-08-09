@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs'
-import { basename, join, relative, resolve } from 'node:path'
+import { join, relative, resolve } from 'node:path'
 import type { MermaidConfig } from 'mermaid'
 import type { MermaidRenderer } from 'mermaid-isomorphic'
 import { closeWorker, getRenderer, hashString, loadDotEnv } from './utils.js'
@@ -46,7 +46,7 @@ function extractBlocks(dir: string, lang: string) {
 async function renderSvg(render: MermaidRenderer, source: string, theme: MermaidTheme['theme']) {
   const [result] = await render([source], { mermaidConfig: { theme } })
   if (result.status === 'fulfilled') return result.value.svg
-  throw result.reason instanceof Error ? result.reason : new Error('renderSvg faild')
+  throw result.reason instanceof Error ? result.reason : new Error('renderSvg failed')
 }
 
 class MermaidPreRenderPlugin {
@@ -185,7 +185,7 @@ type CompilerType = {
   options: {
     mode?: CompilerMode
     output?: { path?: string }
-    target?: string | string[]
+    target?: false | string | string[]
   }
 }
 

@@ -1,8 +1,8 @@
 import Link from '@docusaurus/Link'
 import type { FC } from 'react'
 import { tv } from 'tailwind-variants'
-import Wraper from './Wraper'
 import { t } from '../../utils/i18n'
+import Wraper from './Wraper'
 
 const logoText = `██████╗ ██████╗ ██╗   ██╗███╗   ███╗
 ██╔══██╗██╔══██╗██║   ██║████╗ ████║
@@ -26,18 +26,12 @@ const BottomStart: FC = () => (
   <Wraper>
     <div className={container()}>
       <div>
-        <h3 className={title()}>
-          {t('home.bottom.title')}
-        </h3>
-        <div className={tips()}>
-          {t('home.bottom.desc')}
-        </div>
+        <h3 className={title()}>{t('home.bottom.title')}</h3>
+        <div className={tips()}>{t('home.bottom.desc')}</div>
       </div>
       <pre className={logo()}>{logoText}</pre>
       <div>
-        <Link to="/intro">
-          {t('home.bottom.cta')}
-        </Link>
+        <Link to="/intro">{t('home.bottom.cta')}</Link>
       </div>
     </div>
   </Wraper>

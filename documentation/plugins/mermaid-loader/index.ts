@@ -25,12 +25,14 @@ export default function mermaidLoaderPlugin(context: LoadContext): Plugin {
         }))
 
       config.plugins?.push(
+        // @ts-ignore
         new MermaidPreRenderPlugin({
           catalogues: [...catalogues, { name: defaultLocale, entry: path.join(siteDir, 'docs') }],
           themes: [
             { name: 'light', theme: 'default' },
             { name: 'dark', theme: 'dark' },
           ],
+          defaultLocale,
           output,
         })
       )
