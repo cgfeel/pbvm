@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.0.10](https://github.com/cgfeel/pbvm/compare/mermaid-prerender@v0.0.9...mermaid-prerender@v0.0.10) (2026-08-09)
+
+
+### Bug Fixes
+
+* **mermaid-prerender:** add worker test ([02cd21f](https://github.com/cgfeel/pbvm/commit/02cd21f27c3aee4369fad89d3a935957bd0ffecb))
+* **mermaid-prerender:** add worker test ([42403be](https://github.com/cgfeel/pbvm/commit/42403be8de2484eaeee888e688d863b9aa6cd054))
+
 ## [0.0.9](https://github.com/cgfeel/pbvm/compare/mermaid-prerender@v0.0.8...mermaid-prerender@v0.0.9) (2026-08-08)
 
 
