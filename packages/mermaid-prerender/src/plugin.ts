@@ -1,16 +1,10 @@
 import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { join, relative, resolve } from 'node:path'
 import type { MermaidRenderer } from 'mermaid-isomorphic'
+import { hashString } from './index.js'
 import { createLogger } from './logger.js'
 import type { CompilerMode, MermaidTheme, TargetType } from './types.js'
-import {
-  allowProcess,
-  closeWorker,
-  DEFAULT_THEMES,
-  getRenderer,
-  hashString,
-  loadDotEnv,
-} from './utils.js'
+import { allowProcess, closeWorker, DEFAULT_THEMES, getRenderer, loadDotEnv } from './utils.js'
 
 function ensureDir(dir: string) {
   if (!existsSync(dir)) mkdirSync(dir, { recursive: true })
@@ -64,8 +58,8 @@ class MermaidPreRenderPlugin {
     const root = process.cwd()
 
     compiler.hooks.afterEmit.tapAsync(pluginName, async (_, callback) => {
-      if (!allowProcess(compiler.options)) return
       try {
+        if (!allowProcess(compiler.options)) return
         const {
           catalogues: allCatalogues,
           defaultLocale,

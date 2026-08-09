@@ -1,13 +1,7 @@
+import { hashString } from './index.js'
 import { createLogger } from './logger.js'
 import type { CompilerMode, MermaidTheme, TargetType } from './types.js'
-import {
-  allowProcess,
-  closeWorker,
-  DEFAULT_THEMES,
-  getRenderer,
-  hashString,
-  loadDotEnv,
-} from './utils.js'
+import { allowProcess, closeWorker, DEFAULT_THEMES, getRenderer, loadDotEnv } from './utils.js'
 
 export default async function mermaidLoader(
   this: MiniLoaderContext<MermaidLoaderOptions>,

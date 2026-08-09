@@ -37,7 +37,7 @@ const config: Config = {
   plugins: [
     './plugins/tailwind-plugin.ts',
     './plugins/pwa-manifest-plugin.ts',
-    './plugins/mermaid-loader/index.ts',
+    './plugins/mermaid-loader.ts',
     [
       '@docusaurus/plugin-pwa',
       {

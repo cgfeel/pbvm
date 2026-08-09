@@ -25,7 +25,6 @@ export default function mermaidLoaderPlugin(context: LoadContext): Plugin {
         }))
 
       config.plugins?.push(
-        // @ts-ignore
         new MermaidPreRenderPlugin({
           catalogues: [...catalogues, { name: defaultLocale, entry: path.join(siteDir, 'docs') }],
           themes: [
@@ -38,7 +37,7 @@ export default function mermaidLoaderPlugin(context: LoadContext): Plugin {
       )
       config.module?.rules?.unshift({
         test: /\.mmd$/,
-        use: [{ loader: path.resolve(__dirname, 'loader.mjs') }],
+        use: [{ loader: 'mermaid-prerender/loader' }],
         type: 'javascript/auto',
         enforce: 'pre',
       })

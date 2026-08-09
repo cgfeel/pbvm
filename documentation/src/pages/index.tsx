@@ -15,6 +15,8 @@ import DevEnvironment from '../components/home/DevEnvironment'
 import { BuildScript, CreateScript } from '../components/home/Script'
 import System from '../components/home/System'
 import Terminal from '../components/home/Terminal'
+import Mermaid from '../components/mermaid'
+import cliops from '../mermaid/zh-Hans/cliops.mmd'
 import { objectEntries } from '../utils/fields'
 import { t } from '../utils/i18n'
 
@@ -79,6 +81,7 @@ export default function Home(): ReactNode {
       </BuildTools>
 
       <BottomStart />
+      <Mermaid value={cliops} />
     </Layout>
   )
 }

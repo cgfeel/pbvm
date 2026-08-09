@@ -102,15 +102,9 @@ importers:
       cross-env:
         specifier: ^10.1.0
         version: 10.1.0
-      mermaid-isomorphic:
-        specifier: ^3.1.0
-        version: 3.1.0(playwright@1.62.1)
       mermaid-prerender:
-        specifier: ^0.0.13
-        version: 0.0.13(mermaid@11.16.0)(playwright@1.62.1)
-      playwright:
-        specifier: ^1.62.1
-        version: 1.62.1
+        specifier: ^0.0.14
+        version: 0.0.14(mermaid@11.16.0)(playwright@1.62.1)
       tailwind-merge:
         specifier: ^3.6.0
         version: 3.6.0
@@ -5828,8 +5822,8 @@ packages:
       playwright:
         optional: true
 
-  mermaid-prerender@0.0.13:
-    resolution: {integrity: sha512-NYJp+qs6VH2T7nBF7Xp+Y6OFYV5Myjj8nv2pAXXE7g6U+4P2LkHWxqIu2qQFHKyzMGTg1lQmRgH9glfwdMMi2w==}
+  mermaid-prerender@0.0.14:
+    resolution: {integrity: sha512-rikQ7YKoOkmwPX5hRqnwP+9X/2aS2hZHm6tvk3cybBTNq4O92t7bjokxT5Ei+A725KRhI3gPbCXR3oWdEWrlFA==}
     engines: {node: '>=22.0.0', pnpm: '>=9.0.0'}
     peerDependencies:
       mermaid: '>=11.0.0'
@@ -14857,7 +14851,7 @@ snapshots:
     optionalDependencies:
       playwright: 1.62.1
 
-  mermaid-prerender@0.0.13(mermaid@11.16.0)(playwright@1.62.1):
+  mermaid-prerender@0.0.14(mermaid@11.16.0)(playwright@1.62.1):
     dependencies:
       mermaid: 11.16.0
       mermaid-isomorphic: 3.1.0(playwright@1.62.1)
@@ -15572,13 +15566,15 @@ snapshots:
       pvutils: 1.1.5
       tslib: 2.8.1
 
-  playwright-core@1.62.1: {}
+  playwright-core@1.62.1:
+    optional: true
 
   playwright@1.62.1:
     dependencies:
       playwright-core: 1.62.1
     optionalDependencies:
       fsevents: 2.3.2
+    optional: true
 
   points-on-curve@0.2.0: {}
 

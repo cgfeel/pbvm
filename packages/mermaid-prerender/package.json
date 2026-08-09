@@ -40,6 +40,10 @@
     "./loader": {
       "types": "./dist/loader.d.ts",
       "default": "./dist/loader.js"
+    },
+    "./plugin": {
+      "types": "./dist/plugin.d.ts",
+      "default": "./dist/plugin.js"
     }
   },
   "scripts": {
