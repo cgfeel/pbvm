@@ -96,11 +96,7 @@ export const BuildScript: FC = () => [
 
 export const CreateScript: FC = () => (
   <div className={script()}>
-    <CodeCard title={t('home.script.install')}>
-      {INSTALL_CODE}
-    </CodeCard>
-    <CodeCard title={t('home.script.common')}>
-      {QUICKSTART_CODE}
-    </CodeCard>
+    <CodeCard title={t('home.script.install')}>{INSTALL_CODE}</CodeCard>
+    <CodeCard title={t('home.script.common')}>{QUICKSTART_CODE}</CodeCard>
   </div>
 )

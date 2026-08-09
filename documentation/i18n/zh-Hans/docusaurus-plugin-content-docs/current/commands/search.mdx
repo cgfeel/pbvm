@@ -14,37 +14,37 @@ pbvm search [-b <browser>] [-i <buildId>] [-m <mirror>] [-r <rule>]
 
 ## 选项
 
-| 选项 | 简写 | 说明 |
-|------|------|------|
-| `--browser` | `-b` | 浏览器名称：`chrome`、`chromium`、`firefox` |
-| `--build-id` | `-i` | 浏览器版本号 |
-| `--mirror` | `-m` | 镜像规则文件路径，不指定则优先查找当前目录及全局 `.browsermr` |
-| `--rule` | `-r` | 镜像模板自定义参数，URL search 格式：`a=1&b=2`，用于替换模板变量 |
+| 选项         | 简写 | 说明                                                             |
+| ------------ | ---- | ---------------------------------------------------------------- |
+| `--browser`  | `-b` | 浏览器名称：`chrome`、`chromium`、`firefox`                      |
+| `--build-id` | `-i` | 浏览器版本号                                                     |
+| `--mirror`   | `-m` | 镜像规则文件路径，不指定则优先查找当前目录及全局 `.browsermr`    |
+| `--rule`     | `-r` | 镜像模板自定义参数，URL search 格式：`a=1&b=2`，用于替换模板变量 |
 
 ## 输出信息
 
 ### Browser info（本地状态）
 
-| 字段 | 说明 |
-|------|------|
-| `platform` | 当前平台 |
-| `browser` | 浏览器名称 |
-| `buildId` | 版本号 |
+| 字段        | 说明                   |
+| ----------- | ---------------------- |
+| `platform`  | 当前平台               |
+| `browser`   | 浏览器名称             |
+| `buildId`   | 版本号                 |
 | `installed` | 是否已安装到本地 Store |
 
 ### Search info（远程状态）
 
-| 字段 | 说明 |
-|------|------|
-| `exists` | 远程资源是否存在 |
-| `url` | 下载地址 |
-| `status` | HTTP 响应状态码 |
-| `redirected` | 是否发生了重定向 |
-| `size` | 文件大小（字节） |
-| `contentType` | 内容类型 |
+| 字段           | 说明                 |
+| -------------- | -------------------- |
+| `exists`       | 远程资源是否存在     |
+| `url`          | 下载地址             |
+| `status`       | HTTP 响应状态码      |
+| `redirected`   | 是否发生了重定向     |
+| `size`         | 文件大小（字节）     |
+| `contentType`  | 内容类型             |
 | `lastModified` | 远程文件最后修改时间 |
-| `etag` | 资源 ETag |
-| `acceptRanges` | 是否支持断点续传 |
+| `etag`         | 资源 ETag            |
+| `acceptRanges` | 是否支持断点续传     |
 
 ## 示例
 

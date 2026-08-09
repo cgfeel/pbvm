@@ -31,23 +31,23 @@ Records which browsers a project uses and their configuration, so team members c
 
 ## Fields
 
-| Field      | Type     | Description                                                     |
-| ---------- | -------- | --------------------------------------------------------------- |
-| `platform` | `string` | Browser platform (`mac_arm`, `linux_64`, `win_64`, etc.)        |
-| `alias`    | `string` | User-defined alias to simplify browser references in commands   |
-| `browser`  | `string` | Browser name: `chrome`, `chromium`, `firefox`                   |
-| `buildId`  | `string` | Browser version                                                 |
+| Field      | Type     | Description                                                   |
+| ---------- | -------- | ------------------------------------------------------------- |
+| `platform` | `string` | Browser platform (`mac_arm`, `linux_64`, `win_64`, etc.)      |
+| `alias`    | `string` | User-defined alias to simplify browser references in commands |
+| `browser`  | `string` | Browser name: `chrome`, `chromium`, `firefox`                 |
+| `buildId`  | `string` | Browser version                                               |
 
 ## Read/write operations
 
-| Command         | Read | Write         |
-| --------------- |:----:|:-------------:|
-| `pbvm create`   | -    | ✅ Add record |
-| `pbvm ls`       | ✅   | -             |
-| `pbvm open`     | ✅   | -             |
-| `pbvm alias`    | ✅   | ✅ Update alias |
-| `pbvm remove`   | -    | ✅ Remove record |
-| `pbvm restore`  | -    | ✅ Update record |
+| Command        | Read |      Write       |
+| -------------- | :--: | :--------------: |
+| `pbvm create`  |  -   |  ✅ Add record   |
+| `pbvm ls`      |  ✅  |        -         |
+| `pbvm open`    |  ✅  |        -         |
+| `pbvm alias`   |  ✅  | ✅ Update alias  |
+| `pbvm remove`  |  -   | ✅ Remove record |
+| `pbvm restore` |  -   | ✅ Update record |
 
 ## File locking
 
