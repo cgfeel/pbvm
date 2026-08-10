@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.0.16](https://github.com/cgfeel/pbvm/compare/mermaid-prerender@v0.0.15...mermaid-prerender@v0.0.16) (2026-08-10)
+
+
+### Bug Fixes
+
+* remove hash in util ([a93824d](https://github.com/cgfeel/pbvm/commit/a93824d996346f53182b602169d7d623bc22efff))
+* remove hash in util ([31caaa5](https://github.com/cgfeel/pbvm/commit/31caaa5877de4814305d4ee03f18f4706fb76041))
+
 ## [0.0.15](https://github.com/cgfeel/pbvm/compare/mermaid-prerender@v0.0.14...mermaid-prerender@v0.0.15) (2026-08-09)
 
 
