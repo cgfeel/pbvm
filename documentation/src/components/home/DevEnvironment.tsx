@@ -1,3 +1,4 @@
+import BrowserOnly from '@docusaurus/BrowserOnly'
 import Link from '@docusaurus/Link'
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
 import { useColorMode } from '@site/src/hooks/theme'
@@ -14,7 +15,7 @@ import mirroropsZh from '../../mermaid/zh-Hans/mirrorops.mmd'
 import { t } from '../../utils/i18n'
 import { styles as buttonStyle } from '../button'
 import { Card } from '../card'
-import Mermaid from '../mermaid/MeraidCom'
+import Mermaid from '../mermaid'
 import Wraper from './Wraper'
 
 // md 最终会在生产变成不到 1kb 的 url
@@ -99,11 +100,15 @@ const DevEnvironment: FC<DevEnvironmentProps> = () => {
             <div className={item()} key={key}>
               <Card className={card({ className: 'bg-white' })}>
                 <Link className={link()} to={url}>
-                  <Mermaid
-                    className={svg({ className })}
-                    theme={colorMode === 'dark' ? colorMode : 'default'}
-                    value={md}
-                  />
+                  <BrowserOnly>
+                    {() => (
+                      <Mermaid
+                        className={svg({ className })}
+                        theme={colorMode === 'dark' ? colorMode : 'default'}
+                        value={md}
+                      />
+                    )}
+                  </BrowserOnly>
                   <button className={buttonStyle({ className: btn() })}>
                     {t('home.dev.item.viewDetails')}
                   </button>
