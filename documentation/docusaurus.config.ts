@@ -19,7 +19,7 @@ const config: Config = {
   favicon: 'img/favicon.svg',
   stylesheets: [
     {
-      href: 'font/local/font.css?family=Inter:wght@400;500;600;700;800&display=swap',
+      href: `${process.env.BASE_URL ?? '/pbvm/'}font/local/font.css?family=Inter:wght@400;500;600;700;800&display=swap`,
       type: 'text/css',
     },
   ],
