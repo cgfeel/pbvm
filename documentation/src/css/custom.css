@@ -4,8 +4,6 @@
 
 @layer theme, base, components, utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
-
 /* Tailwind v4 — 层导入，无 preflight(base) 避免重置 Infima */
 
 /* Infima 变量映射为 Tailwind token，暗色模式自动跟随 */

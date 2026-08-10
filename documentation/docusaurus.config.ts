@@ -17,6 +17,12 @@ const config: Config = {
   title: rootPkg?.name ?? 'pbvm',
   tagline: rootPkg?.description ?? 'pbvm documentation',
   favicon: 'img/favicon.svg',
+  stylesheets: [
+    {
+      href: '/font/local/font.css?family=Inter:wght@400;500;600;700;800&display=swap',
+      type: 'text/css',
+    },
+  ],
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
   future: {
