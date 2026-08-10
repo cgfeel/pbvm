@@ -1,3 +1,4 @@
+import BrowserOnly from '@docusaurus/BrowserOnly'
 import type { ComponentType, FC } from 'react'
 import React, { useEffect, useRef, useState } from 'react'
 import { borderStyle } from './Button'
@@ -58,7 +59,10 @@ export default function MermaidWrapper(props: Props) {
       onWheel={(event) => zoomRef.current?.onWheel(event)}
     >
       <ContainerProvider>
-        <ZoomView cheat={<GestureGuid ref={gestureRef} />} ref={zoomRef}>
+        <ZoomView
+          cheat={<BrowserOnly>{() => <GestureGuid ref={gestureRef} />}</BrowserOnly>}
+          ref={zoomRef}
+        >
           {content}
         </ZoomView>
         <Toolbar size="sm" hover>

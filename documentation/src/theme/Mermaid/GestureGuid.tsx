@@ -1,13 +1,13 @@
 import useBaseUrl from '@docusaurus/useBaseUrl'
-import { DotLottieReact } from '@lottiefiles/dotlottie-react'
-import { DotLottie } from '@lottiefiles/dotlottie-web'
+import type { DotLottie } from '@lottiefiles/dotlottie-react'
+import { DotLottieReact, setWasmUrl } from '@lottiefiles/dotlottie-react'
 import { forwardRef, useCallback, useEffect, useImperativeHandle, useRef } from 'react'
 import { tv } from 'tailwind-variants'
 
-DotLottie.setWasmUrl(
+setWasmUrl(
   process.env.NODE_ENV === 'production'
     ? '/pbvm/wasm/dotlottie-player.wasm'
-    : '/wasm/dotlottie-player.wasm'
+    : '/wasm/dotlottie-player.wasm?2'
 )
 
 const styles = tv({
