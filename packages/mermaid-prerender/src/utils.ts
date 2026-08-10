@@ -6,6 +6,7 @@ import type { CompilerMode, MermaidTheme, TargetType, WorkerMessage } from './ty
 
 let worker: Worker | null = null
 let nextId = 0
+let refCount = 0
 
 const pending = new Map<string, (res: MessageType) => void>()
 function getWorker(): Worker {
@@ -45,14 +46,15 @@ export function allowProcess(options: { mode?: CompilerMode; target?: TargetType
   return isProd && !isServer
 }
 
-export async function closeWorker() {
-  if (worker) {
-    await worker.terminate()
+export function closeWorker() {
+  if (--refCount === 0 && worker) {
+    worker.terminate()
     worker = null
   }
 }
 
 export async function getRenderer() {
+  refCount++
   return (diagrams: string[], opts?: RenderOptions) => {
     const theme = opts?.mermaidConfig?.theme ?? 'default'
     return Promise.allSettled(
