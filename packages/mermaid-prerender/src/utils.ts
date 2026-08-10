@@ -45,9 +45,11 @@ export function allowProcess(options: { mode?: CompilerMode; target?: TargetType
   return isProd && !isServer
 }
 
-export function closeWorker() {
-  worker?.terminate()
-  worker = null
+export async function closeWorker() {
+  if (worker) {
+    await worker.terminate()
+    worker = null
+  }
 }
 
 export async function getRenderer() {

@@ -135,7 +135,7 @@ class MermaidPreRenderPlugin {
         const msg = err instanceof Error ? err.message : String(err)
         logger.error(`error:`, msg)
       } finally {
-        closeWorker()
+        await closeWorker()
         callback()
       }
     })
