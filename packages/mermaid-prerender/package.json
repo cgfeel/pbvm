@@ -1,6 +1,6 @@
 {
   "name": "mermaid-prerender",
-  "version": "0.0.18",
+  "version": "0.0.19",
   "description": "Mermaid pre-render SVG for build, pre-generate chart assets to optimize post-build page access speed",
   "keywords": [
     "build-time",
