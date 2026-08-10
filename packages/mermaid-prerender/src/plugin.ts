@@ -58,6 +58,7 @@ class MermaidPreRenderPlugin {
     const root = process.cwd()
 
     compiler.hooks.afterEmit.tapAsync(pluginName, async (_, callback) => {
+      let renderStarted = false
       try {
         if (!allowProcess(compiler.options)) return
         const {
@@ -108,6 +109,7 @@ class MermaidPreRenderPlugin {
         logger.log(`rendering ${allBlocks.length} blocks × ${themes.length} themes → ${outputDir}`)
 
         const render = await getRenderer()
+        renderStarted = true
         ensureDir(outputDir)
 
         let count = 0
@@ -135,7 +137,7 @@ class MermaidPreRenderPlugin {
         const msg = err instanceof Error ? err.message : String(err)
         logger.error(`error:`, msg)
       } finally {
-        await closeWorker()
+        if (renderStarted) closeWorker()
         callback()
       }
     })

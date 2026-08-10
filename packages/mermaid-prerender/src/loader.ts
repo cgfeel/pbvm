@@ -1,13 +1,14 @@
 import { hashString } from './index.js'
 import { createLogger } from './logger.js'
 import type { CompilerMode, MermaidTheme, TargetType } from './types.js'
-import { allowProcess, DEFAULT_THEMES, getRenderer, loadDotEnv } from './utils.js'
+import { allowProcess, closeWorker, DEFAULT_THEMES, getRenderer, loadDotEnv } from './utils.js'
 
 export default async function mermaidLoader(
   this: MiniLoaderContext<MermaidLoaderOptions>,
   source: string
 ) {
   // 环境允许
+  let renderStarted = false
   const callback = this.async()
   if (!allowProcess(this)) {
     callback(null, `export default ${JSON.stringify(source)}`)
@@ -33,6 +34,8 @@ export default async function mermaidLoader(
   const output = (options.output ?? 'mermaid/index/').replace(/\/?$/, '/')
 
   const renderer = await getRenderer()
+  renderStarted = true
+
   Promise.all(themes.map((item) => renderer([source], { mermaidConfig: { theme: item.theme } })))
     .then((results) => {
       results.forEach(([item], idx) => {
@@ -49,6 +52,9 @@ export default async function mermaidLoader(
     .catch((err) => {
       logger.error('render error:', err instanceof Error ? err.message : err)
       callback(null, `export default ${JSON.stringify(source)}`)
+    })
+    .finally(() => {
+      if (renderStarted) closeWorker()
     })
 }
 
