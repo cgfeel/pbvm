@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.17](https://github.com/cgfeel/pbvm/compare/mermaid-prerender@v0.0.16...mermaid-prerender@v0.0.17) (2026-08-10)
+
+
+### Bug Fixes
+
+* remove clearWorker ([94e94c8](https://github.com/cgfeel/pbvm/commit/94e94c808870c8ef9655a3d32a7f389bccaacc6b))
+
 ## [0.0.16](https://github.com/cgfeel/pbvm/compare/mermaid-prerender@v0.0.15...mermaid-prerender@v0.0.16) (2026-08-10)
 
 
