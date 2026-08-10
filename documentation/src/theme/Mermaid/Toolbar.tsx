@@ -17,7 +17,11 @@ const styles = tv({
   ],
   variants: {
     hover: {
-      true: ['opacity-0', 'group-hover:opacity-100', 'group-hover:pointer-events-auto'],
+      true: [
+        'opacity-0',
+        'group-data-[state=loaded]:group-hover:opacity-100',
+        'group-data-[state=loaded]:group-hover:pointer-events-auto',
+      ],
     },
     size: {
       base: 'gap-4',
@@ -35,7 +39,11 @@ const styles = tv({
     {
       hover: false,
       touch: true,
-      class: ['opacity-0', 'touch-only:opacity-100', 'touch-only:pointer-events-auto'],
+      class: [
+        'opacity-0',
+        'group-data-[state=loaded]:touch-only:opacity-100',
+        'group-data-[state=loaded]:touch-only:pointer-events-auto',
+      ],
     },
   ],
   defaultVariants: {

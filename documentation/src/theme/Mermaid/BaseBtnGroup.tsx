@@ -7,13 +7,7 @@ import { WrapperContext } from './Wrapper'
 
 const BaseBtnGroup: FC<BaseBtnGroupProps> = ({ name, onTrigger, ...props }) => {
   const { fullscreen, setFullscreen } = useContext(WrapperContext)
-  const { position, scale, setPosition, setScale } = useContext(ContainerContext)
-
-  const reset = () => {
-    onTrigger?.('reset')
-    setScale(1)
-    setPosition({ x: 0, y: 0 })
-  }
+  const { position, scale, reset } = useContext(ContainerContext)
 
   return (
     <>
@@ -22,7 +16,10 @@ const BaseBtnGroup: FC<BaseBtnGroupProps> = ({ name, onTrigger, ...props }) => {
         disabled={scale === 1 && position.x === 0 && position.y === 0}
         title="重置"
         type="button"
-        onClick={reset}
+        onClick={() => {
+          onTrigger?.('reset')
+          reset()
+        }}
       >
         <span className="-translate-y-0.5">↺</span>
       </Button>
