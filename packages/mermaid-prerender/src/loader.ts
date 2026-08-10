@@ -1,7 +1,7 @@
 import { hashString } from './index.js'
 import { createLogger } from './logger.js'
 import type { CompilerMode, MermaidTheme, TargetType } from './types.js'
-import { allowProcess, closeWorker, DEFAULT_THEMES, getRenderer, loadDotEnv } from './utils.js'
+import { allowProcess, DEFAULT_THEMES, getRenderer, loadDotEnv } from './utils.js'
 
 export default async function mermaidLoader(
   this: MiniLoaderContext<MermaidLoaderOptions>,
@@ -49,9 +49,6 @@ export default async function mermaidLoader(
     .catch((err) => {
       logger.error('render error:', err instanceof Error ? err.message : err)
       callback(null, `export default ${JSON.stringify(source)}`)
-    })
-    .finally(() => {
-      closeWorker()
     })
 }
 
