@@ -4,11 +4,20 @@ import { EventManager, Pan, Pinch, Tap } from 'mjolnir.js'
 import type { Dispatch, FC, PropsWithChildren, SetStateAction } from 'react'
 import { createContext, useEffect, useRef, useState } from 'react'
 import { tv } from 'tailwind-variants'
+import RenderContent from './RenderContent'
 import type { ZoomViewInstance } from './ZoomView'
 
 const styles = tv({
   slots: {
-    container: ['relative', 'rounded-lg', 'cursor-default', 'group', 'select-none'],
+    container: [
+      'relative',
+      'rounded-lg',
+      'cursor-default',
+      'group',
+      'select-none',
+      'pointer-events-none',
+      'data-[state=loaded]:pointer-events-auto',
+    ],
     fullscreenBackdrop: ['fixed', 'inset-0', 'z-[9998]', 'bg-white', 'dark:bg-black'],
   },
   variants: {
@@ -31,9 +40,13 @@ const WrapperContext = createContext<WrapperContextInstance>({
   },
 })
 
+const inElementRange = (elem: unknown) =>
+  elem instanceof Element && !elem.closest('[data-rule="toolbar"]')
+
 const Wrapper: FC<PropsWithChildren<WraperProps>> = ({
   children,
   className,
+  onDblclick,
   onMouseDown,
   onMouseMove,
   onMouseUp,
@@ -48,6 +61,7 @@ const Wrapper: FC<PropsWithChildren<WraperProps>> = ({
   const [fullscreen, setFullscreen] = useState('')
   const containerRef = useRef<HTMLDivElement>(null)
 
+  const dblclick = useMemoFn(onDblclick)
   const mouseDown = useMemoFn(onMouseDown)
   const mouseMove = useMemoFn(onMouseMove)
   const mouseUp = useMemoFn(onMouseUp)
@@ -77,27 +91,44 @@ const Wrapper: FC<PropsWithChildren<WraperProps>> = ({
   }, [])
 
   useEffect(() => {
+    function dblclickHandle(event: MouseEvent) {
+      event.preventDefault()
+      dblclick.current?.(event)
+    }
+
     function wheelHandle(event: WheelEvent) {
-      wheel.current?.(event)
+      const { target } = event
+      if (inElementRange(target)) wheel.current?.(event)
     }
 
     function downHandle(event: MouseEvent) {
       const { target } = event
-      if (
-        event.button !== 0 ||
-        (target instanceof HTMLElement && target.closest('[data-rule="toolbar"]'))
-      )
-        return
+      if (event.button === 0 && inElementRange(target)) mouseDown.current?.(event)
+    }
 
-      mouseDown.current?.(event)
+    function pointerDownHandle(event: PointerEvent) {
+      if (event.button === 2 || event.button === 1) {
+        event.preventDefault()
+        event.stopPropagation()
+      }
+    }
+
+    function contextmenuHandle(event: PointerEvent) {
+      event.preventDefault()
     }
 
     const container = containerRef.current
     container?.addEventListener('wheel', wheelHandle, { passive: false })
     container?.addEventListener('mousedown', downHandle)
+    container?.addEventListener('dblclick', dblclickHandle)
+    container?.addEventListener('pointerdown', pointerDownHandle)
+    container?.addEventListener('contextmenu', contextmenuHandle)
     return () => {
       container?.removeEventListener('wheel', wheelHandle)
       container?.removeEventListener('mousedown', downHandle)
+      container?.removeEventListener('dblclick', dblclickHandle)
+      container?.removeEventListener('pointerdown', pointerDownHandle)
+      container?.removeEventListener('contextmenu', contextmenuHandle)
     }
   }, [])
 
@@ -133,8 +164,8 @@ const Wrapper: FC<PropsWithChildren<WraperProps>> = ({
 
     function tapHandle(event: MjolnirEvent) {
       const { srcEvent, target } = event
-      if (target instanceof Element && target.closest('[data-rule="toolbar"]')) return
-      if ('pointerType' in srcEvent && srcEvent.pointerType === 'touch') tap.current?.(event)
+      if ('pointerType' in srcEvent && srcEvent.pointerType === 'touch' && inElementRange(target))
+        tap.current?.(event)
     }
 
     eventManager.on('panend', panendHandle)
@@ -172,18 +203,21 @@ const Wrapper: FC<PropsWithChildren<WraperProps>> = ({
       {fullscreen !== '' && (
         <div className={fullscreenBackdrop()} onClick={() => setFullscreen('')} />
       )}
-      <div
-        className={container({ fullscreen: fullscreen !== '', className })}
-        ref={containerRef}
-        onMouseEnter={() => {
-          if (!fullscreen) document.body.classList.add('overflow-hidden')
-        }}
-        onMouseLeave={() => {
-          if (!fullscreen) document.body.classList.remove('overflow-hidden')
-        }}
-      >
-        {children}
-      </div>
+      <RenderContent container={containerRef}>
+        <div
+          className={container({ fullscreen: fullscreen !== '', className })}
+          data-state="init"
+          ref={containerRef}
+          onMouseEnter={() => {
+            if (!fullscreen) document.body.classList.add('overflow-hidden')
+          }}
+          onMouseLeave={() => {
+            if (!fullscreen) document.body.classList.remove('overflow-hidden')
+          }}
+        >
+          {children}
+        </div>
+      </RenderContent>
     </WrapperContext.Provider>
   )
 }

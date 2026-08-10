@@ -1,3 +1,5 @@
+import { CircleLoading } from '@site/src/components/loading'
+import NoneCom from '@site/static/img/none.svg'
 import type { MjolnirGestureEvent } from 'mjolnir.js'
 import type { ReactNode } from 'react'
 import {
@@ -18,8 +20,23 @@ const ZOOM_STEP = 1.2
 
 const styles = tv({
   slots: {
-    canvas: ['block', 'w-full', 'origin-top-left'],
-    zoomViewport: ['h-full', 'overflow-hidden', 'p-4', 'box-border', 'relative'],
+    canvas: [
+      'block',
+      'w-full',
+      'origin-top-left',
+      'opacity-0',
+      'group-data-[state=loaded]:opacity-100',
+    ],
+    loading: 'hidden group-data-[state=init]:block',
+    none: 'hidden h-full justify-center items-center opacity-60 [&_svg]:h-24 group-data-[state=none]:flex',
+    zoomViewport: [
+      'h-40',
+      'overflow-hidden',
+      'p-4',
+      'box-border',
+      'relative',
+      'group-data-[state=loaded]:h-full',
+    ],
   },
   variants: {
     cursor: {
@@ -34,11 +51,11 @@ const styles = tv({
 })
 
 const clamp = (val: number, min: number, max: number) => Math.min(max, Math.max(val, min))
-const { canvas, zoomViewport } = styles()
+const { canvas, loading, none, zoomViewport } = styles()
 
 const ZoomView = forwardRef<ZoomViewInstance, PropsWithChildren<ZoomViewProps>>(
   ({ cheat, children }, ref) => {
-    const { position, scale, setPosition, setScale } = useContext(ContainerContext)
+    const { position, scale, reset, setPosition, setScale } = useContext(ContainerContext)
     const [dragging, setDragging] = useState(false)
 
     const panBaseRef = useRef({ x: 0, y: 0 })
@@ -56,6 +73,7 @@ const ZoomView = forwardRef<ZoomViewInstance, PropsWithChildren<ZoomViewProps>>(
     useImperativeHandle(
       ref,
       () => ({
+        onDblclick: () => reset(),
         onMouseDown: ({ clientX, clientY }) => {
           setDragging(true)
           document.body.classList.add('select-none')
@@ -129,7 +147,7 @@ const ZoomView = forwardRef<ZoomViewInstance, PropsWithChildren<ZoomViewProps>>(
           })
         },
       }),
-      [dragging, position, scale, setDragging, setPosition, setScale]
+      [dragging, position, scale, reset, setDragging, setPosition, setScale]
     )
 
     return (
@@ -139,8 +157,14 @@ const ZoomView = forwardRef<ZoomViewInstance, PropsWithChildren<ZoomViewProps>>(
         })}
         ref={zoomRef}
       >
-        <div className={canvas()} style={style}>
+        <div className={canvas()} style={style} data-role="canvas">
           {children}
+        </div>
+        <div className={loading()}>
+          <CircleLoading />
+        </div>
+        <div className={none()}>
+          <NoneCom />
         </div>
         {cheat}
       </div>
@@ -153,6 +177,7 @@ export { MAX_SCALE, MIN_SCALE, ZOOM_STEP }
 export default ZoomView
 
 export interface ZoomViewInstance {
+  onDblclick: (event: MouseEvent) => void
   onMouseDown: (event: MouseEvent) => void
   onMouseMove: (event: MouseEvent) => void
   onMouseUp: (event: MouseEvent) => void

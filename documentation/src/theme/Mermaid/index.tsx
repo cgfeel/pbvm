@@ -40,6 +40,8 @@ export default function MermaidWrapper(props: Props) {
   return (
     <Wrapper
       className={borderStyle}
+      // 暂且不需要双击
+      // onDblclick={(event) => zoomRef.current?.onDblclick(event)}
       onMouseDown={(event) => zoomRef.current?.onMouseDown(event)}
       onMouseMove={(event) => zoomRef.current?.onMouseMove(event)}
       onMouseUp={(event) => zoomRef.current?.onMouseUp(event)}
@@ -54,7 +56,8 @@ export default function MermaidWrapper(props: Props) {
         gestureRef.current?.stop()
         zoomRef.current?.onPinchStart(event)
       }}
-      onTap={() => gestureRef.current?.play()}
+      // 暂且不用 tap 提示
+      // onTap={() => gestureRef.current?.play()}
       onWheel={(event) => zoomRef.current?.onWheel(event)}
     >
       <ContainerProvider>
