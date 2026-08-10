@@ -19,7 +19,7 @@ jobs:
           node-version: '22'
           cache: 'pnpm'
       - run: pnpm install
-      - run: npx playwright install chromium
+      - run: sudo apt-get install -y chromium-browser
       - run: pnpm build:docs
       - uses: peaceiris/actions-gh-pages@v4
         with:
