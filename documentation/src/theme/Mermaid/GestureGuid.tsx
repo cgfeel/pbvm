@@ -1,13 +1,23 @@
 import useBaseUrl from '@docusaurus/useBaseUrl'
 import type { DotLottie } from '@lottiefiles/dotlottie-react'
 import { DotLottieReact, setWasmUrl } from '@lottiefiles/dotlottie-react'
+import type { FC } from 'react'
 import { forwardRef, useEffect, useImperativeHandle, useRef } from 'react'
 import { tv } from 'tailwind-variants'
 
-setWasmUrl('/wasm/dotlottie-player.wasm')
+let initialized = false
 const styles = tv({
   base: ['absolute', 'inset-0', 'flex', 'justify-center', 'items-center', 'pointer-events-none'],
 })
+
+const InitWasm: FC = () => {
+  const wasmUrl = useBaseUrl('/wasm/dotlottie-player.wasm')
+  if (!initialized) {
+    setWasmUrl(wasmUrl)
+    initialized = true
+  }
+  return null
+}
 
 const GestureGuid = forwardRef<GestureGuidInstance>((_, ref) => {
   const countRef = useRef(0)
@@ -48,6 +58,7 @@ const GestureGuid = forwardRef<GestureGuidInstance>((_, ref) => {
 
   return (
     <div className={styles()}>
+      <InitWasm />
       <DotLottieReact
         className="size-[max(8rem,20vmin)]"
         src={lottieUrl}
