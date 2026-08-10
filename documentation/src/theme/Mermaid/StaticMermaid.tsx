@@ -12,8 +12,7 @@ const StaticMermaid: FC<SVGRenderProps> = ({ className, src, onError }) => {
   const colorMode = useColorMode()
 
   const { i18n } = useDocusaurusContext()
-  const prelang = i18n.currentLocale === i18n.defaultLocale ? '' : `/${i18n.currentLocale}`
-  const svgUrl = useBaseUrl(`${prelang}/mermaid/${i18n.currentLocale}/${colorMode}/${hash}.svg`)
+  const svgUrl = useBaseUrl(`/mermaid/${i18n.currentLocale}/${colorMode}/${hash}.svg`)
 
   return (
     <SVGRender
