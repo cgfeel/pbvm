@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.0.18](https://github.com/cgfeel/pbvm/compare/mermaid-prerender@v0.0.17...mermaid-prerender@v0.0.18) (2026-08-10)
+
+
+### Bug Fixes
+
+* add clearWorker await ([65b1334](https://github.com/cgfeel/pbvm/commit/65b13340c940e4f94ef51986ee5dda3a47aab2b1))
+* add clearWorker await ([f27189a](https://github.com/cgfeel/pbvm/commit/f27189ae04dd954a0dfd73ac414e7454eb3e185d))
+
 ## [0.0.17](https://github.com/cgfeel/pbvm/compare/mermaid-prerender@v0.0.16...mermaid-prerender@v0.0.17) (2026-08-10)
 
 
