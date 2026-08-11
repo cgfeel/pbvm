@@ -42,8 +42,8 @@
     "*.{json,md}": [
       "oxfmt --write"
     ],
-    "packages/pbvm-cli/README.md": "node -e \"require('fs').cpSync('packages/pbvm-cli/README.md','README.md')\"",
-    "packages/pbvm-cli/LICENSE": "node -e \"require('fs').cpSync('packages/pbvm-cli/LICENSE','LICENSE')\"",
+    "packages/pbvm-cli/README.md": "node -e \"require('fs').cpSync('packages/pbvm-cli/README.md','README.md')\" && git add README.md",
+    "packages/pbvm-cli/LICENSE": "node -e \"require('fs').cpSync('packages/pbvm-cli/LICENSE','LICENSE')\" && git add LICENSE",
     "packages/pbvm-cli/src/**/*.ts": "sh -c 'tsc -p packages/pbvm-cli/tsconfig.json --noEmit'",
     "packages/mermaid-prerender/src/**/*.ts": "sh -c 'tsc -p packages/mermaid-prerender/tsconfig.json --noEmit'"
   },
