@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.43](https://github.com/cgfeel/pbvm/compare/pbvm-cli@v1.0.42...pbvm-cli@v1.0.43) (2026-08-11)
+
+
+### Bug Fixes
+
+* sync main ([8f0b65a](https://github.com/cgfeel/pbvm/commit/8f0b65aef4f496466bf95579973279125b27f736))
+* update package desc ([3821e45](https://github.com/cgfeel/pbvm/commit/3821e450e01d80fee139d9d1029dddfff0be459d))
+
 ## [1.0.42](https://github.com/cgfeel/pbvm/compare/pbvm-cli@v1.0.41...pbvm-cli@v1.0.42) (2026-08-11)
 
 ### Bug Fixes
