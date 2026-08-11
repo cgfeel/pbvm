@@ -163,7 +163,7 @@ const config: Config = {
           "script-src 'self' 'unsafe-inline' 'unsafe-eval' 'wasm-unsafe-eval' https://www.googletagmanager.com; " +
           "style-src 'self' 'unsafe-inline'; " +
           "img-src 'self' data: https:; " +
-          "font-src 'self'; " +
+          "font-src 'self' data:; " +
           "connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://unpkg.com;",
       },
     },
