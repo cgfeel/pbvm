@@ -128,6 +128,10 @@ const config: Config = {
         theme: {
           customCss: './src/css/custom.css',
         },
+        gtag: {
+          trackingID: process.env.GA4_TRACKING_ID!,
+          anonymizeIP: true,
+        },
       } satisfies Preset.Options,
     ],
   ],

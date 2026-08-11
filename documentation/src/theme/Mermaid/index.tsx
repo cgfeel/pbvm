@@ -71,7 +71,7 @@ export default function MermaidWrapper(props: Props) {
         </Toolbar>
         <Toolbar size="base" variants="ghost" touch>
           <TouchToolbar
-            onTab={() => gestureRef.current?.play()}
+            onTab={() => gestureRef.current?.toggle()}
             onTrigger={() => gestureRef.current?.stop()}
           />
         </Toolbar>

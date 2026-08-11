@@ -15,13 +15,17 @@ const styles = tv({
 })
 
 const GestureGuid = forwardRef<GestureGuidInstance>((_, ref) => {
-  const countRef = useRef(0)
+  const countRef = useRef(-1)
   const dotLottieRef = useRef<DotLottie>(null)
   const lottieUrl = useBaseUrl('/img/gesture.lottie')
 
   const handleComplete = useCallback(() => {
     countRef.current += 1
-    if (countRef.current < 3) dotLottieRef.current?.play()
+    if (countRef.current < 3) {
+      dotLottieRef.current?.play()
+    } else {
+      countRef.current = -1
+    }
   }, [])
 
   const handleRef = useCallback((instance: DotLottie | null) => {
@@ -29,6 +33,21 @@ const GestureGuid = forwardRef<GestureGuidInstance>((_, ref) => {
     if (instance) {
       instance.addEventListener('complete', handleComplete)
     }
+  }, [])
+
+  const play = useCallback(() => {
+    const { current } = dotLottieRef
+    if (current) {
+      countRef.current = 0
+      current.setLoop(false)
+      current.stop()
+      current.play()
+    }
+  }, [])
+
+  const stop = useCallback(() => {
+    dotLottieRef.current?.stop()
+    countRef.current = -1
   }, [])
 
   useEffect(() => {
@@ -40,20 +59,17 @@ const GestureGuid = forwardRef<GestureGuidInstance>((_, ref) => {
   useImperativeHandle(
     ref,
     () => ({
-      play: () => {
-        const { current } = dotLottieRef
-        if (current) {
-          countRef.current = 0
-          current.setLoop(false)
-          current.stop()
-          current.play()
+      toggle: () => {
+        if (countRef.current > -1) {
+          stop()
+        } else {
+          play()
         }
       },
-      stop: () => {
-        dotLottieRef.current?.stop()
-      },
+      play,
+      stop,
     }),
-    []
+    [play, stop]
   )
 
   return (
@@ -72,4 +88,5 @@ export default GestureGuid
 export interface GestureGuidInstance {
   play: () => void
   stop: () => void
+  toggle: () => void
 }
