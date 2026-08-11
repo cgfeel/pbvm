@@ -58,6 +58,7 @@ const config: Config = {
       },
     ],
   ],
+  clientModules: ['./src/pwaTracking.ts'],
   themes: [
     '@docusaurus/theme-mermaid',
     [
