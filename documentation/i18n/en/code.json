@@ -82,5 +82,50 @@
   },
   "home.dev.item.viewDetails": {
     "message": "View Details"
+  },
+  "mermaid.toolbar.reset": {
+    "message": "Reset"
+  },
+  "mermaid.toolbar.exitFullscreen": {
+    "message": "Exit Fullscreen"
+  },
+  "mermaid.toolbar.fullscreen": {
+    "message": "Fullscreen"
+  },
+  "mermaid.toolbar.alignRight": {
+    "message": "Align Right"
+  },
+  "mermaid.toolbar.alignLeft": {
+    "message": "Align Left"
+  },
+  "mermaid.toolbar.zoomOut": {
+    "message": "Zoom Out"
+  },
+  "mermaid.toolbar.zoomIn": {
+    "message": "Zoom In"
+  },
+  "home.script.create_alias": {
+    "message": "Install Chrome and set alias"
+  },
+  "home.script.info": {
+    "message": "Show browser details (including runtime)"
+  },
+  "home.script.ls": {
+    "message": "List installed browsers"
+  },
+  "home.script.open_alias": {
+    "message": "Open browser by alias"
+  },
+  "home.script.search": {
+    "message": "Search for available remote versions"
+  },
+  "home.meta.description": {
+    "message": "Browser version manager based on @puppeteer/browsers — manage multiple versions of Chrome, Chromium, and Firefox"
+  },
+  "home.install.copy": {
+    "message": "Copy"
+  },
+  "home.install.copied": {
+    "message": "✓ Copied"
   }
 }

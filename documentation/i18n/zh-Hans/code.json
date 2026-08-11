@@ -444,5 +444,50 @@
   "theme.SearchPage.noResultsText": {
     "message": "没有找到任何文档",
     "description": "The paragraph for empty search result"
+  },
+  "mermaid.toolbar.reset": {
+    "message": "重置"
+  },
+  "mermaid.toolbar.exitFullscreen": {
+    "message": "退出全屏"
+  },
+  "mermaid.toolbar.fullscreen": {
+    "message": "全屏"
+  },
+  "mermaid.toolbar.alignRight": {
+    "message": "右对齐"
+  },
+  "mermaid.toolbar.alignLeft": {
+    "message": "左对齐"
+  },
+  "mermaid.toolbar.zoomOut": {
+    "message": "缩小"
+  },
+  "mermaid.toolbar.zoomIn": {
+    "message": "放大"
+  },
+  "home.script.create_alias": {
+    "message": "安装 Chrome 并设置别名"
+  },
+  "home.script.info": {
+    "message": "查看浏览器详细信息（含运行时）"
+  },
+  "home.script.ls": {
+    "message": "查看已安装的浏览器"
+  },
+  "home.script.open_alias": {
+    "message": "以别名打开浏览器"
+  },
+  "home.script.search": {
+    "message": "查询远程是否有可用版本"
+  },
+  "home.meta.description": {
+    "message": "基于 @puppeteer/browsers 的浏览器版本管理器 — 统一管理 Chrome、Chromium、Firefox 多个版本"
+  },
+  "home.install.copy": {
+    "message": "复制"
+  },
+  "home.install.copied": {
+    "message": "✓ 已复制"
   }
 }
