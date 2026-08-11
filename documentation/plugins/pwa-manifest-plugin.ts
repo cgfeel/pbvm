@@ -68,6 +68,13 @@ export default function pwaManifestPlugin(context: LoadContext): Plugin {
             },
           },
           {
+            tagName: 'meta',
+            attributes: {
+              name: 'mobile-web-app-capable',
+              content: 'yes',
+            },
+          },
+          {
             tagName: 'script',
             attributes: { type: 'text/javascript' },
             innerHTML: `window.__BASE_URL__='${process.env.BASE_URL ?? '/pbvm/'}'`,
