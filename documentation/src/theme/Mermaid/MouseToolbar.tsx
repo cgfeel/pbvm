@@ -1,3 +1,5 @@
+import MinusCom from '@site/static/img/minus.svg'
+import PlusCom from '@site/static/img/plus.svg'
 import { useContext, type FC } from 'react'
 import { tv } from 'tailwind-variants'
 import BaseBtnGroup from './BaseBtnGroup'
@@ -20,11 +22,11 @@ const MouseToolbar: FC<MouseToolbarProps> = () => {
   return (
     <>
       <Button disabled={scale <= MIN_SCALE} title="缩小" type="button" onClick={zoomOut}>
-        -
+        <MinusCom />
       </Button>
       <span className={styles()}>{Math.round(scale * 100)}%</span>
       <Button disabled={scale >= MAX_SCALE} title="放大" type="button" onClick={zoomIn}>
-        +
+        <PlusCom />
       </Button>
       <BaseBtnGroup name={APP_NAME} />
     </>

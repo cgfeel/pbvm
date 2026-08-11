@@ -8,7 +8,8 @@ const smallRange = 'py-0.5 px-1.5'
 
 const styles = tv({
   base: [
-    smallRange,
+    'py-1.5',
+    'px-1',
     'flex',
     'justify-center',
     'items-center',
@@ -21,11 +22,12 @@ const styles = tv({
     'disabled:opacity-30',
     'disabled:cursor-default',
     'leading-none',
+    '[&_svg]:fill-current',
   ],
   variants: {
     size: {
-      base: ['text-3xl', 'size-10'],
-      sm: ['text-sm'],
+      base: ['text-3xl', 'size-10', '[&_svg]:size-5'],
+      sm: ['text-sm', '[&_svg]:size-2'],
     },
     variants: {
       base: [baseBorder],
