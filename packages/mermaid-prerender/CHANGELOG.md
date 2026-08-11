@@ -1,5 +1,61 @@
 # Changelog
 
+## [0.0.20](https://github.com/cgfeel/pbvm/compare/mermaid-prerender@v0.0.19...mermaid-prerender@v0.0.20) (2026-08-10)
+
+### Bug Fixes
+
+- add readme ([fd12dfc](https://github.com/cgfeel/pbvm/commit/fd12dfc92d2438fc2298d7868d3536903c9092fd))
+- add readme ([2539881](https://github.com/cgfeel/pbvm/commit/25398819b00d7e50bc18ab4157c5697d923f62bc))
+
+## [0.0.19](https://github.com/cgfeel/pbvm/compare/mermaid-prerender@v0.0.18...mermaid-prerender@v0.0.19) (2026-08-10)
+
+### Bug Fixes
+
+- add refCount ([b4d5e1b](https://github.com/cgfeel/pbvm/commit/b4d5e1b5ac762494b989ed88465028e38314afce))
+- add refCount ([2b41324](https://github.com/cgfeel/pbvm/commit/2b413248d23070c1b1569105688cb4f8c481456d))
+
+## [0.0.18](https://github.com/cgfeel/pbvm/compare/mermaid-prerender@v0.0.17...mermaid-prerender@v0.0.18) (2026-08-10)
+
+### Bug Fixes
+
+- add clearWorker await ([65b1334](https://github.com/cgfeel/pbvm/commit/65b13340c940e4f94ef51986ee5dda3a47aab2b1))
+- add clearWorker await ([f27189a](https://github.com/cgfeel/pbvm/commit/f27189ae04dd954a0dfd73ac414e7454eb3e185d))
+
+## [0.0.17](https://github.com/cgfeel/pbvm/compare/mermaid-prerender@v0.0.16...mermaid-prerender@v0.0.17) (2026-08-10)
+
+### Bug Fixes
+
+- remove clearWorker ([94e94c8](https://github.com/cgfeel/pbvm/commit/94e94c808870c8ef9655a3d32a7f389bccaacc6b))
+
+## [0.0.16](https://github.com/cgfeel/pbvm/compare/mermaid-prerender@v0.0.15...mermaid-prerender@v0.0.16) (2026-08-10)
+
+### Bug Fixes
+
+- remove hash in util ([a93824d](https://github.com/cgfeel/pbvm/commit/a93824d996346f53182b602169d7d623bc22efff))
+- remove hash in util ([31caaa5](https://github.com/cgfeel/pbvm/commit/31caaa5877de4814305d4ee03f18f4706fb76041))
+
+## [0.0.15](https://github.com/cgfeel/pbvm/compare/mermaid-prerender@v0.0.14...mermaid-prerender@v0.0.15) (2026-08-09)
+
+### Bug Fixes
+
+- update memarid hashString ([4d8c731](https://github.com/cgfeel/pbvm/commit/4d8c73158a613753d381088a8292b2543b0deca5))
+- update memarid hashString ([8d45415](https://github.com/cgfeel/pbvm/commit/8d45415ba0261bbb2e9ce7e32de1a41c21196329))
+
+## [0.0.14](https://github.com/cgfeel/pbvm/compare/mermaid-prerender@v0.0.13...mermaid-prerender@v0.0.14) (2026-08-09)
+
+### Bug Fixes
+
+- update loader add themes options ([c6fef91](https://github.com/cgfeel/pbvm/commit/c6fef916747102855e0db084c3898a3ddb4e0d93))
+
+## [0.0.13](https://github.com/cgfeel/pbvm/compare/mermaid-prerender@v0.0.12...mermaid-prerender@v0.0.13) (2026-08-09)
+
+### Bug Fixes
+
+- move package-1 ([b90742a](https://github.com/cgfeel/pbvm/commit/b90742a9d6b53f4d20c9b83c1f6a1e8aa754fc02))
+- move packages ([c7c968c](https://github.com/cgfeel/pbvm/commit/c7c968c2d5311c77477d13845f0905330170720c))
+- update format ([a1eab17](https://github.com/cgfeel/pbvm/commit/a1eab1734a6548ad3728e349d9940ab3442649a1))
+- update monorepo packages ([d018543](https://github.com/cgfeel/pbvm/commit/d0185434c863f80ca8c9afc8c3d6b7b3b97b5ba1))
+
 ## [0.0.12](https://github.com/cgfeel/pbvm/compare/mermaid-prerender@v0.0.11...mermaid-prerender@v0.0.12) (2026-08-09)
 
 ### Bug Fixes
