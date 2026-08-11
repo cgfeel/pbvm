@@ -155,6 +155,18 @@ const config: Config = {
         content: 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no',
       },
     },
+    {
+      tagName: 'meta',
+      attributes: {
+        'http-equiv': 'Content-Security-Policy',
+        content:
+          "script-src 'self' 'unsafe-inline' 'unsafe-eval' 'wasm-unsafe-eval' https://www.googletagmanager.com; " +
+          "style-src 'self' 'unsafe-inline'; " +
+          "img-src 'self' data: https:; " +
+          "font-src 'self'; " +
+          "connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://unpkg.com;",
+      },
+    },
   ],
 
   themeConfig: {

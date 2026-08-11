@@ -7,7 +7,7 @@ import { tv } from 'tailwind-variants'
 setWasmUrl(
   process.env.NODE_ENV === 'production'
     ? '/pbvm/wasm/dotlottie-player.wasm'
-    : '/wasm/dotlottie-player.wasm?2'
+    : '/wasm/dotlottie-player.wasm'
 )
 
 const styles = tv({
