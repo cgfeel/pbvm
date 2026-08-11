@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.41](https://github.com/cgfeel/pbvm/compare/pbvm-cli@v1.0.40...pbvm-cli@v1.0.41) (2026-08-11)
+
+
+### Bug Fixes
+
+* split README language ([4e53f0c](https://github.com/cgfeel/pbvm/commit/4e53f0c49252125e7d8af01736a34c4ea7c4a011))
+* split README language ([bf88f56](https://github.com/cgfeel/pbvm/commit/bf88f56991faa5aa289f95b3fcba5c6267cf3b40))
+
 ## [1.0.40](https://github.com/cgfeel/pbvm/compare/pbvm-cli@v1.0.39...pbvm-cli@v1.0.40) (2026-08-09)
 
 
