@@ -42,6 +42,7 @@
     "*.{json,md}": [
       "oxfmt --write"
     ],
+    "!**/CHANGELOG.md": [],
     "packages/pbvm-cli/README.md": "node -e \"require('fs').cpSync('packages/pbvm-cli/README.md','README.md')\"",
     "packages/pbvm-cli/LICENSE": "node -e \"require('fs').cpSync('packages/pbvm-cli/LICENSE','LICENSE')\"",
     "packages/pbvm-cli/src/**/*.ts": "sh -c 'tsc -p packages/pbvm-cli/tsconfig.json --noEmit'",
