@@ -8,7 +8,7 @@ A browser version manager built on `@puppeteer/browsers`, unified management of 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![PR Check](https://github.com/cgfeel/pbvm/actions/workflows/pr-check.yml/badge.svg)](https://github.com/cgfeel/pbvm/actions/workflows/pr-check.yml)
 
-📖 [Online Docs](https://cgfeel.github.io/pbvm/) | [中文文档](./README.zh-CN.md)
+📖 [Online Docs](https://cgfeel.github.io/pbvm/) | [中文](https://github.com/cgfeel/pbvm/blob/main/packages/pbvm-cli/README.zh-CN.md)
 
 ## Features
 
