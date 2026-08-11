@@ -1,5 +1,8 @@
 import fs from 'node:fs'
 import path from 'node:path'
+
+process.loadEnvFile(path.resolve(__dirname, '.env'))
+
 import type * as Preset from '@docusaurus/preset-classic'
 import type { Config } from '@docusaurus/types'
 import { themes as prismThemes } from 'prism-react-renderer'
@@ -128,10 +131,14 @@ const config: Config = {
         theme: {
           customCss: './src/css/custom.css',
         },
-        gtag: {
-          trackingID: process.env.GA4_TRACKING_ID!,
-          anonymizeIP: true,
-        },
+        ...(process.env.GA4_TRACKING_ID
+          ? {
+              gtag: {
+                trackingID: process.env.GA4_TRACKING_ID,
+                anonymizeIP: true,
+              },
+            }
+          : {}),
       } satisfies Preset.Options,
     ],
   ],
