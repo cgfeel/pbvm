@@ -2,25 +2,22 @@
 
 ## [1.0.42](https://github.com/cgfeel/pbvm/compare/pbvm-cli@v1.0.41...pbvm-cli@v1.0.42) (2026-08-11)
 
-
 ### Bug Fixes
 
-* up README.zh-CN.md link ([208c545](https://github.com/cgfeel/pbvm/commit/208c545f573f568ff3d2c7282b8a244b74041d30))
+- up README.zh-CN.md link ([208c545](https://github.com/cgfeel/pbvm/commit/208c545f573f568ff3d2c7282b8a244b74041d30))
 
 ## [1.0.41](https://github.com/cgfeel/pbvm/compare/pbvm-cli@v1.0.40...pbvm-cli@v1.0.41) (2026-08-11)
 
-
 ### Bug Fixes
 
-* split README language ([4e53f0c](https://github.com/cgfeel/pbvm/commit/4e53f0c49252125e7d8af01736a34c4ea7c4a011))
-* split README language ([bf88f56](https://github.com/cgfeel/pbvm/commit/bf88f56991faa5aa289f95b3fcba5c6267cf3b40))
+- split README language ([4e53f0c](https://github.com/cgfeel/pbvm/commit/4e53f0c49252125e7d8af01736a34c4ea7c4a011))
+- split README language ([bf88f56](https://github.com/cgfeel/pbvm/commit/bf88f56991faa5aa289f95b3fcba5c6267cf3b40))
 
 ## [1.0.40](https://github.com/cgfeel/pbvm/compare/pbvm-cli@v1.0.39...pbvm-cli@v1.0.40) (2026-08-09)
 
-
 ### Bug Fixes
 
-* update monorepo packages ([d018543](https://github.com/cgfeel/pbvm/commit/d0185434c863f80ca8c9afc8c3d6b7b3b97b5ba1))
+- update monorepo packages ([d018543](https://github.com/cgfeel/pbvm/commit/d0185434c863f80ca8c9afc8c3d6b7b3b97b5ba1))
 
 ## [1.0.39](https://github.com/cgfeel/pbvm/compare/pbvm@v1.0.38...pbvm@v1.0.39) (2026-08-09)
 

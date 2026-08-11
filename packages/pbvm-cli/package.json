@@ -1,7 +1,7 @@
 {
   "name": "pbvm-cli",
   "version": "1.0.42",
-  "description": "基于 @puppeteer/browsers 浏览器版本管理器",
+  "description": "A browser version manager built on @puppeteer/browsers, unified management of multiple versions of Chrome, Chromium, and Firefox.",
   "type": "module",
   "bin": {
     "pbvm": "./dist/index.js"
