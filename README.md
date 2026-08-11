@@ -2,88 +2,88 @@
 
 <img src="https://raw.githubusercontent.com/cgfeel/pbvm/refs/heads/feature/bin-dev/documentation/static/img/logo.svg" alt="Logo" width="180">
 
-基于 `@puppeteer/browsers` 的浏览器版本管理器，统一管理 Chrome、Chromium、Firefox 的多个版本。
+A browser version manager built on `@puppeteer/browsers`, unified management of multiple versions of Chrome, Chromium, and Firefox.
 
 [![npm version](https://img.shields.io/npm/v/pbvm-cli)](https://www.npmjs.com/package/pbvm-cli)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![PR Check](https://github.com/cgfeel/pbvm/actions/workflows/pr-check.yml/badge.svg)](https://github.com/cgfeel/pbvm/actions/workflows/pr-check.yml)
 
-📖 [在线文档](https://cgfeel.github.io/pbvm/)
+📖 [Online Docs](https://cgfeel.github.io/pbvm/) | [中文文档](./README.zh-CN.md)
 
-## 特性
+## Features
 
-- **多浏览器支持** — Chrome、Chromium、Firefox 一键下载与切换
-- **版本别名** — 给任意版本起语义化别名（如 `mobile-test`、`bug-repro`），告别 BuildId 记忆
-- **跨平台** — macOS、Linux、Windows 统一命令接口
-- **交互式操作** — 参数不完整时自动唤起交互提示，无需死记命令格式
-- **Monorepo 友好** — 项目级 `.browserlist.json` 清单，团队成员共享同一套浏览器配置
-- **本地缓存** — 已下载的浏览器缓存到 store 目录，不同项目秒装复用
-- **编程 API** — 同时提供 CLI 和 `launchBrowser()` 编程接口，可集成到自动化脚本
+- **Multi-browser support** — Chrome, Chromium, Firefox: one-click download and switch
+- **Version aliases** — Give any version a semantic alias (e.g., `mobile-test`, `bug-repro`), say goodbye to memorizing Build IDs
+- **Cross-platform** — Unified command interface for macOS, Linux, and Windows
+- **Interactive prompts** — Automatically triggers interactive prompts when parameters are missing, no need to memorize command formats
+- **Monorepo-friendly** — Project-level `browserlist.json` manifest lets teams share the same browser configuration
+- **Local cache** — Downloaded browsers are cached in the store directory for instant reuse across projects
+- **Programmatic API** — Provides both CLI and `launchBrowser()` API for integration into automation scripts
 
-## 快速开始
+## Quick Start
 
-**环境要求：** Node.js ≥ 22，pnpm ≥ 9
+**Requirements:** Node.js ≥ 22
 
 ```bash
-# 全局安装
+# Install globally
 npm install -g pbvm-cli
 
-# 下载第一个浏览器
+# Download your first browser
 pbvm create
 
-# 查看已安装
+# List installed browsers
 pbvm ls
 ```
 
-## 命令
+## Commands
 
-| 命令           | 说明                                     |
-| -------------- | ---------------------------------------- |
-| `pbvm create`  | 下载并安装浏览器                         |
-| `pbvm ls`      | 列出当前项目已安装的浏览器               |
-| `pbvm store`   | 查看本地缓存的浏览器                     |
-| `pbvm open`    | 打开指定浏览器                           |
-| `pbvm info`    | 查看浏览器详细信息                       |
-| `pbvm alias`   | 设置/修改浏览器别名                      |
-| `pbvm search`  | 查询远程是否有可用版本                   |
-| `pbvm remove`  | 删除浏览器                               |
-| `pbvm clear`   | 清除浏览器用户数据（Cookie、历史记录等） |
-| `pbvm restore` | 重新安装浏览器                           |
+| Command        | Description                                      |
+| -------------- | ------------------------------------------------ |
+| `pbvm create`  | Download and install a browser                   |
+| `pbvm ls`      | List browsers installed for the current project  |
+| `pbvm store`   | View locally cached browsers                     |
+| `pbvm open`    | Launch a specified browser                       |
+| `pbvm info`    | View detailed browser information                |
+| `pbvm alias`   | Set / modify browser alias                       |
+| `pbvm search`  | Check for available remote versions              |
+| `pbvm remove`  | Delete a browser                                 |
+| `pbvm clear`   | Clear browser user data (cookies, history, etc.) |
+| `pbvm restore` | Reinstall a browser                              |
 
-所有命令在缺少参数时会进入交互式选择，无需记忆命令行选项。
+All commands enter interactive selection mode when parameters are missing — no need to memorize CLI options.
 
-## 资源和镜像
+## Sources & Mirrors
 
-`create` / `search` 需要提供 `buildId`，不同浏览器可通过以下入口查询：
+`create` / `search` requires a `buildId`. Different browsers can be looked up through the following sources:
 
-| 浏览器   | buildId 格式      | 示例             | 查询入口                                                                                                                                                                      |
-| -------- | ----------------- | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Chrome   | 四段版本号        | `134.0.6998.35`  | [Chrome for Testing](https://googlechromelabs.github.io/chrome-for-testing/known-good-versions-with-downloads.json) · [Puppeteer 对照表](https://pptr.dev/supported-browsers) |
-| Chromium | 纯数字 revision   | `1435764`        | [Chromium Dash](https://chromiumdash.appspot.com/home) · [Snapshot Index](https://commondatastorage.googleapis.com/chromium-browser-snapshots/index.html)                     |
-| Firefox  | `channel_version` | `stable_136.0.0` | [Mozilla Archive](https://archive.mozilla.org/pub/firefox/)                                                                                                                   |
+| Browser  | Build ID Format   | Example          | Lookup Sources                                                                                                                                                                 |
+| -------- | ----------------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Chrome   | 4-segment version | `134.0.6998.35`  | [Chrome for Testing](https://googlechromelabs.github.io/chrome-for-testing/known-good-versions-with-downloads.json) · [Puppeteer Mapping](https://pptr.dev/supported-browsers) |
+| Chromium | Numeric revision  | `1435764`        | [Chromium Dash](https://chromiumdash.appspot.com/home) · [Snapshot Index](https://commondatastorage.googleapis.com/chromium-browser-snapshots/index.html)                      |
+| Firefox  | `channel_version` | `stable_136.0.0` | [Mozilla Archive](https://archive.mozilla.org/pub/firefox/)                                                                                                                    |
 
-通过 [npmmirror](https://registry.npmmirror.com/binary.html?path=chrome-for-testing/) 镜像源可加速下载：
+Speed up downloads via the [npmmirror](https://registry.npmmirror.com/binary.html?path=chrome-for-testing/) mirror:
 
 ```bash
-pbvm mirror -s npmmirror      # 全局启用
-pbvm mirror -s npmmirror -i   # 仅当前项目
+pbvm mirror -s npmmirror      # Enable globally
+pbvm mirror -s npmmirror -i   # Current project only
 ```
 
-详见 [资源和镜像文档](https://cgfeel.github.io/pbvm/source)。
+See [Sources & Mirrors docs](https://cgfeel.github.io/pbvm/source).
 
-## 编程 API
+## Programmatic API
 
 ```ts
 import { launchBrowser } from 'pbvm-cli'
 
-// 通过别名打开
+// Launch by alias
 await launchBrowser({ target: 'mobile-test', url: 'https://example.com' })
 
-// 通过 buildId 打开
+// Launch by buildId
 await launchBrowser({ target: 'chrome@130.0.6723.116' })
 ```
 
-## CLI 命令执行流程
+## CLI Command Flow
 
 ```mermaid
   sequenceDiagram
@@ -100,31 +100,31 @@ await launchBrowser({ target: 'chrome@130.0.6723.116' })
       User->>CLI: pbvm create -b chrome -i 123
       CLI->>Cmd: registerCreateCommand()
       Cmd->>Cmd: Zod parse options
-      Cmd->>Prompt: promptCreateOptions() - 补全缺失参数
+      Cmd->>Prompt: promptCreateOptions() - complete missing params
       Prompt-->>Cmd: {browser, buildId, alias, store}
-      Cmd->>Prompt: promptConfirm() - 确认操作
+      Cmd->>Prompt: promptConfirm() - confirm action
       Prompt-->>Cmd: true
 
       Cmd->>Script: installBrowser(args)
-      Script->>Manifest: checkoutInStore() - 检查是否已安装
+      Script->>Manifest: checkoutInStore() - check if installed
       Manifest->>Lock: waitForLock(cacheDir)
       Manifest->>Browser: getInstalledBrowsers(cacheDir)
-      Browser-->>Manifest: 已安装列表
+      Browser-->>Manifest: installed list
 
-      alt 已安装
+      alt installed
           Manifest-->>Script: found ✓
-      else 未安装
+      else not installed
           Manifest-->>Script: null
           Script->>Browser: install({browser, buildId, platform})
-          Browser->>FS: 下载 + 解压到 cacheDir
-          Note over Script,Browser: SIGINT/SIGTERM 时清理半成品
+          Browser->>FS: download + extract to cacheDir
+          Note over Script,Browser: cleanup partial downloads on SIGINT/SIGTERM
           Browser-->>Script: {executablePath}
       end
 
       alt store mode
-          Script-->>Cmd: 仅安装到 cache，不写入 browserlist
-      else 项目模式
-          Script->>Manifest: logCurrentList() - 写入 browserlist.json
+          Script-->>Cmd: install to cache only, skip browserlist
+      else project mode
+          Script->>Manifest: logCurrentList() - write browserlist.json
           Manifest->>Lock: acquireLock(cwd)
           Manifest->>FS: readFile + writeFile browserlist.json
           Manifest-->>Script: alias name
