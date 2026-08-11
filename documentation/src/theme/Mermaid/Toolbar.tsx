@@ -19,8 +19,10 @@ const styles = tv({
     hover: {
       true: [
         'opacity-0',
-        'group-data-[state=loaded]:group-hover:opacity-100',
-        'group-data-[state=loaded]:group-hover:pointer-events-auto',
+        'group-data-[state=loaded]:group-data-[operation=normal]:group-hover:opacity-100',
+        'group-data-[state=loaded]:group-data-[operation=normal]:group-hover:pointer-events-auto',
+        'group-data-[state=loaded]:group-data-[operation=zooming]:group-hover:opacity-100',
+        'group-data-[state=loaded]:group-data-[operation=zooming]:group-hover:pointer-events-auto',
       ],
     },
     size: {
@@ -41,8 +43,8 @@ const styles = tv({
       touch: true,
       class: [
         'opacity-0',
-        'group-data-[state=loaded]:touch-only:opacity-100',
-        'group-data-[state=loaded]:touch-only:pointer-events-auto',
+        'group-data-[state=loaded]:group-data-[operation=normal]:touch-only:opacity-100',
+        'group-data-[state=loaded]:group-data-[operation=normal]:touch-only:pointer-events-auto',
       ],
     },
   ],

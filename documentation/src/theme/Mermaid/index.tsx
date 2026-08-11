@@ -5,6 +5,7 @@ import ContainerProvider from './ContainerProvider'
 import type { GestureGuidInstance } from './GestureGuid'
 import GestureGuid from './GestureGuid'
 import MouseToolbar from './MouseToolbar'
+import ScaleGuid from './ScaleGuid'
 import StaticMermaid from './StaticMermaid'
 import Toolbar from './Toolbar'
 import TouchToolbar from './TouchToolbar'
@@ -64,6 +65,7 @@ export default function MermaidWrapper(props: Props) {
         <ZoomView cheat={<GestureGuid ref={gestureRef} />} ref={zoomRef}>
           {content}
         </ZoomView>
+        <ScaleGuid />
         <Toolbar size="sm" hover>
           <MouseToolbar />
         </Toolbar>

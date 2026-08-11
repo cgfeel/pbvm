@@ -1,3 +1,6 @@
+import FullScreenEnter from '@site/static/img/24gf-fullScreenEnter.svg'
+import FullScreenExit from '@site/static/img/24gf-fullScreenExit.svg'
+import RedoCom from '@site/static/img/redo.svg'
 import type { FC } from 'react'
 import { useContext } from 'react'
 import type { ButtonStyleProps } from './Button'
@@ -21,7 +24,7 @@ const BaseBtnGroup: FC<BaseBtnGroupProps> = ({ name, onTrigger, ...props }) => {
           reset()
         }}
       >
-        <span className="-translate-y-0.5">↺</span>
+        <RedoCom />
       </Button>
       <Button
         {...props}
@@ -38,7 +41,7 @@ const BaseBtnGroup: FC<BaseBtnGroupProps> = ({ name, onTrigger, ...props }) => {
           }
         }}
       >
-        {fullscreen !== '' ? '⊡' : '▣'}
+        {fullscreen !== '' ? <FullScreenExit /> : <FullScreenEnter />}
       </Button>
     </>
   )
