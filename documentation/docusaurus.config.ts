@@ -167,6 +167,14 @@ const config: Config = {
           "connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://unpkg.com;",
       },
     },
+    // 这个页面同时支持浅色和深色模式，并且已经通过 [data-theme] 自行管理切换。浏览器读到这个声明后就不会再对页面做自动深色变换。
+    {
+      tagName: 'meta',
+      attributes: {
+        name: 'color-scheme',
+        content: 'light dark',
+      },
+    },
   ],
 
   themeConfig: {
