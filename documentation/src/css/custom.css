@@ -2,6 +2,12 @@
  * pbvm — Clean theme
  */
 
+/* 防止手机浏览器强制深色模式 */
+/* CSS 属性 + meta 标签双重声明，告诉手机浏览器（Samsung Internet、UC 等）：这个页面自己管主题，别强制反转颜色。 */
+:root {
+  color-scheme: light dark;
+}
+
 @layer theme, base, components, utilities;
 
 /* Tailwind v4 — 层导入，无 preflight(base) 避免重置 Infima */
@@ -78,6 +84,14 @@ html[data-theme='dark'] {
   --ifm-color-primary-lightest: #fff;
   --ifm-background-color: #0a0e17ff;
   --docusaurus-highlighted-code-line-bg: rgba(255, 255, 255, 0.06); */
+}
+
+.navbar-sidebar__backdrop {
+  z-index: 1;
+}
+
+.navbar-sidebar {
+  z-index: 2;
 }
 
 /* 搜索词高亮 */

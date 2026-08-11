@@ -1,5 +1,5 @@
 import type { PickVariants } from '@site/src/utils/fields'
-import type { ButtonHTMLAttributes, FC, PropsWithChildren } from 'react'
+import { forwardRef, type ButtonHTMLAttributes, type PropsWithChildren } from 'react'
 import { tv } from 'tailwind-variants'
 
 const borderStyle = 'border border-[var(--ifm-color-emphasis-300)]'
@@ -40,16 +40,12 @@ const styles = tv({
   },
 })
 
-const Button: FC<PropsWithChildren<ButtonProps>> = ({
-  children,
-  className,
-  size,
-  variants,
-  ...props
-}) => (
-  <button {...props} className={styles({ className, size, variants })}>
-    {children}
-  </button>
+const Button = forwardRef<HTMLButtonElement, PropsWithChildren<ButtonProps>>(
+  ({ children, className, size, variants, ...props }, ref) => (
+    <button {...props} className={styles({ className, size, variants })} ref={ref}>
+      {children}
+    </button>
+  )
 )
 
 export { baseBorder, borderStyle, smallRange }

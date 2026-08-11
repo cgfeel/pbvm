@@ -3,12 +3,14 @@ import type { FC } from 'react'
 import type { BaseBtnGroupProps } from './BaseBtnGroup'
 import BaseBtnGroup from './BaseBtnGroup'
 import Button from './Button'
+import DirectionBtn from './DirectionBtn'
 
 const APP_NAME = 'touch-toolbar'
 
 const TouchToolbar: FC<TouchToolbarProps> = ({ onTab, onTrigger }) => {
   return (
     <>
+      <DirectionBtn size="base" variants="base" />
       <Button size="base" variants="base" onClick={onTab}>
         <Gesture />
       </Button>

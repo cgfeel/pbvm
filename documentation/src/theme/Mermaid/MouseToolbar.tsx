@@ -5,6 +5,7 @@ import { tv } from 'tailwind-variants'
 import BaseBtnGroup from './BaseBtnGroup'
 import Button from './Button'
 import { ContainerContext } from './ContainerProvider'
+import DirectionBtn from './DirectionBtn'
 import { MAX_SCALE, MIN_SCALE, ZOOM_STEP } from './ZoomView'
 
 const APP_NAME = 'mouse-toolbar'
@@ -21,6 +22,7 @@ const MouseToolbar: FC<MouseToolbarProps> = () => {
 
   return (
     <>
+      <DirectionBtn />
       <Button disabled={scale <= MIN_SCALE} title="缩小" type="button" onClick={zoomOut}>
         <MinusCom />
       </Button>

@@ -14,6 +14,8 @@ const styles = tv({
     'transition-opacity',
     'duration-200',
     'pointer-events-none',
+    'data-[direction=left]:right-auto',
+    'data-[direction=left]:left-2',
   ],
   variants: {
     hover: {
@@ -56,7 +58,11 @@ const styles = tv({
 })
 
 const Toolbar: FC<PropsWithChildren<ToolbarProps>> = ({ children, className, ...props }) => (
-  <div className={styles({ ...props, className: className })} data-rule="toolbar">
+  <div
+    className={styles({ ...props, className: className })}
+    data-rule="toolbar"
+    data-direction="right"
+  >
     {children}
   </div>
 )
