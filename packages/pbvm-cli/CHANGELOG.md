@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.42](https://github.com/cgfeel/pbvm/compare/pbvm-cli@v1.0.41...pbvm-cli@v1.0.42) (2026-08-11)
+
+
+### Bug Fixes
+
+* up README.zh-CN.md link ([208c545](https://github.com/cgfeel/pbvm/commit/208c545f573f568ff3d2c7282b8a244b74041d30))
+
 ## [1.0.41](https://github.com/cgfeel/pbvm/compare/pbvm-cli@v1.0.40...pbvm-cli@v1.0.41) (2026-08-11)
 
 
