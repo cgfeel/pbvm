@@ -1,6 +1,7 @@
 import { copyText } from '@site/src/utils/copyText'
 import { useRef, useState, type FC } from 'react'
 import { tv } from 'tailwind-variants'
+import { t } from '../../utils/i18n'
 import { Card } from '../card'
 
 const PKG_MANAGERS = [
@@ -78,7 +79,7 @@ const InstallBar: FC = () => {
             timeRef.current = setTimeout(() => setCopied(false), 500)
           }}
         >
-          {copied ? '✓ Copied' : 'Copy'}
+          {copied ? t('home.install.copied') : t('home.install.copy')}
         </button>
       </div>
     </Card>

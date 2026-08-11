@@ -45,10 +45,7 @@ const browserTags = Object.freeze({
 export default function Home(): ReactNode {
   const { siteConfig } = useDocusaurusContext()
   return (
-    <Layout
-      title={siteConfig.title}
-      description="Browser version manager based on @puppeteer/browsers — manage multiple versions of Chrome, Chromium, and Firefox"
-    >
+    <Layout title={siteConfig.title} description={t('home.meta.description')}>
       <Header>
         <Terminal />
         <InstallBar />

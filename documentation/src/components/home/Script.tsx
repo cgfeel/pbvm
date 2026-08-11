@@ -5,25 +5,33 @@ import { tv } from 'tailwind-variants'
 import { t } from '../../utils/i18n'
 import CodeCard from './CodeCard'
 
+const CODE_RECORD = {
+  create_alias: t('home.script.create_alias'),
+  info: t('home.script.info'),
+  ls: t('home.script.ls'),
+  open_alias: t('home.script.open_alias'),
+  search: t('home.script.search'),
+}
+
 const INSTALL_CODE = `# npm
 npm install -g pbvm-cli
 
 # pnpm
 pnpm add -g pbvm-cli`
 
-const QUICKSTART_CODE = `# 安装 Chrome 并设置别名
+const QUICKSTART_CODE = `# ${CODE_RECORD.create_alias}
 pbvm create -b chrome -i 134.0.6998.35 -a prod
 
-# 查看已安装的浏览器
+# ${CODE_RECORD.ls}
 pbvm ls
 
-# 以别名打开浏览器
+# ${CODE_RECORD.open_alias}
 pbvm open -t prod
 
-# 查看浏览器详细信息（含运行时）
+# ${CODE_RECORD.info}
 pbvm info -t prod -r
 
-# 查询远程是否有可用版本
+# ${CODE_RECORD.search}
 pbvm search -b firefox -i stable_136.0.0`
 
 const VITE_CODE = `// vite.config.ts

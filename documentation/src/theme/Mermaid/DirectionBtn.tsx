@@ -1,4 +1,5 @@
 import ArrowIcon from '@site/static/img/arrow-to-top.svg'
+import { t } from '@site/src/utils/i18n'
 import { useCallback, useEffect, useRef, useSyncExternalStore, type FC } from 'react'
 import { tv } from 'tailwind-variants'
 import type { ButtonProps } from './Button'
@@ -55,6 +56,7 @@ const DirectionBtn: FC<ButtonProps> = ({ className, onClick, ...props }) => {
       {...props}
       className={styles({ className, direction })}
       ref={buttonRef}
+      title={direction === 'left' ? t('mermaid.toolbar.alignRight') : t('mermaid.toolbar.alignLeft')}
       onClick={(event) => {
         onClick?.(event)
         changeHandle(direction === 'left' ? 'right' : 'left')

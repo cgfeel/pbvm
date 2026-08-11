@@ -1,6 +1,7 @@
 import FullScreenEnter from '@site/static/img/24gf-fullScreenEnter.svg'
 import FullScreenExit from '@site/static/img/24gf-fullScreenExit.svg'
 import RedoCom from '@site/static/img/redo.svg'
+import { t } from '@site/src/utils/i18n'
 import type { FC } from 'react'
 import { useContext } from 'react'
 import type { ButtonStyleProps } from './Button'
@@ -17,7 +18,7 @@ const BaseBtnGroup: FC<BaseBtnGroupProps> = ({ name, onTrigger, ...props }) => {
       <Button
         {...props}
         disabled={scale === 1 && position.x === 0 && position.y === 0}
-        title="重置"
+        title={t('mermaid.toolbar.reset')}
         type="button"
         onClick={() => {
           onTrigger?.('reset')
@@ -28,7 +29,7 @@ const BaseBtnGroup: FC<BaseBtnGroupProps> = ({ name, onTrigger, ...props }) => {
       </Button>
       <Button
         {...props}
-        title={fullscreen !== '' ? '退出全屏' : '全屏'}
+        title={fullscreen !== '' ? t('mermaid.toolbar.exitFullscreen') : t('mermaid.toolbar.fullscreen')}
         type="button"
         onClick={() => {
           setFullscreen((current) => (current === name ? '' : name))

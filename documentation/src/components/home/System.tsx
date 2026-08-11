@@ -96,7 +96,7 @@ win32-firefox-dev  →  revision: firefox@130.0`.trim()}
               <pre className={codelist()}>
                 {`
 win-chrome-beta  →  revision: chrome@131.0.6757.5
-windows稳定版     →  revision: chrome@130.0.6723.116`.trim()}
+windows-stable   →  revision: chrome@130.0.6723.116`.trim()}
               </pre>
             </div>
           </div>
