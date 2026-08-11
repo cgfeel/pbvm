@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.21](https://github.com/cgfeel/pbvm/compare/mermaid-prerender@v0.0.20...mermaid-prerender@v0.0.21) (2026-08-11)
+
+
+### Bug Fixes
+
+* sync main ([8f0b65a](https://github.com/cgfeel/pbvm/commit/8f0b65aef4f496466bf95579973279125b27f736))
+
 ## [0.0.20](https://github.com/cgfeel/pbvm/compare/mermaid-prerender@v0.0.19...mermaid-prerender@v0.0.20) (2026-08-10)
 
 ### Bug Fixes
