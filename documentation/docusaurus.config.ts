@@ -1,7 +1,10 @@
 import fs from 'node:fs'
 import path from 'node:path'
 
-process.loadEnvFile(path.resolve(__dirname, '.env'))
+const envPath = path.resolve(__dirname, '.env')
+if (fs.existsSync(envPath)) {
+  process.loadEnvFile(envPath)
+}
 
 import type * as Preset from '@docusaurus/preset-classic'
 import type { Config } from '@docusaurus/types'
