@@ -3,9 +3,14 @@
  */
 
 /* 防止手机浏览器强制深色模式 */
-/* CSS 属性 + meta 标签双重声明，告诉手机浏览器（Samsung Internet、UC 等）：这个页面自己管主题，别强制反转颜色。 */
+/* 三重保护：
+   1. color-scheme — 声明页面原生支持明暗主题
+   2. forced-color-adjust — 阻止浏览器强制反色（Samsung Internet、UC、QQ、百度等）
+   3. meta 标签（见 docusaurus.config.ts）*/
 :root {
   color-scheme: light dark;
+  forced-color-adjust: none;
+  -webkit-forced-color-adjust: none;
 }
 
 @layer theme, base, components, utilities;

@@ -167,12 +167,28 @@ const config: Config = {
           "connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://unpkg.com;",
       },
     },
-    // 这个页面同时支持浅色和深色模式，并且已经通过 [data-theme] 自行管理切换。浏览器读到这个声明后就不会再对页面做自动深色变换。
+    // 防止手机浏览器强制深色模式（三重保护：CSS forced-color-adjust + color-scheme + 厂商 meta）
     {
       tagName: 'meta',
       attributes: {
         name: 'color-scheme',
         content: 'light dark',
+      },
+    },
+    // UC 浏览器：禁止强制夜间模式
+    {
+      tagName: 'meta',
+      attributes: {
+        name: 'browsermode',
+        content: 'application',
+      },
+    },
+    // QQ 浏览器 X5 内核：禁止强制夜间模式
+    {
+      tagName: 'meta',
+      attributes: {
+        name: 'x5-page-mode',
+        content: 'no-night',
       },
     },
   ],
