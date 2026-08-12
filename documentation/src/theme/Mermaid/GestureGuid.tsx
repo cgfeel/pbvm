@@ -11,22 +11,37 @@ setWasmUrl(
 )
 
 const styles = tv({
-  base: ['absolute', 'inset-0', 'flex', 'justify-center', 'items-center', 'pointer-events-none'],
+  base: [
+    'absolute',
+    'inset-0',
+    'flex',
+    'justify-center',
+    'items-center',
+    'pointer-events-none',
+    'data-[guid=play]:light:bg-black/24',
+  ],
 })
 
 const GestureGuid = forwardRef<GestureGuidInstance>((_, ref) => {
-  const countRef = useRef(-1)
   const dotLottieRef = useRef<DotLottie>(null)
+  const guidRef = useRef<HTMLDivElement>(null)
   const lottieUrl = useBaseUrl('/img/gesture.lottie')
+  const countRef = useRef(-1)
+
+  const stop = useCallback(() => {
+    if (guidRef.current) guidRef.current.dataset.guid = 'stop'
+    dotLottieRef.current?.stop()
+    countRef.current = -1
+  }, [])
 
   const handleComplete = useCallback(() => {
     countRef.current += 1
     if (countRef.current < 3) {
       dotLottieRef.current?.play()
     } else {
-      countRef.current = -1
+      stop()
     }
-  }, [])
+  }, [stop])
 
   const handleRef = useCallback((instance: DotLottie | null) => {
     dotLottieRef.current = instance
@@ -38,16 +53,13 @@ const GestureGuid = forwardRef<GestureGuidInstance>((_, ref) => {
   const play = useCallback(() => {
     const { current } = dotLottieRef
     if (current) {
+      if (guidRef.current) guidRef.current.dataset.guid = 'play'
       countRef.current = 0
+
       current.setLoop(false)
       current.stop()
       current.play()
     }
-  }, [])
-
-  const stop = useCallback(() => {
-    dotLottieRef.current?.stop()
-    countRef.current = -1
   }, [])
 
   useEffect(() => {
@@ -73,7 +85,7 @@ const GestureGuid = forwardRef<GestureGuidInstance>((_, ref) => {
   )
 
   return (
-    <div className={styles()}>
+    <div className={styles()} ref={guidRef} data-guid="stop">
       <DotLottieReact
         className="size-[max(8rem,20vmin)]"
         src={lottieUrl}

@@ -33,6 +33,7 @@
 
 /* 暗色模式对齐 Docusaurus 的 data-theme 切换 */
 @custom-variant dark (&:is([data-theme="dark"] *));
+@custom-variant light (&:is([data-theme="light"] *));
 @custom-variant touch-only (@media (pointer: coarse) and (hover: none));
 
 /* Tailwind v4 — 扫描 src 下所有组件 */
