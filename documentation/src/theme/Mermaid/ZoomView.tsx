@@ -26,6 +26,8 @@ const styles = tv({
       'origin-top-left',
       'opacity-0',
       'group-data-[state=loaded]:opacity-100',
+      '[&_svg]:pointer-events-none',
+      'select-none', // uc 手机浏览器专用
     ],
     loading: 'hidden group-data-[state=init]:block',
     none: 'hidden h-full justify-center items-center opacity-60 [&_svg]:h-24 group-data-[state=none]:flex',
