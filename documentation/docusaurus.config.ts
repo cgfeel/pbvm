@@ -176,13 +176,13 @@ const config: Config = {
       },
     },
     // UC 浏览器：禁止强制夜间模式
-    {
-      tagName: 'meta',
-      attributes: {
-        name: 'browsermode',
-        content: 'application',
-      },
-    },
+    // {
+    //   tagName: 'meta',
+    //   attributes: {
+    //     name: 'browsermode',
+    //     content: 'application',
+    //   },
+    // },
     // QQ 浏览器 X5 内核：禁止强制夜间模式
     {
       tagName: 'meta',
