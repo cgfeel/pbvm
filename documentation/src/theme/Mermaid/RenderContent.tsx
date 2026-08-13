@@ -1,4 +1,4 @@
-import { useWatchContainer } from '@site/src/hooks/theme'
+import { useWatchContainer, useWatchSVGRender } from '@site/src/hooks/observers'
 import { useCallback, useEffect, type FC, type PropsWithChildren, type RefObject } from 'react'
 
 const createTimeout = (time = 5_000) =>
@@ -50,9 +50,13 @@ const RenderContent: FC<PropsWithChildren<RenderContentProps>> = ({ children, co
   }, [])
 
   const [state] = useWatchContainer(container, { checkit })
+  useWatchSVGRender(container)
+
   useEffect(() => {
     const { current } = container
-    if (current instanceof HTMLElement) current.dataset.state = state
+    if (current instanceof HTMLElement) {
+      current.dataset.state = state
+    }
   }, [state])
 
   return <>{children}</>

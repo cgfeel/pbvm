@@ -1,5 +1,6 @@
+import { useWatchSVGRender } from '@site/src/hooks/observers'
 import Logo from '@site/static/img/logo.svg'
-import type { FC, PropsWithChildren } from 'react'
+import { useRef, type FC, type PropsWithChildren } from 'react'
 import { tv } from 'tailwind-variants'
 import { t } from '../../utils/i18n'
 import { LinkButton } from '../button'
@@ -54,33 +55,38 @@ const {
   warp,
 } = styles()
 
-const Header: FC<PropsWithChildren> = ({ children }) => (
-  <header className={warp()}>
-    <div className={container({ class: 'container' })}>
-      <div className={description()}>
-        <div className={logoWrap()}>
-          <Logo className={logoIcon()} />
-          <div className={cli()}>
-            <h1 className={title({ className: 'font-arial text-7xl' })}>PBVM</h1>
-            <div>{t('home.hero.tagline')}</div>
+const Header: FC<PropsWithChildren> = ({ children }) => {
+  const logoRef = useRef<SVGSVGElement>(null)
+  useWatchSVGRender(logoRef)
+
+  return (
+    <header className={warp()}>
+      <div className={container({ class: 'container' })}>
+        <div className={description()}>
+          <div className={logoWrap()}>
+            <Logo className={logoIcon()} ref={logoRef} />
+            <div className={cli()}>
+              <h1 className={title({ className: 'font-arial text-7xl' })}>PBVM</h1>
+              <div>{t('home.hero.tagline')}</div>
+            </div>
+          </div>
+          <div className={slogan()}>
+            <h2 className={title({ type: 'secondary' })}>{t('home.hero.slogan')}</h2>
+          </div>
+          <p className={subtitle()}>{t('home.hero.description')}</p>
+          <div className={actions()}>
+            <LinkButton to="/intro" type="primary">
+              {t('home.hero.cta')}
+            </LinkButton>
+            <LinkButton to="/commands/create" type="secondary">
+              {t('home.hero.commands')}
+            </LinkButton>
           </div>
         </div>
-        <div className={slogan()}>
-          <h2 className={title({ type: 'secondary' })}>{t('home.hero.slogan')}</h2>
-        </div>
-        <p className={subtitle()}>{t('home.hero.description')}</p>
-        <div className={actions()}>
-          <LinkButton to="/intro" type="primary">
-            {t('home.hero.cta')}
-          </LinkButton>
-          <LinkButton to="/commands/create" type="secondary">
-            {t('home.hero.commands')}
-          </LinkButton>
-        </div>
+        <div className={demo()}>{children}</div>
       </div>
-      <div className={demo()}>{children}</div>
-    </div>
-  </header>
-)
+    </header>
+  )
+}
 
 export default Header
