@@ -79,6 +79,11 @@ export default function pwaManifestPlugin(context: LoadContext): Plugin {
             attributes: { type: 'text/javascript' },
             innerHTML: `window.__BASE_URL__='${process.env.BASE_URL ?? '/pbvm/'}'`,
           },
+        ],
+        // 放在 preBodyTags 而不是 headTags：Firefox 会在跳转中断的旧文档上触发
+        // DOMContentLoaded，若脚本在 head 中同步 location.replace，此时 body 尚未
+        // 解析，Docusaurus 的 BaseUrlIssueBanner 会因 document.body 为 null 报错
+        preBodyTags: [
           {
             tagName: 'script',
             attributes: {

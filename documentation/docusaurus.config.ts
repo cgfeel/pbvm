@@ -19,6 +19,39 @@ const rootPkg = JSON.parse(
   description?: string
 }
 
+const siteUrl = 'https://cgfeel.github.io'
+
+// GA4 统计脚本。原 preset 的 gtag 选项不支持 cookie_domain，而 gtag 默认的
+// auto 模式会在 *.github.io 上尝试用 Domain=github.io（公共后缀）种 cookie，
+// 被 Firefox 以“无效域名”拒绝。这里手写注入并显式指定站点主机。
+// cookie_domain 仅在 production 设置：本地开发时页面是 localhost，设置了反而种不上
+const gaCookieDomain = process.env.NODE_ENV === 'production' ? new URL(siteUrl).hostname : undefined
+
+const gaHeadTags: Config['headTags'] = process.env.GA4_TRACKING_ID
+  ? [
+      {
+        tagName: 'link',
+        attributes: { rel: 'preconnect', href: 'https://www.google-analytics.com' },
+      },
+      {
+        tagName: 'link',
+        attributes: { rel: 'preconnect', href: 'https://www.googletagmanager.com' },
+      },
+      {
+        tagName: 'script',
+        attributes: {
+          async: true,
+          src: `https://www.googletagmanager.com/gtag/js?id=${process.env.GA4_TRACKING_ID}`,
+        },
+      },
+      {
+        tagName: 'script',
+        attributes: {},
+        innerHTML: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${process.env.GA4_TRACKING_ID}',{'anonymize_ip':true${gaCookieDomain ? `,'cookie_domain':'${gaCookieDomain}'` : ''}});`,
+      },
+    ]
+  : []
+
 const config: Config = {
   title: rootPkg?.name ?? 'pbvm',
   tagline: rootPkg?.description ?? 'pbvm documentation',
@@ -36,7 +69,7 @@ const config: Config = {
   },
 
   // Set the production url of your site here
-  url: 'https://cgfeel.github.io',
+  url: siteUrl,
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: process.env.BASE_URL ?? '/pbvm/',
@@ -135,19 +168,12 @@ const config: Config = {
         theme: {
           customCss: './src/css/custom.css',
         },
-        ...(process.env.GA4_TRACKING_ID
-          ? {
-              gtag: {
-                trackingID: process.env.GA4_TRACKING_ID,
-                anonymizeIP: true,
-              },
-            }
-          : {}),
       } satisfies Preset.Options,
     ],
   ],
 
   headTags: [
+    ...gaHeadTags,
     {
       tagName: 'meta',
       attributes: {
