@@ -24,7 +24,7 @@ const styles = tv({
     desc: 'flex-1 gap-6',
     header: 'gap-2',
     footer: 'gap-4',
-    icon: 'inline-flex gap-1 [&_svg]:w-4 [&_svg]:h-4 [&_svg]:fill-white dark:[&_svg]:fill-black',
+    icon: 'inline-flex gap-1 [&_svg]:w-4 [&_svg]:h-4 [&_svg]:fill-current!',
     selector: 'flex gap-6 max-lg:flex-col max-lg:gap-10',
     tags: 'flex gap-2',
     title: 'text-5xl',

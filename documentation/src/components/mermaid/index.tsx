@@ -1,11 +1,13 @@
 import useBaseUrl from '@docusaurus/useBaseUrl'
+import { useWatchSVGRender } from '@site/src/hooks/observers'
 import { defaultTheme } from '@site/src/utils/i18n'
-import { useMemo, type FC } from 'react'
+import { useMemo, useRef, type FC } from 'react'
 import type { MermaidComProps } from './MeraidCom'
 import MermaidCom from './MeraidCom'
 import SVGRender from './SVGRender'
 
 const Mermaid: FC<MermaidComProps> = ({ theme, value, ...props }) => {
+  const mermaidRef = useRef<HTMLDivElement>(null)
   const url = useMemo(() => {
     // 不是 url
     if (!value.endsWith('.svg') || value.includes('\n')) return ''
@@ -15,10 +17,16 @@ const Mermaid: FC<MermaidComProps> = ({ theme, value, ...props }) => {
   }, [theme, theme, value])
 
   const source = useBaseUrl(url)
-  return url === '' ? (
-    <MermaidCom {...props} theme={theme} value={value} />
-  ) : (
-    <SVGRender {...props} src={source} />
+  useWatchSVGRender(mermaidRef)
+
+  return (
+    <div ref={mermaidRef}>
+      {url === '' ? (
+        <MermaidCom {...props} theme={theme} value={value} />
+      ) : (
+        <SVGRender {...props} src={source} />
+      )}
+    </div>
   )
 }
 

@@ -1,6 +1,7 @@
+import { useWatchSVGRender } from '@site/src/hooks/observers'
 import Vite from '@site/static/img/vite-light.svg'
 import Webpack from '@site/static/img/webpack.svg'
-import type { FC } from 'react'
+import { useRef, type FC } from 'react'
 import { tv } from 'tailwind-variants'
 import { t } from '../../utils/i18n'
 import CodeCard from './CodeCard'
@@ -86,21 +87,26 @@ const styles = tv({
 
 const { icon, script, tag } = styles()
 
-export const BuildScript: FC = () => [
-  <div key="icon" className={icon()}>
-    <span className={tag()}>
-      <Vite />
-    </span>
-    <span className={tag({ className: '[&_svg]:h-6' })}>
-      <Webpack />
-    </span>
-  </div>,
-  <div key="script" className={script()}>
-    <CodeCard title="vite:">{VITE_CODE}</CodeCard>
-    <CodeCard title="webpack:">{WEBPACK_CODE}</CodeCard>
-    <CodeCard title="packages (optional):">{PACKAGES_CODE}</CodeCard>
-  </div>,
-]
+export const BuildScript: FC = () => {
+  const tagsRef = useRef<HTMLDivElement>(null)
+  useWatchSVGRender(tagsRef)
+
+  return [
+    <div key="icon" className={icon()} ref={tagsRef}>
+      <span className={tag()}>
+        <Vite />
+      </span>
+      <span className={tag({ className: '[&_svg]:h-6' })}>
+        <Webpack />
+      </span>
+    </div>,
+    <div key="script" className={script()}>
+      <CodeCard title="vite:">{VITE_CODE}</CodeCard>
+      <CodeCard title="webpack:">{WEBPACK_CODE}</CodeCard>
+      <CodeCard title="packages (optional):">{PACKAGES_CODE}</CodeCard>
+    </div>,
+  ]
+}
 
 export const CreateScript: FC = () => (
   <div className={script()}>

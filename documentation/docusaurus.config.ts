@@ -58,7 +58,7 @@ const config: Config = {
       },
     ],
   ],
-  clientModules: ['./src/pwaTracking.ts'],
+  clientModules: ['./src/pwaTracking.ts', './src/themeInit.ts', './src/erudaInit.ts'],
   themes: [
     '@docusaurus/theme-mermaid',
     [
